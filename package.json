@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx tsx scripts/validate-content.ts && next build",
+    "validate-content": "npx tsx scripts/validate-content.ts",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"

@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { getAllCourses, getAllLessonParams, getLesson } from "../lib/content";
 
 console.log("🔍 Validating all course and lesson content against Zod schemas...\n");
@@ -12,10 +14,20 @@ try {
     );
     console.log(`     Tags: ${course.canonicalTags.join(", ")}`);
     console.log(`     Summary (${course.summary.length}/140 chars): "${course.summary}"`);
+
+    // Verify all JSON files in the lessons folder pass schema
+    const lessonsDir = path.join(process.cwd(), "content", "courses", course.slug, "lessons");
+    if (fs.existsSync(lessonsDir)) {
+      const files = fs.readdirSync(lessonsDir).filter((f) => f.endsWith(".json"));
+      for (const file of files) {
+        const lessonSlug = file.replace(/\.json$/, "");
+        getLesson(course.slug, lessonSlug);
+      }
+    }
   }
 
   const lessonParams = getAllLessonParams();
-  console.log(`\n✅ Successfully validated ${lessonParams.length} lesson(s):`);
+  console.log(`\n✅ Successfully validated ${lessonParams.length} lesson(s) in course structure:`);
 
   for (const param of lessonParams) {
     const lesson = getLesson(param.courseSlug, param.lessonSlug);
