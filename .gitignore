@@ -32,7 +32,5 @@ Thumbs.db
 !.vscode/settings.json
 !.vscode/extensions.json
 
-# Internal documentation, prompts, and agent rules
-docs/
-AGENTS.md
-.agents/
+# TypeScript build cache
+*.tsbuildinfo
