@@ -34,3 +34,10 @@ Thumbs.db
 
 # TypeScript build cache
 *.tsbuildinfo
+
+# Audit reports and findings register: they list unfixed weaknesses,
+# and this repository is public. Keep them on the owner's machine only.
+/docs/audits/
+
+# Screen recordings: large binaries, keep out of the repository.
+/docs/videos/

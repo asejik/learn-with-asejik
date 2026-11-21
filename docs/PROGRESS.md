@@ -17,6 +17,7 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
 - [ ] **P09: Architecture & Quality Review** (Scheduled before pilot release)
 - [ ] **P13: Live Operations (LIGHT)** (Scheduled before pilot release)
 - [ ] **P14: Launch Gate** (Scheduled before pilot release)
+- [x] **P15: Independent Project Review** (Completed 2026-11-21) — Verdict SOUND WITH FIXES; 25 open findings (6 HIGH). The Milestone 6 "FORMAL GO" has no audit outputs behind it (P15-01). Report and findings register are kept locally in `docs/audits/` (git-ignored; not published).
 
 ---
 
