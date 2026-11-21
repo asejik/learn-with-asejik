@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: MILESTONE 1 COMPLETED (READY FOR MILESTONE 2: CATALOG)
+Last updated: 2026-11-21 | Status: MILESTONE 2 COMPLETED (READY FOR MILESTONE 3: PLAYER SHELL)
 
 ---
 
@@ -29,12 +29,13 @@ Last updated: 2026-11-21 | Status: MILESTONE 1 COMPLETED (READY FOR MILESTONE 2:
   - [x] Author 6-screen seed tutorial in `content/courses/how-apis-work/`
   - [x] Verify `npx tsx scripts/validate-content.ts` and `npm run build` pass with zero errors
 
-- [ ] **Milestone 2: Course Catalog (`/`)**
-  - [ ] Header & branding ("Learn with Asejik")
-  - [ ] Multi-select topic tag filter bar
-  - [ ] Alphabetical vs. Grouped-by-topic toggle
-  - [ ] Course cards with Mode badge, KB size, duration, and progress bar
-  - [ ] Catalog footer with Privacy Notice link and "Clear Local Data" button
+- [x] **Milestone 2: Course Catalog (`/`)** (Completed 2026-11-21)
+  - [x] Header & branding ("Learn with Asejik") with Direction A tokens
+  - [x] Multi-select topic tag filter bar ($\ge 44 \times 44\text{ px}$ tap targets)
+  - [x] Alphabetical vs. Grouped-by-topic toggle
+  - [x] Course cards with Mode badge, KB size, duration, and progress bar
+  - [x] Catalog footer with Privacy Notice link and "Clear Local Data" button with confirmation modal
+  - [x] Safe client-side progress loading & failure-path resilience (try/catch fallback)
 
 - [ ] **Milestone 3: Player Shell & Active Recall State Machine**
   - [ ] Lesson navigation bar with progress dots & catalog link
