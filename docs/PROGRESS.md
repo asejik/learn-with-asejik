@@ -72,3 +72,14 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - [x] Mobile thumb ergonomics verified: 100% usable on 375px screens with 0 overflow and >= 44x44px tap targets
   - [x] Created branded 404 page (`app/not-found.tsx`) with catalog navigation
   - [x] P08 Security Audit (LIGHT), P03 Privacy Audit (NDPA 2023), and P14 Launch Gate executed: **FORMAL GO**
+
+---
+
+## 3. P15 Review Fixes
+
+- [x] **P15-02: Pilot signup no longer reports success while dropping data** (2026-11-21, branch `fix/pilot-signup-data-loss`)
+  - `/api/pilot-signup` fails closed: 503 when `PILOT_SIGNUP_WEBHOOK_URL` is unset, 502 when the roster webhook errors or times out (8 s), 200 only after the roster accepts the record. No personal data or webhook URL in logs.
+  - Completion screen shows success only on a 200; otherwise an amber alert with an icon and a "Try Again" button. An unsent signup is remembered on the device and shown again with the retry message.
+  - Webhook variable renamed to server-only `PILOT_SIGNUP_WEBHOOK_URL` (`.env.example`, `docs/SETUP.md`); removed the `NEXT_PUBLIC_` copy from `lib/config.ts`.
+  - Added Vitest 5.1.0 (`npm test`, also run in CI) with 6 route tests; 4 failed before the fix and all 6 pass after.
+  - Browser-checked: no-webhook error and retry state at 1280px; success against a local test webhook at 375px; zero console errors.

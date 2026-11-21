@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Course, Lesson } from "@/lib/schema";
 import {
+  AlertTriangle,
   CheckCircle2,
   ArrowRight,
   ThumbsUp,
@@ -14,6 +15,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import { saveLessonState, getLessonState, saveUserProfile, getUserProfile } from "@/lib/db";
+
+const NOT_SENT_MESSAGE =
+  "We couldn't send your details, so you haven't joined the pilot yet. They're saved on this device only. Tick the box and try again when you're online.";
 
 interface LessonCompletionViewProps {
   course: Course;
@@ -46,7 +50,12 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
       if (profile?.email) {
         setFullName(profile.fullName);
         setEmail(profile.email);
-        setSignupSuccess(true);
+        if (profile.syncedToCloud) {
+          setSignupSuccess(true);
+        } else {
+          // An earlier attempt never reached the roster: say so and let the learner retry.
+          setSignupError(NOT_SENT_MESSAGE);
+        }
       }
     }
     loadStoredState();
@@ -68,50 +77,44 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
     setSignupError(null);
 
     const consentedAt = new Date().toISOString();
+    const profile = {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      consentedAt,
+    };
 
+    let errorMessage: string | null = null;
     try {
-      // 1. Send to sanitized API route
+      // Send to the API route; only a 2xx means the roster has the record.
       const res = await fetch("/api/pilot-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName: fullName.trim(),
-          email: email.trim(),
-          consent: true,
-          consentedAt,
-        }),
+        body: JSON.stringify({ ...profile, consent: true }),
       });
-
-      const data = await res.json();
 
       if (!res.ok) {
-        setSignupError(data.error || "Failed to save registration.");
-        setIsSubmitting(false);
-        return;
+        const data: unknown = await res.json().catch(() => null);
+        const serverError =
+          data && typeof data === "object" && "error" in data && typeof data.error === "string"
+            ? data.error
+            : null;
+        errorMessage = serverError || NOT_SENT_MESSAGE;
       }
-
-      // 2. Persist in client IndexedDB
-      await saveUserProfile({
-        fullName: fullName.trim(),
-        email: email.trim(),
-        consentedAt,
-        syncedToCloud: true,
-      });
-
-      setSignupSuccess(true);
     } catch {
-      setSignupError("Network connection interrupted. Your profile will retry syncing.");
-      // Still save locally in IndexedDB for offline resilience!
-      await saveUserProfile({
-        fullName: fullName.trim(),
-        email: email.trim(),
-        consentedAt,
-        syncedToCloud: false,
-      });
-      setSignupSuccess(true);
-    } finally {
-      setIsSubmitting(false);
+      errorMessage = NOT_SENT_MESSAGE;
     }
+
+    // Keep a local copy so the learner can retry; saveUserProfile handles storage failures itself.
+    await saveUserProfile({ ...profile, syncedToCloud: errorMessage === null });
+
+    if (errorMessage === null) {
+      setSignupSuccess(true);
+    } else {
+      setSignupError(errorMessage);
+      // Consent must be given again for each attempt.
+      setConsented(false);
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -221,8 +224,12 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
           ) : (
             <form onSubmit={handleSignupSubmit} className="space-y-3.5">
               {signupError && (
-                <div className="p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-xs font-semibold text-amber-900">
-                  {signupError}
+                <div
+                  role="alert"
+                  className="p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-xs font-semibold text-amber-900 flex items-start gap-2"
+                >
+                  <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <span>{signupError}</span>
                 </div>
               )}
 
@@ -297,7 +304,9 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
                     : "bg-slate-200 text-slate-400 cursor-not-allowed"
                 }`}
               >
-                <span>{isSubmitting ? "Linking Progress..." : "Save My Progress"}</span>
+                <span>
+                  {isSubmitting ? "Linking Progress..." : signupError ? "Try Again" : "Save My Progress"}
+                </span>
               </button>
             </form>
           )}
