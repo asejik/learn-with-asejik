@@ -5,6 +5,5 @@ export const siteConfig = {
   brandName: "Asejik",
   authorWebsite: "https://asejik.com",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://learn.asejik.com",
-  pilotWebhookUrl: process.env.NEXT_PUBLIC_PILOT_WEBHOOK_URL || "",
   contactEmail: "privacy@asejik.com",
 };

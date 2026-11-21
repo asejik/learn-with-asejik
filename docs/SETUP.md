@@ -32,4 +32,4 @@ Last updated: 2026-11-21 | Status: CONFIGURED | Rigor: STANDARD
 * **Output Directory**: `.next` (or `out` if fully static export)
 * **Environment Variables (Names only)**:
   - `NEXT_PUBLIC_SITE_URL`
-  - `NEXT_PUBLIC_PILOT_WEBHOOK_URL`
+  - `PILOT_SIGNUP_WEBHOOK_URL` (server-only, required for pilot signup; never prefix with `NEXT_PUBLIC_`)

@@ -22,6 +22,19 @@ const PilotSignupSchema = z.object({
   consentedAt: z.string().min(1, "Consent timestamp is required."),
 });
 
+// How long to wait for the roster webhook before giving up.
+const WEBHOOK_TIMEOUT_MS = 8000;
+
+function rosterUnavailable() {
+  return NextResponse.json(
+    {
+      success: false,
+      error: "We couldn't save your signup right now. Please try again in a moment.",
+    },
+    { status: 502 }
+  );
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -39,30 +52,50 @@ export async function POST(req: NextRequest) {
 
     const { fullName, email, consentedAt } = result.data;
 
-    // SECURITY & NDPA PRIVACY AUDIT:
-    // Sanitize logs — never output personal data (emails or full names) to stdout/stderr.
-    console.log(
-      `[Pilot Signup] Valid NDPA consent recorded at ${consentedAt} (personal data masked)`
-    );
-
-    // Optional webhook dispatch to private Google Sheet / lead roster if configured
+    // Fail closed: without the roster webhook there is nowhere to record the
+    // signup, so never tell the learner they joined.
     const webhookUrl = process.env.PILOT_SIGNUP_WEBHOOK_URL;
-    if (webhookUrl) {
-      try {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            fullName,
-            email,
-            consentedAt,
-            source: "learn-with-asejik-pilot",
-          }),
-        });
-      } catch (webhookErr) {
-        console.warn("[Pilot Signup] Webhook sync failed, local record remains valid:", webhookErr);
-      }
+    if (!webhookUrl) {
+      console.error("[Pilot Signup] PILOT_SIGNUP_WEBHOOK_URL is not configured; signup rejected");
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Pilot signup isn't available right now. Please try again later.",
+        },
+        { status: 503 }
+      );
     }
+
+    // SECURITY & NDPA PRIVACY: never log personal data (names, emails) or the
+    // webhook URL, which acts as a write credential for the roster.
+    let webhookStatus: number;
+    try {
+      const webhookRes = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          email,
+          consentedAt,
+          source: "learn-with-asejik-pilot",
+        }),
+        signal: AbortSignal.timeout(WEBHOOK_TIMEOUT_MS),
+      });
+      webhookStatus = webhookRes.status;
+    } catch (webhookErr) {
+      const reason = webhookErr instanceof Error ? webhookErr.name : "UnknownError";
+      console.error(`[Pilot Signup] Roster webhook unreachable (${reason}); signup not recorded`);
+      return rosterUnavailable();
+    }
+
+    if (webhookStatus < 200 || webhookStatus >= 300) {
+      console.error(`[Pilot Signup] Roster webhook returned HTTP ${webhookStatus}; signup not recorded`);
+      return rosterUnavailable();
+    }
+
+    console.log(
+      `[Pilot Signup] Signup recorded with NDPA consent at ${consentedAt} (personal data masked)`
+    );
 
     return NextResponse.json(
       {
