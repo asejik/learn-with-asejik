@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { Lesson, Screen } from "@/lib/schema";
+import { saveCourseProgress, saveLessonState } from "@/lib/db";
 
 const STORAGE_KEY_PROGRESS = "asejik_course_progress_v1";
 
@@ -114,7 +115,15 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
       setIsLessonComplete(true);
       setFeedbackState({ status: null });
 
-      // Safely record completion in client-side storage (Question 9 resilience)
+      // Safely record completion in IndexedDB and localStorage (Question 9 resilience)
+      saveCourseProgress(courseSlug, lesson.slug, 100);
+      saveLessonState(courseSlug, lesson.slug, {
+        currentScreenIndex: nextIdx,
+        completedScreenIds: sequence,
+        retryQueue,
+        completedAt: Date.now(),
+      });
+
       try {
         if (typeof window !== "undefined" && window.localStorage) {
           const raw = window.localStorage.getItem(STORAGE_KEY_PROGRESS);
@@ -126,7 +135,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
         // Storage failure fallback
       }
     }
-  }, [currentIndex, sequence, screenMap, courseSlug]);
+  }, [currentIndex, sequence, screenMap, courseSlug, lesson.slug, retryQueue]);
 
   return {
     currentIndex,

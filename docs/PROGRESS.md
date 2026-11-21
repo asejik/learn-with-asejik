@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: MILESTONE 4 COMPLETED (READY FOR MILESTONE 5: OFFLINE PWA & ONBOARDING)
+Last updated: 2026-11-21 | Status: MILESTONE 5 COMPLETED (READY FOR MILESTONE 6: VERIFICATION & LAUNCH READINESS)
 
 ---
 
@@ -54,12 +54,14 @@ Last updated: 2026-11-21 | Status: MILESTONE 4 COMPLETED (READY FOR MILESTONE 5:
   - [x] `MatchPairsWidget` (two-column concept pairing with randomized column and connection states)
   - [x] Refactored `PlayerShell.tsx` to delegate screen rendering to modular `components/widgets/`
 
-- [ ] **Milestone 5: Offline PWA & Value-First Onboarding**
-  - [ ] IndexedDB persistence helper (`lib/db.ts`) via `idb`
-  - [ ] PWA manifest and service worker offline caching
-  - [ ] Lesson completion screen with key terms, feedback rating, and Delayed Signup Modal
-  - [ ] Explicit un-ticked NDPA consent checkbox and timestamp logging
-  - [ ] Create `/api/pilot-signup` route to sync to private Google Sheet webhook with log sanitization
+- [x] **Milestone 5: Offline PWA & Value-First Onboarding** (Completed 2026-11-21)
+  - [x] IndexedDB persistence helper (`lib/db.ts`) via `idb` with private browsing fallback
+  - [x] PWA manifest (`public/manifest.json`), icons, and service worker (`public/sw.js`) offline caching
+  - [x] Background PWA registration and subtle offline indicator (`components/pwa/PWARegister.tsx`)
+  - [x] Enhanced lesson completion screen with thumbs up/down rating (`components/player/LessonCompletionView.tsx`)
+  - [x] Value-First Delayed Signup Modal with explicit un-ticked NDPA consent checkbox and timestamp logging
+  - [x] Privacy-sanitized edge route (`app/api/pilot-signup/route.ts`) preventing personal data leakage in server logs
+  - [x] Full catalog data clearing mechanism purging IndexedDB alongside localStorage
 
 - [ ] **Milestone 6: Verification & Launch Readiness**
   - [ ] Verify lesson transfer payload under 200 KB on throttled connection
