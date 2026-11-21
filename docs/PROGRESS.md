@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: MILESTONE 2 COMPLETED (READY FOR MILESTONE 3: PLAYER SHELL)
+Last updated: 2026-11-21 | Status: MILESTONE 3 COMPLETED (READY FOR MILESTONE 4: INTERACTIVE WIDGETS)
 
 ---
 
@@ -37,11 +37,13 @@ Last updated: 2026-11-21 | Status: MILESTONE 2 COMPLETED (READY FOR MILESTONE 3:
   - [x] Catalog footer with Privacy Notice link and "Clear Local Data" button with confirmation modal
   - [x] Safe client-side progress loading & failure-path resilience (try/catch fallback)
 
-- [ ] **Milestone 3: Player Shell & Active Recall State Machine**
-  - [ ] Lesson navigation bar with progress dots & catalog link
-  - [ ] Active recall engine (gated Continue button, 3-screen retry queue)
-  - [ ] Dynamic AI Tutor drawer (pre-authored JSON hints)
-  - [ ] Inline dotted-underline glossary terms and slide-over reference drawer
+- [x] **Milestone 3: Player Shell & Active Recall State Machine** (Completed 2026-11-21)
+  - [x] Lesson navigation bar with progress dots & catalog link (`PlayerNavBar.tsx`)
+  - [x] Active recall engine (gated Continue button, 3-screen retry queue in `usePlayerMachine.ts`)
+  - [x] Dynamic AI Tutor drawer (pre-authored JSON hints in `AITutorDrawer.tsx`)
+  - [x] Inline dotted-underline glossary terms and slide-over reference drawer (`GlossaryDrawer.tsx`)
+  - [x] Responsive layout reflow (bottom sheet on mobile, right-docked on desktop) in `FeedbackPanel.tsx`
+  - [x] Lesson player routing (`/courses/[courseSlug]/[lessonSlug]`) with SSG pre-rendering
 
 - [ ] **Milestone 4: Six Core Interactive Widgets**
   - [ ] `ReadingWidget` (typography, optional SVG, click-to-play media)
