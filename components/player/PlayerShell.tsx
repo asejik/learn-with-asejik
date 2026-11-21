@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { z } from "zod";
 import {
   Course,
@@ -17,8 +16,9 @@ import { PlayerNavBar } from "./PlayerNavBar";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { AITutorDrawer } from "./AITutorDrawer";
 import { GlossaryDrawer } from "./GlossaryDrawer";
+import { LessonCompletionView } from "./LessonCompletionView";
 import { usePlayerMachine } from "./usePlayerMachine";
-import { CheckCircle2, ArrowRight, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 // Modular Widgets from components/widgets/
 import ReadingWidget from "../widgets/ReadingWidget";
@@ -63,59 +63,9 @@ export function PlayerShell({ course, lesson }: PlayerShellProps) {
     machine.nextScreen();
   }
 
-  // If lesson is complete, render celebration completion view
+  // If lesson is complete, render celebration completion view with value-first onboarding
   if (machine.isLessonComplete) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
-        <main className="max-w-xl w-full mx-auto p-6 sm:p-10 my-auto space-y-6 text-center">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
-            <CheckCircle2 className="w-8 h-8" />
-          </div>
-
-          <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-              Tutorial Completed &bull; 100% Progress
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              {lesson.title}
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              Excellent job! You successfully reinforced all concepts and active recall checkpoints without burning unnecessary data.
-            </p>
-          </div>
-
-          {/* Key terms learned */}
-          {lesson.keyTerms.length > 0 && (
-            <div className="p-4 bg-white rounded-2xl border border-slate-200 text-left space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                Key Concepts Mastered
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {lesson.keyTerms.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Navigation Action */}
-          <div className="pt-4">
-            <Link
-              href="/"
-              className="w-full min-h-tap px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm transition flex items-center justify-center gap-2 shadow-sm"
-            >
-              <span>Return to Course Catalog</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </main>
-      </div>
-    );
+    return <LessonCompletionView course={course} lesson={lesson} />;
   }
 
   const screen = machine.currentScreen;

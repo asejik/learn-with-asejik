@@ -8,6 +8,7 @@ import { TagFilterBar } from "./TagFilterBar";
 import { CourseCard } from "./CourseCard";
 import { ClearDataModal } from "./ClearDataModal";
 import { ShieldCheck, Trash2, SearchX } from "lucide-react";
+import { getAllCourseProgress, clearAllLocalData } from "@/lib/db";
 
 interface CatalogViewProps {
   initialCourses: Course[];
@@ -21,22 +22,42 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
   const [progressMap, setProgressMap] = useState<Record<string, number>>({});
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
-  // Failure-path safe client progress hydration
+  // Failure-path safe client progress hydration (IndexedDB + localStorage)
   useEffect(() => {
-    try {
-      if (typeof window !== "undefined" && window.localStorage) {
-        const raw = window.localStorage.getItem(STORAGE_KEY_PROGRESS);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed && typeof parsed === "object") {
-            setProgressMap(parsed);
+    let isMounted = true;
+    getAllCourseProgress()
+      .then((records) => {
+        if (!isMounted) return;
+        if (records && records.length > 0) {
+          const map: Record<string, number> = {};
+          records.forEach((r) => {
+            map[r.courseSlug] = r.percentage;
+          });
+          setProgressMap(map);
+        } else {
+          // Fallback to localStorage
+          try {
+            if (typeof window !== "undefined" && window.localStorage) {
+              const raw = window.localStorage.getItem(STORAGE_KEY_PROGRESS);
+              if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed === "object") {
+                  setProgressMap(parsed);
+                }
+              }
+            }
+          } catch {
+            setProgressMap({});
           }
         }
-      }
-    } catch {
-      // Graceful fallback: storage blocked in private mode or quota exceeded
-      setProgressMap({});
-    }
+      })
+      .catch(() => {
+        if (isMounted) setProgressMap({});
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Collect all unique canonical tags across all courses
@@ -94,16 +115,9 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
     return groups;
   }, [filteredCourses, viewMode]);
 
-  // Handle clear data action
-  function handleConfirmClearData() {
-    try {
-      if (typeof window !== "undefined" && window.localStorage) {
-        window.localStorage.removeItem(STORAGE_KEY_PROGRESS);
-        window.localStorage.removeItem("asejik_active_recall_queue_v1");
-      }
-    } catch {
-      // Silent error protection
-    }
+  // Handle clear data action (purges IndexedDB & localStorage)
+  async function handleConfirmClearData() {
+    await clearAllLocalData();
     setProgressMap({});
   }
 
