@@ -1,0 +1,200 @@
+{
+  "slug": "01-what-is-an-api",
+  "title": "Understanding APIs & Data Exchange",
+  "chapterId": "ch1",
+  "keyTerms": [
+    "API",
+    "Client-Server Model",
+    "HTTP Request & Response",
+    "JSON Payload",
+    "Status Codes"
+  ],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "The Digital Waiter",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "Welcome to your first tutorial! In this lesson, we explore how applications talk to each other across the internet without sharing their private source code."
+      },
+      "glossary": [
+        {
+          "term": "API",
+          "definition": "Application Programming Interface: a set of predefined rules and protocols that allows different software applications to communicate."
+        },
+        {
+          "term": "Client",
+          "definition": "The front-facing device or software (like your smartphone browser) that initiates a request for information."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "Imagine walking into a restaurant. You are the customer sitting at a table, and the kitchen is the system preparing your food. You cannot simply walk into the kitchen and cook the meal yourself—there are safety, security, and privacy boundaries.",
+          "Instead, a waiter comes to your table, takes your order, delivers it accurately to the kitchen, and brings back your freshly prepared meal. In the digital world, an API is that waiter.",
+          "Whenever you check the weather on your phone, send a mobile money transfer, or view a map inside a ride-hailing app, an API takes your request to a remote server and delivers back the exact data you need."
+        ],
+        "svgIllustration": "<svg viewBox='0 0 400 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-sm mx-auto my-2'><rect x='10' y='30' width='80' height='60' rx='8' fill='#e2e8f0' stroke='#64748b' stroke-width='2'/><text x='50' y='65' font-size='12' text-anchor='middle' fill='#334155' font-weight='bold'>Client</text><path d='M95 60 H 175' stroke='#0284c7' stroke-width='3' stroke-dasharray='4'/><polygon points='175,55 185,60 175,65' fill='#0284c7'/><rect x='190' y='25' width='90' height='70' rx='8' fill='#0284c7' stroke='#0369a1' stroke-width='2'/><text x='235' y='60' font-size='12' text-anchor='middle' fill='#ffffff' font-weight='bold'>API</text><text x='235' y='75' font-size='10' text-anchor='middle' fill='#e0f2fe'>(Waiter)</text><path d='M285 60 H 305' stroke='#0284c7' stroke-width='3' stroke-dasharray='4'/><polygon points='305,55 315,60 305,65' fill='#0284c7'/><rect x='320' y='30' width='70' height='60' rx='8' fill='#e2e8f0' stroke='#64748b' stroke-width='2'/><text x='355' y='65' font-size='12' text-anchor='middle' fill='#334155' font-weight='bold'>Server</text></svg>"
+      }
+    },
+    {
+      "id": "screen-2-cloze",
+      "title": "The Contract Between Systems",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "explain": "Think about what an API actually delivers. It does not hand over internal database passwords or raw source code; it provides an agreed-upon contract."
+      },
+      "glossary": [
+        {
+          "term": "Payload",
+          "definition": "The actual data cargo being transmitted in a network request or response (usually formatted in compact JSON)."
+        }
+      ],
+      "widgetData": {
+        "prompt": "Complete the statement describing the fundamental role of an API:",
+        "template": "An API acts as a standardized {blank} that allows two applications to exchange data without exposing their internal databases.",
+        "options": ["contract", "cable", "database", "firewall"],
+        "correctAnswer": "contract",
+        "explanation": "Correct! An API is a formal contract specifying valid endpoints, required inputs, and expected response formats.",
+        "bonusFact": "Over 80% of modern internet traffic consists of API calls exchanging lightweight JSON payloads."
+      }
+    },
+    {
+      "id": "screen-3-choice",
+      "title": "Real-World API In Action",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Consider weather or navigation apps. Ride-hailing companies don't launch their own mapping satellites; they use external APIs."
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "When you book a ride on an app and see a live map, how does that app display Google Maps?",
+        "isMultiSelect": false,
+        "options": [
+          {
+            "id": "opt-1",
+            "text": "The app developers copied all of Google's satellite photos directly into the app file."
+          },
+          {
+            "id": "opt-2",
+            "text": "The app sends an API request with your coordinates to Google Maps, which returns the map tiles."
+          },
+          {
+            "id": "opt-3",
+            "text": "Your smartphone hardware renders satellite imagery locally without an internet connection."
+          }
+        ],
+        "correctOptionIds": ["opt-2"],
+        "explanation": "Exactly! The ride-hailing app connects to Google's mapping API, requesting live map tiles on the fly.",
+        "bonusFact": "APIs allow lean startups to build complex products quickly by assembling best-in-class third-party services."
+      }
+    },
+    {
+      "id": "screen-4-swipe",
+      "title": "API Myths vs. Realities",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Evaluate each statement as True or False to test your intuition about how modern APIs behave."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Evaluate each card as True or False:",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "An API allows you to access external data without having direct access to the remote database.",
+            "isTrue": true,
+            "explanation": "True! The API acts as a secure guardrail, verifying permissions before querying the database."
+          },
+          {
+            "id": "c2",
+            "statement": "All APIs require writing Python or JavaScript code to be useful to an organization.",
+            "isTrue": false,
+            "explanation": "False! No-code automation tools (like Zapier, Make, and Airtable) connect APIs visually."
+          },
+          {
+            "id": "c3",
+            "statement": "An API response usually returns lightweight structured text (JSON) rather than a heavy full webpage.",
+            "isTrue": true,
+            "explanation": "True! JSON is compact, human-readable, and saves massive bandwidth on mobile devices."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-5-diagram",
+      "title": "The Request-Response Lifecycle",
+      "widgetType": "diagramExplorer",
+      "aiTutor": {
+        "explain": "Tap each of the three steps in the lifecycle below to learn how an API transaction completes."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Tap every step in the pipeline below to inspect its role before continuing:",
+        "diagramSvg": "<svg viewBox='0 0 500 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-md mx-auto my-2'><circle cx='70' cy='60' r='35' fill='#e0f2fe' stroke='#0284c7' stroke-width='2'/><text x='70' y='65' font-size='12' text-anchor='middle' fill='#0369a1' font-weight='bold'>1. Request</text><line x1='110' y1='60' x2='200' y2='60' stroke='#64748b' stroke-width='2' stroke-dasharray='4'/><polygon points='200,55 210,60 200,65' fill='#64748b'/><circle cx='250' cy='60' r='35' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='250' y='65' font-size='12' text-anchor='middle' fill='#92400e' font-weight='bold'>2. Server</text><line x1='290' y1='60' x2='380' y2='60' stroke='#64748b' stroke-width='2' stroke-dasharray='4'/><polygon points='380,55 390,60 380,65' fill='#64748b'/><circle cx='430' cy='60' r='35' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='430' y='65' font-size='12' text-anchor='middle' fill='#15803d' font-weight='bold'>3. Response</text></svg>",
+        "nodes": [
+          {
+            "id": "node-request",
+            "label": "1. Request",
+            "title": "HTTP Request",
+            "definition": "The client sends a message containing an endpoint URL, an HTTP method (GET, POST), and optional parameters or security tokens.",
+            "bonusFact": "GET requests retrieve data; POST requests send new data to be saved."
+          },
+          {
+            "id": "node-server",
+            "label": "2. Server Processing",
+            "title": "Server Logic & Auth",
+            "definition": "The API server authenticates your request, enforces rate limits, queries the internal database, and prepares the result.",
+            "bonusFact": "Rate limiting protects servers from crashing if thousands of requests arrive simultaneously."
+          },
+          {
+            "id": "node-response",
+            "label": "3. Response",
+            "title": "HTTP Response",
+            "definition": "The server transmits back an HTTP status code (like 200 OK) accompanied by the requested JSON data payload.",
+            "bonusFact": "If something went wrong, the response provides an error message explaining why."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-6-match",
+      "title": "HTTP Status Code Matching",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Almost done! Match each standard HTTP status code with its real-world outcome to complete this tutorial."
+      },
+      "glossary": [
+        {
+          "term": "HTTP Status Code",
+          "definition": "A 3-digit standardized number returned by a server indicating the outcome of a request (2xx = success, 4xx = client error, 5xx = server error)."
+        }
+      ],
+      "widgetData": {
+        "instruction": "Match each HTTP status code with its meaning:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "200 OK",
+            "right": "Request succeeded and data was returned"
+          },
+          {
+            "id": "p2",
+            "left": "401 Unauthorized",
+            "right": "API key or user login is missing"
+          },
+          {
+            "id": "p3",
+            "left": "404 Not Found",
+            "right": "The requested endpoint does not exist"
+          },
+          {
+            "id": "p4",
+            "left": "500 Server Error",
+            "right": "The remote server crashed or failed internally"
+          }
+        ],
+        "explanation": "Standardized status codes let developers immediately recognize whether a request succeeded (200), was blocked (401), missed (404), or broke the server (500)."
+      }
+    }
+  ]
+}
