@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: MILESTONE 3 COMPLETED (READY FOR MILESTONE 4: INTERACTIVE WIDGETS)
+Last updated: 2026-11-21 | Status: MILESTONE 4 COMPLETED (READY FOR MILESTONE 5: OFFLINE PWA & ONBOARDING)
 
 ---
 
@@ -45,13 +45,14 @@ Last updated: 2026-11-21 | Status: MILESTONE 3 COMPLETED (READY FOR MILESTONE 4:
   - [x] Responsive layout reflow (bottom sheet on mobile, right-docked on desktop) in `FeedbackPanel.tsx`
   - [x] Lesson player routing (`/courses/[courseSlug]/[lessonSlug]`) with SSG pre-rendering
 
-- [ ] **Milestone 4: Six Core Interactive Widgets**
-  - [ ] `ReadingWidget` (typography, optional SVG, click-to-play media)
-  - [ ] `ClozeWidget` (tapable word tiles, instant green/amber feedback)
-  - [ ] `ChoiceWidget` (single/multi scenario checks)
-  - [ ] `SwipeDeckWidget` (animated Yes/No or True/False card stack)
-  - [ ] `DiagramExplorerWidget` (interactive SVG nodes with required definition discovery)
-  - [ ] `MatchPairsWidget` (concept-to-outcome matching)
+- [x] **Milestone 4: Six Core Interactive Widgets** (Completed 2026-11-21)
+  - [x] `ReadingWidget` (prose typography, inline SVG illustration, click-to-play Opus media)
+  - [x] `ClozeWidget` (interactive blank slot, tapable word tiles, instant check)
+  - [x] `ChoiceWidget` (single/multi-select scenario checks with accessible radio/checkbox indicators)
+  - [x] `SwipeDeckWidget` (True/False card stack with drag gestures and 44px tap targets)
+  - [x] `DiagramExplorerWidget` (interactive SVG node inspection with gated discovery unlocking)
+  - [x] `MatchPairsWidget` (two-column concept pairing with randomized column and connection states)
+  - [x] Refactored `PlayerShell.tsx` to delegate screen rendering to modular `components/widgets/`
 
 - [ ] **Milestone 5: Offline PWA & Value-First Onboarding**
   - [ ] IndexedDB persistence helper (`lib/db.ts`) via `idb`
