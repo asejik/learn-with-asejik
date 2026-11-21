@@ -1,0 +1,25 @@
+{
+  "slug": "how-apis-work",
+  "title": "How APIs Work: From Requests to Responses",
+  "summary": "Learn what APIs are, how data travels across the web, and why modern applications depend on them. Fast, interactive, and code-free.",
+  "mode": "tutorial",
+  "estimatedMinutes": 8,
+  "approxKbSize": 42,
+  "canonicalTags": [
+    "software engineering methodology",
+    "web applications",
+    "computer science"
+  ],
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "API Fundamentals",
+      "lessons": [
+        {
+          "slug": "01-what-is-an-api",
+          "title": "Understanding APIs & Data Exchange"
+        }
+      ]
+    }
+  ]
+}
