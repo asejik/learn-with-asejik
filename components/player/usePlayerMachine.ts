@@ -3,7 +3,7 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { Lesson, Screen } from "@/lib/schema";
 import { saveCourseProgress, saveLessonState, getLessonState } from "@/lib/db";
-import { restorePlayerPosition } from "./lessonProgress";
+import { isRetryAttempt, planRetry, restorePlayerPosition } from "./lessonProgress";
 
 const STORAGE_KEY_PROGRESS = "asejik_course_progress_v1";
 
@@ -11,7 +11,8 @@ export interface FeedbackState {
   status: "correct" | "incorrect" | "info" | null;
   explanation?: string;
   bonusFact?: string;
-  isRetryQueued?: boolean;
+  /** Screens before the queued retry (0 = next); null when none is queued */
+  retryAfterScreens?: number | null;
 }
 
 export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
@@ -127,32 +128,30 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
           status: "correct",
           explanation,
           bonusFact,
-          isRetryQueued: false,
+          retryAfterScreens: null,
         });
       } else {
-        // Active recall: queue this screen ID to reappear 3 screens later
+        // Active recall: the question comes back once (see planRetry)
         const screenToRetry = currentScreen.id;
-        setRetryQueue((prev) => [...prev, screenToRetry]);
-
-        setSequence((prevSeq) => {
-          // Re-insert 3 screens later (or at the end if fewer remain)
-          const insertIdx = Math.min(currentIndex + 4, prevSeq.length);
-          const nextSeq = [...prevSeq];
-          nextSeq.splice(insertIdx, 0, screenToRetry);
-          return nextSeq;
-        });
+        const retry = planRetry(sequence, currentIndex, screenToRetry);
+        if (retry) {
+          setSequence(retry.sequence);
+          setRetryQueue((prev) => [...prev, screenToRetry]);
+        }
 
         setFeedbackState({
           status: "incorrect",
           explanation:
             explanation ||
-            "Not quite right. We've queued this concept to reappear in 3 screens to lock it into memory!",
+            (retry
+              ? "This question will come back for one more try."
+              : "Take a moment to review this concept, then continue."),
           bonusFact,
-          isRetryQueued: true,
+          retryAfterScreens: retry ? retry.screensBefore : null,
         });
       }
     },
-    [currentIndex, currentScreen.id]
+    [currentIndex, currentScreen.id, sequence]
   );
 
   // Advance to next screen
@@ -201,6 +200,8 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
     isGated,
     feedbackState,
     retryQueue,
+    /** The current screen is a retry of an earlier wrong answer */
+    isRetry: isRetryAttempt(sequence, currentIndex),
     isLessonComplete,
     isRestoring,
     ungate,

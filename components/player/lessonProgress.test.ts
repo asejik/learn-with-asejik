@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { restorePlayerPosition } from "./lessonProgress";
+import { isRetryAttempt, planRetry, restorePlayerPosition, retryLabel } from "./lessonProgress";
 
 const SCREEN_IDS = ["s1", "s2", "s3", "s4", "s5"];
 
@@ -85,5 +85,63 @@ describe("restorePlayerPosition", () => {
     for (const garbled of ["text", 42, [], { sequence: "s1" }, record({ sequence: [1, 2, 3, 4, 5] }), record({ retryQueue: "s2" })]) {
       expect(restorePlayerPosition(SCREEN_IDS, garbled)).toBeNull();
     }
+  });
+});
+
+describe("planRetry", () => {
+  const LESSON = ["s1", "s2", "s3", "s4", "s5", "s6"];
+
+  it("brings a wrong answer back after three other screens", () => {
+    expect(planRetry(LESSON, 1, "s2")).toEqual({
+      sequence: ["s1", "s2", "s3", "s4", "s5", "s2", "s6"],
+      screensBefore: 3,
+    });
+  });
+
+  it("puts the retry at the end, and says how close it is, when fewer screens remain", () => {
+    expect(planRetry(LESSON, 4, "s5")).toEqual({
+      sequence: ["s1", "s2", "s3", "s4", "s5", "s6", "s5"],
+      screensBefore: 1,
+    });
+    expect(planRetry(LESSON, 5, "s6")).toEqual({
+      sequence: [...LESSON, "s6"],
+      screensBefore: 0,
+    });
+  });
+
+  it("does not queue a question a second time, so the lesson always ends", () => {
+    const withRetry = [...LESSON, "s2"];
+    expect(planRetry(withRetry, 6, "s2")).toBeNull();
+  });
+
+  it("never grows an old saved sequence that already holds extra copies", () => {
+    const oldSave = [...LESSON, "s2", "s2", "s2"];
+    expect(planRetry(oldSave, 1, "s2")).toBeNull();
+    expect(planRetry(oldSave, oldSave.length - 1, "s2")).toBeNull();
+  });
+
+  it("finishes even if every answer, first try and retry, is wrong", () => {
+    let sequence = [...LESSON];
+    for (let index = 0; index < sequence.length; index++) {
+      sequence = planRetry(sequence, index, sequence[index])?.sequence ?? sequence;
+    }
+    expect(sequence).toHaveLength(LESSON.length * 2);
+  });
+});
+
+describe("retryLabel", () => {
+  it("says how far away the retry is", () => {
+    expect(retryLabel(0)).toBe("Retry next");
+    expect(retryLabel(1)).toBe("Retry after 1 screen");
+    expect(retryLabel(3)).toBe("Retry after 3 screens");
+  });
+});
+
+describe("isRetryAttempt", () => {
+  it("is false on the first attempt and true on the retry", () => {
+    const sequence = ["s1", "s2", "s3", "s2"];
+    expect(isRetryAttempt(sequence, 1)).toBe(false);
+    expect(isRetryAttempt(sequence, 3)).toBe(true);
+    expect(isRetryAttempt(sequence, 0)).toBe(false);
   });
 });
