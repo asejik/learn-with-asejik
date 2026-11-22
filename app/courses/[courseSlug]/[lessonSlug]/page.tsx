@@ -24,12 +24,12 @@ export async function generateMetadata({ params }: LessonPageProps): Promise<Met
   try {
     const lesson = getLesson(courseSlug, lessonSlug);
     return {
-      title: `${lesson.title} | Learn with Asejik`,
+      title: lesson.title,
       description: `Interactive lesson on ${lesson.title}. Ultra-low data active recall learning.`,
     };
   } catch {
     return {
-      title: "Interactive Lesson | Learn with Asejik",
+      title: "Interactive Lesson",
     };
   }
 }
