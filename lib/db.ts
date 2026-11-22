@@ -25,6 +25,10 @@ export interface LessonStateRecord {
   currentScreenIndex: number;
   completedScreenIds: string[];
   retryQueue: string[];
+  // Screen order including queued retry repeats; lets the player resume mid-lesson
+  sequence?: string[];
+  // When the mid-lesson position was last saved (ms since epoch)
+  positionSavedAt?: number;
   completedAt?: number;
   rating?: "thumbs-up" | "thumbs-down";
 }
@@ -160,7 +164,26 @@ export async function getAllCourseProgress(): Promise<CourseProgressRecord[]> {
 }
 
 // 3. Lesson State Operations (Active Recall & Rating)
-export async function saveLessonState(
+
+// Lesson-state saves read, merge, then write. Run them one at a time so a
+// position save that started earlier cannot overwrite a later completion
+// or rating with stale fields.
+let lessonStateWriteChain: Promise<unknown> = Promise.resolve();
+
+export function saveLessonState(
+  courseSlug: string,
+  lessonSlug: string,
+  state: Partial<Omit<LessonStateRecord, "key" | "courseSlug" | "lessonSlug">>
+): Promise<boolean> {
+  const write = lessonStateWriteChain.then(() =>
+    writeLessonState(courseSlug, lessonSlug, state)
+  );
+  // Keep the chain alive even if one write fails
+  lessonStateWriteChain = write.catch(() => false);
+  return write;
+}
+
+async function writeLessonState(
   courseSlug: string,
   lessonSlug: string,
   state: Partial<Omit<LessonStateRecord, "key" | "courseSlug" | "lessonSlug">>
@@ -175,6 +198,8 @@ export async function saveLessonState(
     currentScreenIndex: state.currentScreenIndex ?? existing?.currentScreenIndex ?? 0,
     completedScreenIds: state.completedScreenIds ?? existing?.completedScreenIds ?? [],
     retryQueue: state.retryQueue ?? existing?.retryQueue ?? [],
+    sequence: state.sequence ?? existing?.sequence,
+    positionSavedAt: state.positionSavedAt ?? existing?.positionSavedAt,
     completedAt: state.completedAt ?? existing?.completedAt,
     rating: state.rating ?? existing?.rating,
   };

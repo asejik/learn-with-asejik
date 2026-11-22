@@ -83,3 +83,9 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - Webhook variable renamed to server-only `PILOT_SIGNUP_WEBHOOK_URL` (`.env.example`, `docs/SETUP.md`); removed the `NEXT_PUBLIC_` copy from `lib/config.ts`.
   - Added Vitest 5.1.0 (`npm test`, also run in CI) with 6 route tests; 4 failed before the fix and all 6 pass after.
   - Browser-checked: no-webhook error and retry state at 1280px; success against a local test webhook at 375px; zero console errors.
+- [x] **P15-03: Lessons resume where the learner left off (US-04)** (2026-11-22, branch `fix/resume-lesson-progress`)
+  - The player saves its position, screen order (with queued retries) and retry list to IndexedDB after every step, and restores it on open. A short "Restoring your place…" state shows while it loads.
+  - Resume rules live in `components/player/lessonProgress.ts`: saved state that no longer matches the lesson (screen added or removed after a redeploy), an out-of-range position, or garbled data starts fresh. A finished lesson starts again from screen 1, keeping its completion and rating.
+  - Lesson-state saves in `lib/db.ts` now run one at a time, so a late position save cannot overwrite a completion or rating.
+  - 10 new unit tests (16 total). Browser-checked at 375px (wrong answer, continue, reload: resumed on screen 3 of 7 with the retry kept; server stopped and reloaded: still resumed) and 1280px (resume; finished lesson starts fresh), zero console errors.
+  - Known limits: a reload in the same instant as tapping Continue can land one screen back; reloading after answering but before Continue asks that screen again. Private-browsing progress is still memory-only (P15-11).

@@ -63,6 +63,17 @@ export function PlayerShell({ course, lesson }: PlayerShellProps) {
     machine.nextScreen();
   }
 
+  // Wait for saved progress before showing a screen, so screen 1 doesn't flash
+  if (machine.isRestoring) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p role="status" className="text-sm font-semibold text-slate-500">
+          Restoring your place…
+        </p>
+      </div>
+    );
+  }
+
   // If lesson is complete, render celebration completion view with value-first onboarding
   if (machine.isLessonComplete) {
     return <LessonCompletionView course={course} lesson={lesson} />;

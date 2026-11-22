@@ -17,7 +17,7 @@ Initial Draft: 2026-11-21 | Governed by: Nigeria Data Protection Act (NDPA 2023)
 ## 2. Non-Personal Local Telemetry (Stored Client-Side in IndexedDB)
 
 These data points are stored strictly on the learner's device inside browser IndexedDB (`asejik_learning_db`) and are **not** linked to identity in the cloud:
-* **Course & Lesson Progress**: Active lesson slug, completed screen IDs, timestamp of last activity.
+* **Course & Lesson Progress**: Active lesson slug, completed screen IDs, timestamp of last activity, and the current screen position and screen order within a lesson (so a reload resumes on the same screen).
 * **Active Recall Queue**: Queued question IDs for the 3-screen retry loop.
 * **Content Feedback Rating**: Thumbs-up or thumbs-down rating recorded upon lesson completion.
 
