@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BookMarked, X } from "lucide-react";
 
 interface GlossaryDrawerProps {

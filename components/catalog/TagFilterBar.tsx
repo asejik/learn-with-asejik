@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Filter, ArrowDownAZ, LayoutGrid, Layers } from "lucide-react";
 
 interface TagFilterBarProps {

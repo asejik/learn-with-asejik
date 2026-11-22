@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAUNCH GATE FORMAL GO)
+Last updated: 2026-11-22 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAUNCH GATE FORMAL GO)
 
 ---
 
@@ -106,3 +106,9 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - New `lib/schema.test.ts` (8 tests, written and passing on zod 3 first) proves the content rules did not loosen: 140-character summary limit, duplicate tag variants, duplicate screen IDs, missing fields and empty lessons are still rejected; tag normalising and defaults still apply. 2 more route tests pin the signup's own error messages. 27 tests total.
   - `npm audit` now lists only `postcss` bundled inside Next (build-time only; clears with Next 16). Page sizes unchanged, so zod is not in the learner's download.
   - Default zod messages are worded differently in v4 (e.g. "Invalid input: expected string, received undefined"); the app's own messages are unchanged.
+- [x] **P15-06 (part 3): Next.js 15 to 16** (2026-11-22, branch `chore/next-16-upgrade`)
+  - `next` 16.4.6, `eslint` 9.39.5 and `eslint-config-next` 16.4.6 (exact; owner approved). Next 16 bundles a fixed `postcss`, so `npm audit` reports 0 vulnerabilities. P15-06 is closed.
+  - Lint moved from `next lint` (removed in Next 16) to the ESLint CLI with a flat config (`eslint.config.mjs`); `.eslintrc.json` removed. Next set `tsconfig.json` to `"jsx": "react-jsx"`, so 12 unused `import React` lines were removed.
+  - Two fixes for new React lint rules: the lesson page loads its data inside try/catch and renders outside it; the offline banner reads `navigator.onLine` with `useSyncExternalStore` (correct on first render) and clears its "Back Online" timer on unmount.
+  - Cost: Turbopack builds bigger bundles. Lesson first load 133 KB to 166 KB gzipped, catalog 125 KB to 158 KB; still under the 200 KB budget, and repeat visits come from the offline cache.
+  - Browser-checked on the production build at 375px and 1280px: catalog, privacy page, lesson, resume on reload, offline reload with the server stopped, offline and back-online banners, missing lesson returns 404. Only console error is the known `/courses/how-apis-work` 404 (P15-18).

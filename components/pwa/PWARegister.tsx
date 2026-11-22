@@ -1,10 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { WifiOff, Wifi } from "lucide-react";
 
+// Online status read straight from the browser, so it is right on first render
+function subscribeToNetwork(onChange: () => void) {
+  window.addEventListener("online", onChange);
+  window.addEventListener("offline", onChange);
+  return () => {
+    window.removeEventListener("online", onChange);
+    window.removeEventListener("offline", onChange);
+  };
+}
+
 export function PWARegister() {
-  const [isOffline, setIsOffline] = useState(false);
+  const isOffline = useSyncExternalStore(
+    subscribeToNetwork,
+    () => !navigator.onLine,
+    () => false // Server render: assume online
+  );
   const [showReconnected, setShowReconnected] = useState(false);
 
   useEffect(() => {
@@ -23,29 +37,28 @@ export function PWARegister() {
         });
     }
 
-    // 2. Initial online/offline status
-    if (typeof window !== "undefined") {
-      setIsOffline(!navigator.onLine);
+    // 2. Briefly show "Back Online" after a reconnect
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
 
-      const handleOnline = () => {
-        setIsOffline(false);
-        setShowReconnected(true);
-        setTimeout(() => setShowReconnected(false), 3000);
-      };
+    const handleOnline = () => {
+      setShowReconnected(true);
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => setShowReconnected(false), 3000);
+    };
 
-      const handleOffline = () => {
-        setIsOffline(true);
-        setShowReconnected(false);
-      };
+    const handleOffline = () => {
+      clearTimeout(hideTimer);
+      setShowReconnected(false);
+    };
 
-      window.addEventListener("online", handleOnline);
-      window.addEventListener("offline", handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
-      return () => {
-        window.removeEventListener("online", handleOnline);
-        window.removeEventListener("offline", handleOffline);
-      };
-    }
+    return () => {
+      clearTimeout(hideTimer);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Sparkles, X, BookOpen, Lightbulb, CheckCircle2 } from "lucide-react";
 
 interface AITutorDrawerProps {

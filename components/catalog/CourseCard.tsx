@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import { Course } from "@/lib/schema";
 import { ArrowRight, BookOpen, Clock, HardDrive, CheckCircle2 } from "lucide-react";

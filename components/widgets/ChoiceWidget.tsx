@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Check, CheckCircle2, HelpCircle } from "lucide-react";
 import { BaseWidgetProps } from "./types";
 import { z } from "zod";
