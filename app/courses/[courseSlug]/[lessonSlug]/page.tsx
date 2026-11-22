@@ -1,4 +1,3 @@
-import React from "react";
 import { notFound } from "next/navigation";
 import {
   getCourseBySlug,
@@ -37,12 +36,17 @@ export async function generateMetadata({ params }: LessonPageProps): Promise<Met
 
 export default async function LessonPage({ params }: LessonPageProps) {
   const { courseSlug, lessonSlug } = await params;
+  // Load inside try/catch, render outside it, so render errors are not
+  // mistaken for a missing lesson.
+  let data;
   try {
-    const course = getCourseBySlug(courseSlug);
-    const lesson = getLesson(courseSlug, lessonSlug);
-
-    return <PlayerShell course={course} lesson={lesson} />;
+    data = {
+      course: getCourseBySlug(courseSlug),
+      lesson: getLesson(courseSlug, lessonSlug),
+    };
   } catch {
     notFound();
   }
+
+  return <PlayerShell course={data.course} lesson={data.lesson} />;
 }

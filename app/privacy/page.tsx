@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck, Mail, Lock, Database, Trash2, Server, UserCheck } from "lucide-react";
 import { siteConfig } from "@/lib/config";

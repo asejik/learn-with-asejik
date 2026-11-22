@@ -22,7 +22,7 @@ Last updated: 2026-11-21 | Status: APPROVED | Target launch: Private Pilot
 | **Data Hosting Regions** | Cloudflare Global Edge CDN; Google Sheets / Serverless Webhook for pilot roster |
 | **Payments** | None in Phase 1 (100% free pilot). Phase 2: Paystack / Flutterwave integration for premium courses |
 | **AI Features** | Phase 1: Pre-authored contextual hints and recaps inside JSON (zero API cost). Phase 2: Live LLM streaming API |
-| **Tech Stack** | Next.js 15 (App Router) with React 19, TypeScript, Tailwind CSS, Lucide React, Zod, IndexedDB (`idb`), PWA Service Worker |
+| **Tech Stack** | Next.js 16 (App Router) with React 19, TypeScript, Tailwind CSS, Lucide React, Zod, IndexedDB (`idb`), PWA Service Worker |
 | **Key Integrations** | Web App Manifest, Service Worker, Serverless Pilot Signup Webhook |
 | **Environments** | Local (`localhost:3000`), Preview (Cloudflare branch previews), Production (`learn.asejik.com` / Cloudflare Pages) |
 | **Recovery Targets** | Max tolerable data loss: 24 hours (content is version-controlled in Git). Max downtime: 4 hours |
@@ -148,7 +148,7 @@ Lesson (lessons/<lesson-slug>.json)
 
 | Layer | Chosen Technology | Justification & Free Tier Limits | Alternatives Considered |
 | :--- | :--- | :--- | :--- |
-| **Framework** | Next.js 15 (App Router) with React 19 | Native Server Components, static generation for ultra-low payload, edge API routes. | Astro (great static sites, but Next.js simplifies seamless Phase 2 full-stack expansion). |
+| **Framework** | Next.js 16 (App Router) with React 19 | Native Server Components, static generation for ultra-low payload, edge API routes. | Astro (great static sites, but Next.js simplifies seamless Phase 2 full-stack expansion). |
 | **Styling** | Tailwind CSS | Utility-first, zero runtime overhead, purges unused styles to produce a tiny ~12 KB CSS file. | Vanilla CSS / CSS Modules (slower authoring, harder design-token standardization). |
 | **Icons** | Lucide React | Tree-shakable SVG icons; accessible and lightweight. | FontAwesome (bulky asset bundles). |
 | **Validation** | Zod | Runtime and build-time content validation ensuring zero malformed lessons reach production. | Yup, Joi (less native TypeScript inference). |

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { CheckCircle2, AlertTriangle, Info, ArrowRight, RotateCcw } from "lucide-react";
 
 interface FeedbackPanelProps {
