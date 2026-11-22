@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx tsx scripts/validate-content.ts && next build",
+    "build": "npx tsx scripts/validate-content.ts && next build && npx tsx scripts/finish-export.ts",
     "validate-content": "npx tsx scripts/validate-content.ts",
-    "start": "next start",
+    "start": "wrangler dev",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "test": "vitest run"
@@ -31,6 +31,7 @@
     "postcss": "^8.5.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
-    "vitest": "5.1.0"
+    "vitest": "5.1.0",
+    "wrangler": "4.158.0"
   }
 }

@@ -22,7 +22,7 @@ Last updated: 2026-11-21 | Status: PHASE 1 PILOT, PENDING P03 REVIEW
 - [x] **Adults-only signup (18+)**: Pilot signup requires a separate, un-ticked "I am 18 or older" confirmation, validated on the server (`ageConfirmed: true`) and sent to the roster. Under-18s may read lessons but cannot sign up.
 - [x] **Self-Service Data Wipe**: Learner can clear all local progress and profile data using the "Clear Local Data" button.
 - [x] **Zero Tracking Cookies**: No marketing cookies, trackers, or third-party advertising SDKs.
-- [x] **Log Sanitization**: Next.js serverless routes (`/api/pilot-signup`) do not print raw emails to server console logs (planned host: Cloudflare).
+- [x] **Log Sanitization**: The pilot signup handler (`lib/pilotSignup.ts`, run by the Cloudflare Worker in production) never prints names, emails or the webhook URL to logs.
 - [x] **Transparent Notice**: Plain-language privacy notice available from catalog footer and course completion modal.
 
 ---

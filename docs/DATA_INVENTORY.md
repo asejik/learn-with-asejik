@@ -28,7 +28,7 @@ These data points are stored strictly on the learner's device inside browser Ind
 
 | Processor | Role | Data Received | Processing Location | Data Protection Measures |
 | :--- | :--- | :--- | :--- | :--- |
-| **Cloudflare Inc.** | Hosting & Global Edge CDN | Transient HTTP request logs (IP address, user-agent) | Global | Standard DPA; ephemeral edge logs retained per Cloudflare standard policy. No emails logged in console. |
+| **Cloudflare Inc.** | Hosting (Workers static assets) and the pilot signup Worker | Transient HTTP request logs (IP address, user-agent); pilot signup details pass through the Worker in memory on their way to the roster and are not stored by it | Global | Standard DPA; ephemeral edge logs retained per Cloudflare standard policy. The Worker never logs names, emails or the webhook URL. |
 | **Google LLC** | Cloud Spreadsheet (Pilot Roster) | Full Name, Email Address, Consent Timestamp, Age Confirmation (18+) | US / Global | 2FA protected account; restricted access; no public sharing. |
 
 ---

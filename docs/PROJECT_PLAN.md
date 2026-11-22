@@ -1,6 +1,6 @@
 # PROJECT BLUEPRINT: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: APPROVED | Target launch: Private Pilot
+Last updated: 2026-11-22 | Status: APPROVED | Target launch: Private Pilot
 
 ---
 
@@ -19,12 +19,12 @@ Last updated: 2026-11-21 | Status: APPROVED | Target launch: Private Pilot
 | **Personal Data Collected** | Learner Full Name, Email Address (Ordinary personal data) |
 | **Data Protection Role** | Data Controller (Asejik) |
 | **Major-Importance Status** | Tier: Ordinary (pilot < 200 users; transitions to major importance when scaling above 200 users in education) |
-| **Data Hosting Regions** | Cloudflare Global Edge CDN; Google Sheets / Serverless Webhook for pilot roster |
+| **Data Hosting Regions** | Cloudflare global network (Workers static assets + one Worker for signups); Google Sheets webhook for pilot roster |
 | **Payments** | None in Phase 1 (100% free pilot). Phase 2: Paystack / Flutterwave integration for premium courses |
 | **AI Features** | Phase 1: Pre-authored contextual hints and recaps inside JSON (zero API cost). Phase 2: Live LLM streaming API |
 | **Tech Stack** | Next.js 16 (App Router) with React 19, TypeScript, Tailwind CSS, Lucide React, Zod, IndexedDB (`idb`), PWA Service Worker |
 | **Key Integrations** | Web App Manifest, Service Worker, Serverless Pilot Signup Webhook |
-| **Environments** | Local (`localhost:3000`), Preview (Cloudflare branch previews), Production (`learn.asejik.com` / Cloudflare Pages) |
+| **Environments** | Local (`npm run dev`, and `npm run build && npm run start` for the production setup via `wrangler dev`), Preview (Cloudflare Workers branch preview URLs), Production (`learn.asejik.com` on Cloudflare Workers) |
 | **Recovery Targets** | Max tolerable data loss: 24 hours (content is version-controlled in Git). Max downtime: 4 hours |
 | **Rigor Level** | **STANDARD** |
 
@@ -153,7 +153,7 @@ Lesson (lessons/<lesson-slug>.json)
 | **Icons** | Lucide React | Tree-shakable SVG icons; accessible and lightweight. | FontAwesome (bulky asset bundles). |
 | **Validation** | Zod | Runtime and build-time content validation ensuring zero malformed lessons reach production. | Yup, Joi (less native TypeScript inference). |
 | **Client Storage** | IndexedDB via `idb` | Asynchronous, 50+ MB storage capacity on mobile Android without blocking the UI thread. | LocalStorage (synchronous, 5 MB limit, prone to mobile data eviction). |
-| **Hosting** | Cloudflare Pages | Global edge CDN, unlimited bandwidth on free tier, edge deployment in Lagos/Africa, zero server maintenance. | Vercel (alternative). |
+| **Hosting** | Cloudflare Workers (static assets) | Static export served from Cloudflare's network: static requests are free and unlimited, no per-page server code, one small Worker for pilot signups only. | Vercel (ruled out: account limits), OpenNext adapter (no documented Next 16 support), Cloudflare Pages (Cloudflare now steers new projects to Workers). |
 
 ---
 
@@ -283,3 +283,4 @@ flowchart TD
 * **Decision 2: Modular JSON over Monolithic Course Files**: Keep each lesson in its own file under `lessons/<lesson-slug>.json` to ensure payload transfer remains under 200 KB and enable sub-minute text updates.
 * **Decision 3: IndexedDB (`idb`) over LocalStorage**: Asynchronous IndexedDB handles complex progress trees and works reliably across PWA sessions without blocking the UI thread.
 * **Decision 4: Static Pre-Authored AI Tutor over Paid LLM API in Phase 1**: Delivers instant contextual guidance and recaps with zero recurring token cost and zero latency.
+* **Decision 5: Static export on Cloudflare Workers, not Pages or an adapter (2026-11-22, P15-05)**: All pages are prerendered, so the site is built with `output: "export"` and served as static assets (free, unlimited, no per-request code). The only server code, the pilot signup, runs in a small Worker (`worker/index.ts`, routed by `run_worker_first: ["/api/*"]`) using the same handler as `next dev` (`lib/pilotSignup.ts`). Security headers live in `public/_headers`; course redirects are generated into `out/_redirects`. Rejected: Vercel (owner's free account is at its limits and GitHub can only link one Vercel account), the OpenNext adapter (documented support stops at Next 15, and every page view would run Worker code under the free plan's 10 ms CPU limit), Cloudflare Pages (Workers is where Cloudflare now builds new features), and vinext (a separate re-implementation of Next.js). Note: the static export silently drops API routes, so `scripts/finish-export.ts` fails the build if `out/api` ever appears or a required file is missing.
