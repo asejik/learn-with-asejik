@@ -28,6 +28,8 @@ export default function SwipeDeckWidget({
 
   const totalCards = data.cards.length;
   const currentCard = data.cards[currentCardIndex];
+  // How many unanswered cards to show peeking out behind the active one
+  const cardsBehind = Math.min(2, Math.max(0, totalCards - currentCardIndex - 1));
 
   const handleAnswer = (choice: boolean) => {
     if (isAnswered || !currentCard) return;
@@ -139,11 +141,25 @@ export default function SwipeDeckWidget({
 
       {/* Active Card Deck Canvas */}
       {currentCard ? (
-        <div className="relative py-2">
-          {/* Background Card Depth Layer */}
-          {currentCardIndex + 1 < totalCards && (
-            <div className="absolute inset-x-2 top-4 bottom-0 bg-slate-200 rounded-2xl transform translate-y-2 scale-98 -z-10 opacity-70" />
-          )}
+        <div className="py-2">
+          {/* Card stack: up to two remaining cards peek out below the active
+              one, so the deck reads as a pile of cards */}
+          <div className={`relative ${cardsBehind > 0 ? "pb-5" : ""}`}>
+          {Array.from({ length: cardsBehind }, (_, i) => cardsBehind - i).map((depth) => (
+            <div
+              key={currentCardIndex + depth}
+              aria-hidden="true"
+              style={{
+                transform: `translateY(${depth * 10}px) scale(${1 - depth * 0.05}) rotate(${
+                  depth === 1 ? -1.5 : 2
+                }deg)`,
+                zIndex: 10 - depth,
+              }}
+              className={`absolute inset-x-0 top-0 bottom-5 rounded-2xl border-2 border-slate-300 shadow-sm origin-bottom transition-transform duration-200 motion-reduce:transition-none ${
+                depth === 1 ? "bg-slate-50" : "bg-slate-100"
+              }`}
+            />
+          ))}
 
           {/* Foreground Active Card */}
           <div
@@ -153,6 +169,7 @@ export default function SwipeDeckWidget({
             style={{
               transform: `translateX(${dragOffset}px) rotate(${dragOffset * 0.05}deg)`,
               transition: isDragging ? "none" : "transform 0.25s ease-out",
+              zIndex: 20,
             }}
             className={`relative p-6 sm:p-8 bg-white rounded-2xl border-2 transition-shadow shadow-md flex flex-col justify-between min-h-[190px] sm:min-h-[210px] ${
               dragOffset > 30
@@ -190,6 +207,7 @@ export default function SwipeDeckWidget({
             <p className="text-[11px] text-slate-400 text-center font-medium mt-4">
               Swipe right for True • Swipe left for False
             </p>
+          </div>
           </div>
 
           {/* Explicit Large Tap Buttons (Thumb Ergonomics >= 44x44px) */}
