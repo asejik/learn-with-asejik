@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Mail, Lock, Database, Trash2 } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Mail, Lock, Database, Trash2, Server, UserCheck } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 
 export const metadata = {
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
       <header className="border-b border-slate-200 pb-6 mb-8 space-y-2">
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold uppercase tracking-wider">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-          <span>NDPA 2023 &bull; GAID 2025 Compliant</span>
+          <span>NDPA 2023 &bull; GAID 2025</span>
         </div>
         <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
           Privacy Notice & Learner Rights
@@ -60,8 +60,10 @@ export default function PrivacyPage() {
           </p>
           <ul className="list-disc pl-5 text-xs text-slate-600 space-y-1">
             <li>Completed lesson IDs and progress percentages.</li>
+            <li>Your place within a lesson (current screen and screen order), so a reload resumes where you left off.</li>
             <li>Active recall retry queues (questions to review later).</li>
             <li>Lesson feedback ratings submitted upon completion.</li>
+            <li>If you sign up for the pilot: your name, email, and the time you gave consent.</li>
           </ul>
           <p className="text-xs text-slate-500 italic">
             This data never leaves your browser unless you explicitly choose to submit it.
@@ -84,14 +86,42 @@ export default function PrivacyPage() {
           </ul>
         </section>
 
-        {/* 3. Your Rights */}
+        {/* 3. Age */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <UserCheck className="w-4 h-4 text-slate-700" />
+            <span>3. Who Can Sign Up</span>
+          </h2>
+          <p className="text-xs text-slate-600">
+            Anyone can read and complete lessons without giving personal data. <strong>Pilot signup is for learners aged 18 and over.</strong> The signup form asks you to confirm you are 18 or older, and we do not accept a signup without that confirmation. If we learn that someone under 18 has signed up, we will delete their details from the pilot roster.
+          </p>
+        </section>
+
+        {/* 4. Processors, transfers and retention */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <Server className="w-4 h-4 text-slate-700" />
+            <span>4. Who Processes Your Details, Where, and for How Long</span>
+          </h2>
+          <ul className="list-disc pl-5 text-xs text-slate-600 space-y-1">
+            <li><strong>Pilot roster:</strong> if you sign up, your name, email, consent time and age confirmation are sent over an encrypted connection to a private, access-restricted Google Sheet (provided by Google) that only {siteConfig.brandName} manages.</li>
+            <li><strong>Website hosting:</strong> the site is planned to be hosted on Cloudflare, which handles the requests your browser makes to load pages and send the signup form, including your IP address and browser details in short-lived request logs.</li>
+            <li><strong>Outside Nigeria:</strong> these providers may store or process your details on servers outside Nigeria.</li>
+            <li><strong>How long we keep it:</strong> pilot roster details are kept for the length of the pilot plus 12 months, or until you ask us to delete them, whichever comes first.</li>
+          </ul>
+        </section>
+
+        {/* 5. Your Rights */}
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <Trash2 className="w-4 h-4 text-slate-700" />
-            <span>3. Your Rights & Clearing Data</span>
+            <span>5. Your Rights & Clearing Data</span>
           </h2>
           <p className="text-xs text-slate-600">
-            Under the NDPA 2023, you have the right to access, rectify, or request deletion of your information at any time.
+            Under the NDPA 2023, you have the right to access, rectify, or request deletion of your information at any time. You can also withdraw your consent at any time by emailing us; this does not affect anything we did with your details before you withdrew.
+          </p>
+          <p className="text-xs text-slate-600">
+            If you believe your data has been mishandled, you have the right to complain to the Nigeria Data Protection Commission (NDPC) at ndpc.gov.ng.
           </p>
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-2">
             <p className="font-semibold text-slate-800">Instant Local Wipe:</p>

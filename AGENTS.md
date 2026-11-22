@@ -101,7 +101,7 @@ Build a fast, mobile-first, low-data interactive learning platform that supports
 ## Privacy
 - Phase 1 stores learner progress only on the learner's device. Don't send it anywhere without telling me.
 - Never log personal data. If a change collects personal data, sends data to a new third party (including analytics), or changes who can see data: update docs/DATA_INVENTORY.md and flag it for a P03 check. Phase 2 (Supabase accounts) needs P03 before it's built.
-- Learners may include under-18s. Flag anything that would collect their data.
+- Learners may include under-18s: they may read lessons, but pilot signup is 18+ only. Flag anything that would collect their data.
 
 ## Done means
 Type check, lint, build (including content validation), and tests pass, with real output shown. UI changes are checked with the built-in browser at 1280px and 375px, with screenshots in the walkthrough. CI passes on the branch before merge. If you cannot run a check, say so. Never claim a check passed without running it.

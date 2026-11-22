@@ -24,13 +24,14 @@ Under the Nigeria Data Protection Act (NDPA 2023), the Data Controller responsib
 ## 3. The Information We Collect
 
 ### A. Information You Provide to Us (Optional & Delayed)
-You can explore and complete lessons on Learn with Asejik without providing any personal data. When you complete a lesson and choose to save your progress, claim a completion certificate, or join our pilot feedback group, we collect:
+You can explore and complete lessons on Learn with Asejik without providing any personal data. Pilot signup is for learners aged 18 and over, and the form asks you to confirm you are 18 or older. When you complete a lesson and choose to save your progress, claim a completion certificate, or join our pilot feedback group, we collect:
 * **Full Name**: Used solely to personalize your completion certificate and identify you on our pilot roster.
 * **Email Address**: Used solely to send your course certificate, important platform updates, and requests for feedback on your learning experience.
 
 ### B. Information Stored Locally on Your Device (IndexedDB)
 To provide offline learning and active-recall features without consuming mobile data, our application stores the following on your device's browser IndexedDB:
 * Completed lesson IDs and progress percentages.
+* Your place within a lesson (current screen and screen order), so a reload resumes where you left off.
 * Active recall retry queues (questions to review later).
 * Thumbs-up / thumbs-down ratings you submit upon lesson completion.
 * Consent timestamp and local user profile name/email.
@@ -55,7 +56,9 @@ When you choose to enter your details on the course completion screen, you are p
 ## 5. How We Store and Protect Your Data
 * **Local Security**: Your progress data is stored in your browser's isolated IndexedDB store, accessible only to the Learn with Asejik web app.
 * **Network Security**: All communication between your device and our platform uses secure TLS/HTTPS encryption.
-* **Pilot Roster Storage**: When you submit your name and email, the data is transmitted via an encrypted serverless route to a private, access-restricted pilot registry protected by two-factor authentication (2FA).
+* **Pilot Roster Storage**: When you submit your name and email, they are sent with your consent time and age confirmation over an encrypted route to a private, access-restricted Google Sheet (provided by Google) protected by two-factor authentication (2FA).
+* **Website Hosting**: The site is planned to be hosted on Cloudflare, which handles your browser's requests, including your IP address and browser details in short-lived request logs.
+* **Outside Nigeria**: Google and Cloudflare may store or process your details on servers outside Nigeria.
 * **Retention**: We retain pilot learner details for the duration of the pilot phase plus 12 months, or until you request deletion.
 
 ---

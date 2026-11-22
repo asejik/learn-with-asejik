@@ -19,6 +19,12 @@ const PilotSignupSchema = z.object({
         "Explicit, un-ticked consent is required under the Nigeria Data Protection Act (NDPA 2023).",
     }),
   }),
+  // Pilot signup is for adults only; learners of any age may still read lessons.
+  ageConfirmed: z.literal(true, {
+    errorMap: () => ({
+      message: "Pilot signup is for learners aged 18 and over. Please confirm you are 18 or older.",
+    }),
+  }),
   consentedAt: z.string().min(1, "Consent timestamp is required."),
 });
 
@@ -50,7 +56,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { fullName, email, consentedAt } = result.data;
+    const { fullName, email, consentedAt, ageConfirmed } = result.data;
 
     // Fail closed: without the roster webhook there is nowhere to record the
     // signup, so never tell the learner they joined.
@@ -77,6 +83,7 @@ export async function POST(req: NextRequest) {
           fullName,
           email,
           consentedAt,
+          ageConfirmed,
           source: "learn-with-asejik-pilot",
         }),
         signal: AbortSignal.timeout(WEBHOOK_TIMEOUT_MS),

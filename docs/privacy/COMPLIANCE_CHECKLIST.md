@@ -1,6 +1,6 @@
 # NDPA 2023 & GAID 2025 Compliance Checklist: Learn with Asejik
 
-Last updated: 2026-11-21 | Status: PHASE 1 PILOT COMPLIANT
+Last updated: 2026-11-21 | Status: PHASE 1 PILOT, PENDING P03 REVIEW
 
 ---
 
@@ -18,10 +18,11 @@ Last updated: 2026-11-21 | Status: PHASE 1 PILOT COMPLIANT
 
 - [x] **Data Minimization**: Only collect Full Name and Email upon course completion. No upfront registration barrier.
 - [x] **Unbundled, Explicit Consent**: Signup modal requires an active click on an un-ticked checkbox.
-- [x] **Consent Logging**: Storing `{ consentedAt: ISOString, consentVersion: "1.0" }` locally in IndexedDB and in pilot roster.
+- [x] **Consent Logging**: Storing `consentedAt` (ISO timestamp) locally in IndexedDB and in the pilot roster. No consent version is recorded yet.
+- [x] **Adults-only signup (18+)**: Pilot signup requires a separate, un-ticked "I am 18 or older" confirmation, validated on the server (`ageConfirmed: true`) and sent to the roster. Under-18s may read lessons but cannot sign up.
 - [x] **Self-Service Data Wipe**: Learner can clear all local progress and profile data using the "Clear Local Data" button.
 - [x] **Zero Tracking Cookies**: No marketing cookies, trackers, or third-party advertising SDKs.
-- [x] **Log Sanitization**: Next.js serverless routes (`/api/pilot-signup`) do not print raw emails to Vercel console logs.
+- [x] **Log Sanitization**: Next.js serverless routes (`/api/pilot-signup`) do not print raw emails to server console logs (planned host: Cloudflare).
 - [x] **Transparent Notice**: Plain-language privacy notice available from catalog footer and course completion modal.
 
 ---
@@ -31,4 +32,4 @@ Last updated: 2026-11-21 | Status: PHASE 1 PILOT COMPLIANT
 - [ ] **NDPC Registration**: Complete online registration at `ndpc.gov.ng` when scaling to the general public (> 200 learners).
 - [ ] **Data Protection Impact Assessment (DPIA)**: Execute using GAID Schedule 4 template prior to public marketing launch.
 - [ ] **Annual Compliance Audit**: Schedule first compliance audit with an accredited DPCO within 15 months of commercial launch.
-- [ ] **Data Processing Agreements (DPAs)**: Verify standard DPAs for cloud hosting (Vercel) and payment processor (Paystack/Flutterwave).
+- [ ] **Data Processing Agreements (DPAs)**: Verify standard DPAs for cloud hosting (Cloudflare) and payment processor (Paystack/Flutterwave).
