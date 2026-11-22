@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 import { WifiOff, Wifi } from "lucide-react";
 
 // Online status read straight from the browser, so it is right on first render
@@ -20,6 +21,32 @@ export function PWARegister() {
     () => false // Server render: assume online
   );
   const [showReconnected, setShowReconnected] = useState(false);
+  const pathname = usePathname();
+
+  // Ask the service worker to save each page the learner opens. In-app
+  // navigation never makes a page request, so the worker cannot see it
+  // otherwise. Build files loaded before the worker took control are sent too.
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) return;
+    let cancelled = false;
+    navigator.serviceWorker.ready
+      .then((registration) => {
+        const worker = navigator.serviceWorker.controller ?? registration.active;
+        if (cancelled || !worker) return;
+        const buildFilePrefix = `${window.location.origin}/_next/static/`;
+        const assets = performance
+          .getEntriesByType("resource")
+          .map((entry) => entry.name)
+          .filter((name) => name.startsWith(buildFilePrefix));
+        worker.postMessage({ type: "SAVE_PAGE", page: pathname, assets });
+      })
+      .catch((err) => {
+        console.warn("[PWA] Could not save this page for offline use:", err);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
 
   useEffect(() => {
     // 1. Register Service Worker in production/client
