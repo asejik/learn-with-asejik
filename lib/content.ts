@@ -19,7 +19,7 @@ export function getCourseBySlug(courseSlug: string): Course {
 
   const result = CourseSchema.safeParse(parsedJson);
   if (!result.success) {
-    const errorDetails = result.error.errors
+    const errorDetails = result.error.issues
       .map((err) => `  - [${err.path.join(".")}] ${err.message}`)
       .join("\n");
     throw new Error(
@@ -66,7 +66,7 @@ export function getLesson(courseSlug: string, lessonSlug: string): Lesson {
 
   const result = LessonSchema.safeParse(parsedJson);
   if (!result.success) {
-    const errorDetails = result.error.errors
+    const errorDetails = result.error.issues
       .map((err) => `  - [${err.path.join(".")}] ${err.message}`)
       .join("\n");
     throw new Error(
