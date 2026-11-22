@@ -17,7 +17,7 @@ import {
 import { saveLessonState, getLessonState, saveUserProfile, getUserProfile } from "@/lib/db";
 
 const NOT_SENT_MESSAGE =
-  "We couldn't send your details, so you haven't joined the pilot yet. They're saved on this device only. Tick the box and try again when you're online.";
+  "We couldn't send your details, so you haven't joined the pilot yet. They're saved on this device only. Tick both boxes and try again when you're online.";
 
 interface LessonCompletionViewProps {
   course: Course;
@@ -33,6 +33,7 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [consented, setConsented] = useState(false);
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [signupError, setSignupError] = useState<string | null>(null);
@@ -71,7 +72,7 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
   // Handle Value-First Signup Submit
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consented || !fullName.trim() || !email.trim()) return;
+    if (!consented || !ageConfirmed || !fullName.trim() || !email.trim()) return;
 
     setIsSubmitting(true);
     setSignupError(null);
@@ -89,7 +90,7 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
       const res = await fetch("/api/pilot-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...profile, consent: true }),
+        body: JSON.stringify({ ...profile, consent: true, ageConfirmed: true }),
       });
 
       if (!res.ok) {
@@ -111,8 +112,9 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
       setSignupSuccess(true);
     } else {
       setSignupError(errorMessage);
-      // Consent must be given again for each attempt.
+      // Consent and the age confirmation must be given again for each attempt.
       setConsented(false);
+      setAgeConfirmed(false);
     }
     setIsSubmitting(false);
   };
@@ -209,6 +211,9 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
             <p className="text-xs text-slate-600 leading-relaxed">
               Link your device progress to an account to preserve completions and receive newly published chapters.
             </p>
+            <p id="pilot-age-notice" className="text-xs font-semibold text-slate-700">
+              Pilot signup is for learners aged 18 and over.
+            </p>
           </div>
 
           {signupSuccess ? (
@@ -269,18 +274,38 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
                 </div>
               </div>
 
+              {/* Required, un-ticked 18+ confirmation */}
+              <div className="flex items-center gap-2.5 min-h-tap">
+                <input
+                  type="checkbox"
+                  id="pilot-age-confirm"
+                  required
+                  aria-describedby="pilot-age-notice"
+                  checked={ageConfirmed}
+                  onChange={(e) => setAgeConfirmed(e.target.checked)}
+                  className="w-4 h-4 rounded-sm border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer shrink-0"
+                />
+                <label
+                  htmlFor="pilot-age-confirm"
+                  className="flex-1 min-h-tap flex items-center text-xs font-semibold text-slate-700 cursor-pointer select-none"
+                >
+                  I am 18 or older.
+                </label>
+              </div>
+
               {/* Explicit Un-ticked NDPA Consent Checkbox */}
-              <div className="flex items-start gap-2.5 pt-1">
+              <div className="flex items-start gap-2.5 min-h-tap">
                 <input
                   type="checkbox"
                   id="pilot-ndpa-consent"
+                  required
                   checked={consented}
                   onChange={(e) => setConsented(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded-sm border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer shrink-0"
+                  className="mt-1.5 w-4 h-4 rounded-sm border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer shrink-0"
                 />
                 <label
                   htmlFor="pilot-ndpa-consent"
-                  className="text-[11px] text-slate-600 leading-snug cursor-pointer select-none"
+                  className="flex-1 min-h-tap py-1 text-[11px] text-slate-600 leading-snug cursor-pointer select-none"
                 >
                   I consent to Asejik storing my name and email to save my progress and contact me for pilot feedback under the{" "}
                   <Link
@@ -297,9 +322,9 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={!consented || !fullName.trim() || !email.trim() || isSubmitting}
+                disabled={!consented || !ageConfirmed || !fullName.trim() || !email.trim() || isSubmitting}
                 className={`w-full min-h-tap px-4 py-3 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-98 ${
-                  consented && fullName.trim() && email.trim() && !isSubmitting
+                  consented && ageConfirmed && fullName.trim() && email.trim() && !isSubmitting
                     ? "bg-brand-600 hover:bg-brand-700 text-white shadow-sm cursor-pointer"
                     : "bg-slate-200 text-slate-400 cursor-not-allowed"
                 }`}

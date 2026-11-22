@@ -10,6 +10,7 @@ function signupRequest(body: unknown = {
   fullName: NAME,
   email: EMAIL,
   consent: true,
+  ageConfirmed: true,
   consentedAt: "2026-11-21T12:00:00.000Z",
 }) {
   return new NextRequest("http://localhost/api/pilot-signup", {
@@ -111,6 +112,7 @@ describe("POST /api/pilot-signup", () => {
       fullName: NAME,
       email: EMAIL,
       consentedAt: "2026-11-21T12:00:00.000Z",
+      ageConfirmed: true,
       source: "learn-with-asejik-pilot",
     });
     expect(loggedText(logSpies)).not.toContain(EMAIL);
@@ -123,10 +125,34 @@ describe("POST /api/pilot-signup", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     const res = await POST(
-      signupRequest({ fullName: NAME, email: EMAIL, consent: false, consentedAt: "x" })
+      signupRequest({ fullName: NAME, email: EMAIL, consent: false, ageConfirmed: true, consentedAt: "x" })
     );
 
     expect(res.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects a signup without the 18+ confirmation before contacting the webhook", async () => {
+    vi.stubEnv("PILOT_SIGNUP_WEBHOOK_URL", WEBHOOK);
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    for (const ageConfirmed of [undefined, false, "true"]) {
+      const res = await POST(
+        signupRequest({
+          fullName: NAME,
+          email: EMAIL,
+          consent: true,
+          ageConfirmed,
+          consentedAt: "2026-11-21T12:00:00.000Z",
+        })
+      );
+      const body = await res.json();
+
+      expect(res.status).toBe(400);
+      expect(body.success).toBe(false);
+      expect(body.error).toMatch(/18/);
+    }
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });

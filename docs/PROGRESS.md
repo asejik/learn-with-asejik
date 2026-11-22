@@ -89,3 +89,9 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - Lesson-state saves in `lib/db.ts` now run one at a time, so a late position save cannot overwrite a completion or rating.
   - 10 new unit tests (16 total). Browser-checked at 375px (wrong answer, continue, reload: resumed on screen 3 of 7 with the retry kept; server stopped and reloaded: still resumed) and 1280px (resume; finished lesson starts fresh), zero console errors.
   - Known limits: a reload in the same instant as tapping Continue can land one screen back; reloading after answering but before Continue asks that screen again. Private-browsing progress is still memory-only (P15-11).
+- [x] **P15-04: Privacy notice gaps closed and pilot signup limited to 18+** (2026-11-22, branch `fix/privacy-notice-age-confirmation`)
+  - Signup needs a separate, un-ticked "I am 18 or older" box; the server rejects a signup without `ageConfirmed: true` and forwards the confirmation to the roster. No date of birth is collected.
+  - Privacy page now covers who can sign up (18+), processors (Google Sheet roster, Cloudflare as the planned host), storage outside Nigeria, retention (pilot + 12 months), withdrawing consent and complaining to the NDPC. The unsupported "Compliant" badge wording was removed.
+  - Removed the false `consentVersion` claim from `docs/privacy/COMPLIANCE_CHECKLIST.md`; added the age field to `docs/DATA_INVENTORY.md`; AGENTS.md under-18 line updated with owner approval.
+  - 1 new route test (17 total). Browser-checked at 375px and 1280px: button stays disabled with consent only, enables with both boxes; privacy page sections present, no horizontal scroll, zero console errors.
+  - The notice wording is not legal advice: review it in the P03 AUDIT (P15-01).
