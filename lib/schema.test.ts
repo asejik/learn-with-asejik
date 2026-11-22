@@ -65,6 +65,40 @@ describe("content schema", () => {
     expect(LessonSchema.safeParse({ ...lesson, screens: [] }).success).toBe(false);
   });
 
+  it("rejects an answer explanation that opens with a verdict", () => {
+    const clozeIndex = lesson.screens.findIndex((s: { widgetType: string }) => s.widgetType === "cloze");
+    for (const verdict of ["Correct! ", "Exactly! ", "Wrong. ", "spot  on - ", "Not quite: ", "That’s right! "]) {
+      const screens = structuredClone(lesson.screens);
+      screens[clozeIndex].widgetData.explanation = verdict + screens[clozeIndex].widgetData.explanation;
+      const result = LessonSchema.safeParse({ ...lesson, screens });
+      expect(result.success).toBe(false);
+      expect(issueMessages(result).join(" ")).toContain("must not start with a verdict");
+    }
+  });
+
+  it("allows explanations that merely contain or start near those words", () => {
+    const clozeIndex = lesson.screens.findIndex((s: { widgetType: string }) => s.widgetType === "cloze");
+    for (const text of [
+      "Correctness matters here.",
+      "An API returns the correct data.",
+      "Exactly how an API answers depends on the request.",
+      "Wrong credentials return a 401 status.",
+    ]) {
+      const screens = structuredClone(lesson.screens);
+      screens[clozeIndex].widgetData.explanation = text;
+      expect(LessonSchema.safeParse({ ...lesson, screens }).success).toBe(true);
+    }
+  });
+
+  it("requires the diagram explorer's completion message", () => {
+    const diagramIndex = lesson.screens.findIndex(
+      (s: { widgetType: string }) => s.widgetType === "diagramExplorer"
+    );
+    const screens = structuredClone(lesson.screens);
+    screens[diagramIndex].widgetData = without(screens[diagramIndex].widgetData, "completionMessage");
+    expect(LessonSchema.safeParse({ ...lesson, screens }).success).toBe(false);
+  });
+
   it("still applies defaults", () => {
     const choice = lesson.screens.find((s: { widgetType: string }) => s.widgetType === "choice");
     const choiceData = without(choice.widgetData, "isMultiSelect");

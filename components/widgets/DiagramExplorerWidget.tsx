@@ -2,17 +2,19 @@
 
 import { useState } from "react";
 import { Check, Info, Compass, CheckCircle2 } from "lucide-react";
-import { BaseWidgetProps } from "./types";
+import { BaseWidgetProps, ExploredHandler } from "./types";
 import { z } from "zod";
 import { DiagramExplorerWidgetDataSchema } from "@/lib/schema";
 
 type DiagramData = z.infer<typeof DiagramExplorerWidgetDataSchema>;
 
+// Exploring is not a test, so finishing reports an Info outcome
+// (onExplored), never a correct answer.
 export default function DiagramExplorerWidget({
   data,
-  onSubmitAnswer,
+  onExplored,
   isAnswered,
-}: BaseWidgetProps<DiagramData>) {
+}: BaseWidgetProps<DiagramData> & { onExplored: ExploredHandler }) {
   const [activeNodeId, setActiveNodeId] = useState<string>(
     data.nodes[0]?.id || ""
   );
@@ -30,28 +32,16 @@ export default function DiagramExplorerWidget({
       const updated = [...visitedNodeIds, nodeId];
       setVisitedNodeIds(updated);
 
-      // If this selection was the final node, automatically trigger completion!
+      // The final unexplored step completes the screen
       if (data.nodes.every((n) => updated.includes(n.id))) {
-        onSubmitAnswer({
-          isCorrect: true,
-          explanation:
-            "Architecture explored! You have inspected every step in this request-response lifecycle.",
-          bonusFact:
-            "Understanding this tri-part cycle makes debugging API errors (like 404 vs 500) immediate and intuitive.",
-        });
+        onExplored({ explanation: data.completionMessage, bonusFact: data.completionBonusFact });
       }
     }
   };
 
   const handleCompleteManual = () => {
     if (!allNodesVisited || isAnswered) return;
-    onSubmitAnswer({
-      isCorrect: true,
-      explanation:
-        "Architecture explored! You have inspected every step in this request-response lifecycle.",
-      bonusFact:
-        "Understanding this tri-part cycle makes debugging API errors (like 404 vs 500) immediate and intuitive.",
-    });
+    onExplored({ explanation: data.completionMessage, bonusFact: data.completionBonusFact });
   };
 
   return (

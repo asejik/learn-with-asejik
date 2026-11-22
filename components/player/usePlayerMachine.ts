@@ -154,6 +154,15 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
     [currentIndex, currentScreen.id, sequence]
   );
 
+  // Exploration finished (no right or wrong): blue Info feedback
+  const showInfo = useCallback(
+    ({ explanation, bonusFact }: { explanation: string; bonusFact?: string }) => {
+      setIsGated(false);
+      setFeedbackState({ status: "info", explanation, bonusFact, retryAfterScreens: null });
+    },
+    []
+  );
+
   // Advance to next screen
   const nextScreen = useCallback(() => {
     const nextIdx = currentIndex + 1;
@@ -206,6 +215,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
     isRestoring,
     ungate,
     submitAnswer,
+    showInfo,
     nextScreen,
   };
 }
