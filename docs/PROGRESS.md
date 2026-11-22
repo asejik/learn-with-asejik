@@ -95,3 +95,9 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - Removed the false `consentVersion` claim from `docs/privacy/COMPLIANCE_CHECKLIST.md`; added the age field to `docs/DATA_INVENTORY.md`; AGENTS.md under-18 line updated with owner approval.
   - 1 new route test (17 total). Browser-checked at 375px and 1280px: button stays disabled with consent only, enables with both boxes; privacy page sections present, no horizontal scroll, zero console errors.
   - The notice wording is not legal advice: review it in the P03 AUDIT (P15-01).
+- [x] **P15-06 (part 1): Next.js security advisories** (2026-11-22, branch `fix/next-security-advisories`)
+  - Next.js 14.2.35 had no patched 14.x release. Upgraded to Next 15.5.29, React 19.2.9, `eslint-config-next` 15.5.29 and React 19 types (exact versions; owner approved). Route `params` are now awaited in the two course pages.
+  - `npm audit`: 7 issues (1 critical, 5 high, 1 moderate) down to 3 (0 critical). All runtime Next.js advisories and the lint-tool `glob`/`minimatch` issues are gone.
+  - Still open: `postcss` bundled inside Next (build-time only, processes our own CSS; clears with Next 16) and `zod` 3 (memory exhaustion on large collections; upgrade to zod 4 as its own task).
+  - Lesson first-load JS 111 KB to 122 KB (React 19), still under the 200 KB budget. `next lint` now prints a deprecation notice; moving to the ESLint CLI belongs with the Next 16 upgrade.
+  - Browser-checked on the production build: catalog filter, lesson, glossary drawer, wrong answer with retry, resume on reload and offline (service worker active) at 375px; completion form and privacy page at 1280px; security headers unchanged; zero console errors.
