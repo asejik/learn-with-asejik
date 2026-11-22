@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { z } from "zod";
 import {
   Course,
@@ -31,9 +31,11 @@ import MatchPairsWidget from "../widgets/MatchPairsWidget";
 interface PlayerShellProps {
   course: Course;
   lesson: Lesson;
+  /** The privacy notice, rendered on the server for the completion view */
+  privacyNotice: ReactNode;
 }
 
-export function PlayerShell({ course, lesson }: PlayerShellProps) {
+export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps) {
   const machine = usePlayerMachine(course.slug, lesson);
 
   // Drawer states
@@ -76,7 +78,7 @@ export function PlayerShell({ course, lesson }: PlayerShellProps) {
 
   // If lesson is complete, render celebration completion view with value-first onboarding
   if (machine.isLessonComplete) {
-    return <LessonCompletionView course={course} lesson={lesson} />;
+    return <LessonCompletionView course={course} lesson={lesson} privacyNotice={privacyNotice} />;
   }
 
   const screen = machine.currentScreen;

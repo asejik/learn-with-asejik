@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { Course, Lesson } from "@/lib/schema";
 import {
@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { saveLessonState, getLessonState, saveUserProfile, getUserProfile } from "@/lib/db";
+import { PrivacyDrawer } from "./PrivacyDrawer";
 
 const NOT_SENT_MESSAGE =
   "We couldn't send your details, so you haven't joined the pilot yet. They're saved on this device only. Tick both boxes and try again when you're online.";
@@ -22,9 +23,11 @@ const NOT_SENT_MESSAGE =
 interface LessonCompletionViewProps {
   course: Course;
   lesson: Lesson;
+  /** The privacy notice, rendered on the server and shown in a drawer */
+  privacyNotice: ReactNode;
 }
 
-export function LessonCompletionView({ course, lesson }: LessonCompletionViewProps) {
+export function LessonCompletionView({ course, lesson, privacyNotice }: LessonCompletionViewProps) {
   // Content Rating State
   const [rating, setRating] = useState<"thumbs-up" | "thumbs-down" | null>(null);
   const [ratingSaved, setRatingSaved] = useState(false);
@@ -37,6 +40,7 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [signupError, setSignupError] = useState<string | null>(null);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   // Load existing rating and profile from IndexedDB on mount
   useEffect(() => {
@@ -307,17 +311,19 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
                   htmlFor="pilot-ndpa-consent"
                   className="flex-1 min-h-tap py-1 text-[11px] text-slate-600 leading-snug cursor-pointer select-none"
                 >
-                  I consent to Asejik storing my name and email to save my progress and contact me for pilot feedback under the{" "}
-                  <Link
-                    href="/privacy"
-                    target="_blank"
-                    className="text-brand-700 underline font-semibold hover:text-brand-900"
-                  >
-                    Nigeria Data Protection Act (NDPA 2023)
-                  </Link>
-                  .
+                  I consent to Asejik storing my name and email to save my progress and contact me for pilot feedback under the Nigeria Data Protection Act (NDPA 2023).
                 </label>
               </div>
+
+              {/* Opens the notice in a drawer, so typed details stay in place.
+                  Kept outside the label so tapping the consent text only ticks the box. */}
+              <button
+                type="button"
+                onClick={() => setIsPrivacyOpen(true)}
+                className="min-h-tap px-1 text-[11px] font-semibold text-brand-700 underline hover:text-brand-900"
+              >
+                Read the privacy notice
+              </button>
 
               {/* Submit Button */}
               <button
@@ -348,6 +354,13 @@ export function LessonCompletionView({ course, lesson }: LessonCompletionViewPro
           </Link>
         </div>
       </main>
+
+      {/* Privacy notice opens beside the form, never in a new tab */}
+      <PrivacyDrawer
+        isOpen={isPrivacyOpen}
+        onClose={() => setIsPrivacyOpen(false)}
+        notice={privacyNotice}
+      />
     </div>
   );
 }
