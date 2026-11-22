@@ -101,3 +101,8 @@ Last updated: 2026-11-21 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - Still open: `postcss` bundled inside Next (build-time only, processes our own CSS; clears with Next 16) and `zod` 3 (memory exhaustion on large collections; upgrade to zod 4 as its own task).
   - Lesson first-load JS 111 KB to 122 KB (React 19), still under the 200 KB budget. `next lint` now prints a deprecation notice; moving to the ESLint CLI belongs with the Next 16 upgrade.
   - Browser-checked on the production build: catalog filter, lesson, glossary drawer, wrong answer with retry, resume on reload and offline (service worker active) at 375px; completion form and privacy page at 1280px; security headers unchanged; zero console errors.
+- [x] **P15-06 (part 2): zod 3 to 4** (2026-11-22, branch `fix/zod-4-upgrade`)
+  - `zod` 4.6.7 (exact; owner approved) fixes the memory-exhaustion advisory. Code changes limited to the zod 4 API: `errorMap` to `error` on the two signup literals, `error.errors` to `error.issues` in the signup route and `lib/content.ts`.
+  - New `lib/schema.test.ts` (8 tests, written and passing on zod 3 first) proves the content rules did not loosen: 140-character summary limit, duplicate tag variants, duplicate screen IDs, missing fields and empty lessons are still rejected; tag normalising and defaults still apply. 2 more route tests pin the signup's own error messages. 27 tests total.
+  - `npm audit` now lists only `postcss` bundled inside Next (build-time only; clears with Next 16). Page sizes unchanged, so zod is not in the learner's download.
+  - Default zod messages are worded differently in v4 (e.g. "Invalid input: expected string, received undefined"); the app's own messages are unchanged.

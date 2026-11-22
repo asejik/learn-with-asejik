@@ -3,29 +3,27 @@ import { z } from "zod";
 
 const PilotSignupSchema = z.object({
   fullName: z
-    .string()
+    .string({ error: "Please provide your full name." })
     .trim()
     .min(2, "Full name must be at least 2 characters.")
     .max(100, "Full name must be under 100 characters."),
   email: z
-    .string()
+    .string({ error: "Please provide a valid email address." })
     .trim()
     .toLowerCase()
     .email("Please provide a valid email address.")
     .max(100, "Email must be under 100 characters."),
   consent: z.literal(true, {
-    errorMap: () => ({
-      message:
-        "Explicit, un-ticked consent is required under the Nigeria Data Protection Act (NDPA 2023).",
-    }),
+    error:
+      "Explicit, un-ticked consent is required under the Nigeria Data Protection Act (NDPA 2023).",
   }),
   // Pilot signup is for adults only; learners of any age may still read lessons.
   ageConfirmed: z.literal(true, {
-    errorMap: () => ({
-      message: "Pilot signup is for learners aged 18 and over. Please confirm you are 18 or older.",
-    }),
+    error: "Pilot signup is for learners aged 18 and over. Please confirm you are 18 or older.",
   }),
-  consentedAt: z.string().min(1, "Consent timestamp is required."),
+  consentedAt: z
+    .string({ error: "Consent timestamp is required." })
+    .min(1, "Consent timestamp is required."),
 });
 
 // How long to wait for the roster webhook before giving up.
@@ -50,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: result.error.errors[0]?.message || "Invalid submission payload.",
+          error: result.error.issues[0]?.message || "Invalid submission payload.",
         },
         { status: 400 }
       );

@@ -119,16 +119,22 @@ describe("POST /api/pilot-signup", () => {
     expect(loggedText(logSpies)).not.toContain(NAME);
   });
 
-  it("still rejects a submission without consent before contacting the webhook", async () => {
+  it("rejects a submission without consent before contacting the webhook", async () => {
     vi.stubEnv("PILOT_SIGNUP_WEBHOOK_URL", WEBHOOK);
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
 
-    const res = await POST(
-      signupRequest({ fullName: NAME, email: EMAIL, consent: false, ageConfirmed: true, consentedAt: "x" })
-    );
+    for (const consent of [undefined, false, "true"]) {
+      const res = await POST(
+        signupRequest({ fullName: NAME, email: EMAIL, consent, ageConfirmed: true, consentedAt: "x" })
+      );
+      const body = await res.json();
 
-    expect(res.status).toBe(400);
+      expect(res.status).toBe(400);
+      expect(body.error).toBe(
+        "Explicit, un-ticked consent is required under the Nigeria Data Protection Act (NDPA 2023)."
+      );
+    }
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -153,6 +159,42 @@ describe("POST /api/pilot-signup", () => {
       expect(body.success).toBe(false);
       expect(body.error).toMatch(/18/);
     }
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects a malformed email with its own message before contacting the webhook", async () => {
+    vi.stubEnv("PILOT_SIGNUP_WEBHOOK_URL", WEBHOOK);
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const res = await POST(
+      signupRequest({
+        fullName: NAME,
+        email: "not-an-email",
+        consent: true,
+        ageConfirmed: true,
+        consentedAt: "2026-11-21T12:00:00.000Z",
+      })
+    );
+    const body = await res.json();
+
+    expect(res.status).toBe(400);
+    expect(body.error).toBe("Please provide a valid email address.");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("gives its own message when the consent timestamp is missing", async () => {
+    vi.stubEnv("PILOT_SIGNUP_WEBHOOK_URL", WEBHOOK);
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const res = await POST(
+      signupRequest({ fullName: NAME, email: EMAIL, consent: true, ageConfirmed: true })
+    );
+    const body = await res.json();
+
+    expect(res.status).toBe(400);
+    expect(body.error).toBe("Consent timestamp is required.");
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });
