@@ -1,12 +1,14 @@
 "use client";
 
 import { CheckCircle2, AlertTriangle, Info, ArrowRight, RotateCcw } from "lucide-react";
+import { retryLabel as describeRetry } from "./lessonProgress";
 
 interface FeedbackPanelProps {
   status: "correct" | "incorrect" | "info" | null;
   explanation?: string;
   bonusFact?: string;
-  isRetryQueued?: boolean;
+  /** Screens before the queued retry (0 = next); null or absent when none */
+  retryAfterScreens?: number | null;
   onContinue: () => void;
   isLastScreen: boolean;
 }
@@ -15,7 +17,7 @@ export function FeedbackPanel({
   status,
   explanation,
   bonusFact,
-  isRetryQueued = false,
+  retryAfterScreens = null,
   onContinue,
   isLastScreen,
 }: FeedbackPanelProps) {
@@ -24,6 +26,7 @@ export function FeedbackPanel({
   const isCorrect = status === "correct";
   const isIncorrect = status === "incorrect";
   const isInfo = status === "info";
+  const retryLabel = retryAfterScreens === null ? null : describeRetry(retryAfterScreens);
 
   return (
     <div
@@ -77,10 +80,10 @@ export function FeedbackPanel({
           </div>
 
           {/* Retry Badge */}
-          {isRetryQueued && (
+          {retryLabel && (
             <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-900">
               <RotateCcw className="w-3 h-3" />
-              <span>Retry in 3 screens</span>
+              <span>{retryLabel}</span>
             </span>
           )}
         </div>

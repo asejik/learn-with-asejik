@@ -98,14 +98,16 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
 
       {/* 2. Main Screen Interaction Area */}
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col justify-between">
-        <div className="space-y-5">
+        {/* Keyed by position, so a retry of the same question starts fresh
+            instead of showing the previous attempt's answer */}
+        <div key={`${machine.currentIndex}-${screen.id}`} className="space-y-5">
           {/* Section Breadcrumb & Title */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-600">
                 {course.title}
               </span>
-              {machine.retryQueue.includes(screen.id) && (
+              {machine.isRetry && (
                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
                   <RotateCcw className="w-2.5 h-2.5" />
                   <span>Active Recall Retry</span>
@@ -201,7 +203,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
         status={machine.feedbackState.status}
         explanation={machine.feedbackState.explanation}
         bonusFact={machine.feedbackState.bonusFact}
-        isRetryQueued={machine.feedbackState.isRetryQueued}
+        retryAfterScreens={machine.feedbackState.retryAfterScreens}
         onContinue={handleContinue}
         isLastScreen={isLastScreen}
       />

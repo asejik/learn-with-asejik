@@ -61,3 +61,43 @@ export function restorePlayerPosition(
 
   return { sequence, currentIndex: currentScreenIndex, retryQueue };
 }
+
+/**
+ * Active-recall retry rules. A wrongly answered question comes back once,
+ * three screens later (or at the end if fewer remain). A question that was
+ * already retried is not queued again, so every lesson can be finished.
+ */
+export const RETRY_GAP_SCREENS = 3;
+export const MAX_ATTEMPTS_PER_SCREEN = 2;
+
+export interface RetryPlan {
+  /** The screen order with the retry inserted */
+  sequence: string[];
+  /** How many screens come before the retry (0 means it is next) */
+  screensBefore: number;
+}
+
+export function planRetry(
+  sequence: string[],
+  currentIndex: number,
+  screenId: string
+): RetryPlan | null {
+  const timesScheduled = sequence.filter((id) => id === screenId).length;
+  if (timesScheduled >= MAX_ATTEMPTS_PER_SCREEN) return null;
+
+  const insertIndex = Math.min(currentIndex + RETRY_GAP_SCREENS + 1, sequence.length);
+  const next = [...sequence];
+  next.splice(insertIndex, 0, screenId);
+  return { sequence: next, screensBefore: insertIndex - currentIndex - 1 };
+}
+
+/** Badge text for a queued retry, e.g. "Retry next" or "Retry after 3 screens". */
+export function retryLabel(screensBefore: number): string {
+  if (screensBefore === 0) return "Retry next";
+  return `Retry after ${screensBefore} screen${screensBefore === 1 ? "" : "s"}`;
+}
+
+/** True when the screen at this position is a retry, not the first attempt. */
+export function isRetryAttempt(sequence: string[], index: number): boolean {
+  return index > sequence.indexOf(sequence[index]);
+}
