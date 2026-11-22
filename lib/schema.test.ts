@@ -99,6 +99,19 @@ describe("content schema", () => {
     expect(LessonSchema.safeParse({ ...lesson, screens }).success).toBe(false);
   });
 
+  it("rejects a lesson diagram whose label touches its shape", () => {
+    const diagramIndex = lesson.screens.findIndex(
+      (s: { widgetType: string }) => s.widgetType === "diagramExplorer"
+    );
+    const screens = structuredClone(lesson.screens);
+    screens[diagramIndex].widgetData.diagramSvg =
+      "<svg viewBox='0 0 500 120'><circle cx='430' cy='60' r='35' stroke-width='2'/>" +
+      "<text x='430' y='65' font-size='12' text-anchor='middle'>3. Response</text></svg>";
+    const result = LessonSchema.safeParse({ ...lesson, screens });
+    expect(result.success).toBe(false);
+    expect(issueMessages(result).join(" ")).toContain("Diagram label check");
+  });
+
   it("still applies defaults", () => {
     const choice = lesson.screens.find((s: { widgetType: string }) => s.widgetType === "choice");
     const choiceData = without(choice.widgetData, "isMultiSelect");

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { findLabelOverflows } from "./svgLabelFit";
 
 // Canonical tag normalizer
 export const TagSchema = z
@@ -18,10 +19,20 @@ export const GlossaryTermSchema = z.object({
   definition: z.string().min(1),
 });
 
+// Lesson diagrams: every label must fit inside its shape with padding
+export const LessonSvgSchema = z
+  .string()
+  .min(1)
+  .superRefine((svg, ctx) => {
+    for (const problem of findLabelOverflows(svg)) {
+      ctx.addIssue({ code: "custom", message: `Diagram label check: ${problem}` });
+    }
+  });
+
 // 1. Reading Widget
 export const ReadingWidgetDataSchema = z.object({
   paragraphs: z.array(z.string().min(1)),
-  svgIllustration: z.string().optional(),
+  svgIllustration: LessonSvgSchema.optional(),
   audioClip: z
     .object({
       url: z.string().min(1),
@@ -97,7 +108,7 @@ export const DiagramNodeSchema = z.object({
 
 export const DiagramExplorerWidgetDataSchema = z.object({
   instruction: z.string().min(1),
-  diagramSvg: z.string().min(1),
+  diagramSvg: LessonSvgSchema,
   nodes: z.array(DiagramNodeSchema).min(1),
   /** Shown in the blue Info panel once every step has been explored */
   completionMessage: z.string().min(1),
