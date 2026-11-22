@@ -128,3 +128,7 @@ Last updated: 2026-11-22 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - The lesson page added " | Learn with Asejik" to its title and the root layout's title template added it again. The lesson page now gives only the lesson title.
   - New `app/courses/[courseSlug]/[lessonSlug]/page.test.ts` (2 tests, both failed on the old code). 54 tests total. Built titles checked for the lesson, catalog, privacy and offline pages: the site name appears once on each.
   - Browser-checked: lesson title correct on a direct load (375px) and after an in-app tap from the catalog (1280px); zero console errors.
+- [x] **Refactor before P15-21: shared drawer shell and privacy notice content** (2026-11-22, branch `refactor/shared-drawer-privacy-content`; no behaviour change, owner approved)
+  - New `components/player/SlideOverDrawer.tsx` (backdrop, dialog role, Escape, header with 44px close button, scrolling body, footer button); `GlossaryDrawer` and `AITutorDrawer` now use it instead of each carrying a copy.
+  - New `components/privacy/PrivacyNoticeContent.tsx` holds the privacy notice text; `/privacy` renders it, so the wording can be reused without a second copy.
+  - Proof of no change: built `/privacy` main markup identical before and after; page sizes unchanged (lesson 166 KB, catalog 158 KB); 54 tests pass. Browser: glossary drawer at 375px (open, 44px close button, Escape) and AI Tutor drawer at 1280px (close button, footer button), zero console errors.
