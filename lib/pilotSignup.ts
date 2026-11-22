@@ -32,6 +32,10 @@ const PilotSignupSchema = z.object({
 // How long to wait for the roster webhook before giving up.
 const WEBHOOK_TIMEOUT_MS = 8000;
 
+function isRosterConfirmation(reply: unknown): boolean {
+  return typeof reply === "object" && reply !== null && (reply as { ok?: unknown }).ok === true;
+}
+
 function rosterUnavailable() {
   return Response.json(
     {
@@ -83,6 +87,8 @@ export async function handlePilotSignup(
     // SECURITY & NDPA PRIVACY: never log personal data (names, emails) or the
     // webhook URL, which acts as a write credential for the roster.
     let webhookStatus: number;
+    let webhookReply: unknown = null;
+    let replyReadError: string | null = null;
     try {
       const webhookRes = await fetch(webhookUrl, {
         method: "POST",
@@ -97,6 +103,12 @@ export async function handlePilotSignup(
         signal: AbortSignal.timeout(WEBHOOK_TIMEOUT_MS),
       });
       webhookStatus = webhookRes.status;
+      // A reply that is not JSON (or arrives after the timeout) counts as no
+      // confirmation; it is handled below as "not recorded".
+      webhookReply = await webhookRes.json().catch((readErr: unknown) => {
+        replyReadError = readErr instanceof Error ? readErr.name : "UnknownError";
+        return null;
+      });
     } catch (webhookErr) {
       const reason = webhookErr instanceof Error ? webhookErr.name : "UnknownError";
       console.error(`[Pilot Signup] Roster webhook unreachable (${reason}); signup not recorded`);
@@ -105,6 +117,16 @@ export async function handlePilotSignup(
 
     if (webhookStatus < 200 || webhookStatus >= 300) {
       console.error(`[Pilot Signup] Roster webhook returned HTTP ${webhookStatus}; signup not recorded`);
+      return rosterUnavailable();
+    }
+
+    // The roster (a Google Apps Script) answers HTTP 200 even when it fails,
+    // so only an explicit {"ok": true} counts as recorded.
+    if (!isRosterConfirmation(webhookReply)) {
+      const detail = replyReadError ? ` (reply unreadable: ${replyReadError})` : "";
+      console.error(
+        `[Pilot Signup] Roster webhook did not confirm the record${detail}; signup not recorded`
+      );
       return rosterUnavailable();
     }
 

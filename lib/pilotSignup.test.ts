@@ -19,6 +19,15 @@ function signupRequest(body: unknown = {
   });
 }
 
+// What the Google Apps Script roster answers: always HTTP 200, with the
+// outcome in the JSON body.
+function rosterReply(body: unknown) {
+  return new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
 // Every console line the route writes, so tests can check no personal data leaks.
 function loggedText(spies: ReturnType<typeof vi.spyOn>[]) {
   return spies
@@ -86,9 +95,55 @@ describe("handlePilotSignup", () => {
     expect(loggedText(logSpies)).not.toContain(WEBHOOK);
   });
 
+  it("returns 502 when the roster answers 200 but reports a failure", async () => {
+    webhook = WEBHOOK;
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(rosterReply({ ok: false, error: "server" })));
+
+    const res = await post(signupRequest());
+    const body = await res.json();
+
+    expect(res.status).toBe(502);
+    expect(body.success).toBe(false);
+    expect(loggedText(logSpies)).not.toContain(EMAIL);
+    expect(loggedText(logSpies)).not.toContain(WEBHOOK);
+  });
+
+  it("returns 502 when the roster answers 200 without a JSON confirmation", async () => {
+    webhook = WEBHOOK;
+    for (const reply of [
+      new Response("ok", { status: 200 }),
+      new Response("<html>Sign in</html>", { status: 200, headers: { "Content-Type": "text/html" } }),
+      rosterReply({ ok: "true" }),
+      rosterReply(null),
+    ]) {
+      vi.stubGlobal("fetch", vi.fn().mockResolvedValue(reply));
+      const res = await post(signupRequest());
+      expect(res.status).toBe(502);
+      expect((await res.json()).success).toBe(false);
+    }
+  });
+
+  it("returns 502 and logs the reason when the reply body times out", async () => {
+    webhook = WEBHOOK;
+    const stalledBody = new ReadableStream({
+      start(controller) {
+        controller.error(new DOMException("The operation timed out.", "TimeoutError"));
+      },
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(stalledBody, { status: 200 })));
+
+    const res = await post(signupRequest());
+
+    expect(res.status).toBe(502);
+    expect((await res.json()).success).toBe(false);
+    expect(loggedText(logSpies)).toContain("TimeoutError");
+    expect(loggedText(logSpies)).not.toContain(EMAIL);
+    expect(loggedText(logSpies)).not.toContain(WEBHOOK);
+  });
+
   it("sends the webhook request with a timeout signal", async () => {
     webhook = WEBHOOK;
-    const fetchMock = vi.fn().mockResolvedValue(new Response("ok", { status: 200 }));
+    const fetchMock = vi.fn().mockResolvedValue(rosterReply({ ok: true }));
     vi.stubGlobal("fetch", fetchMock);
 
     await post(signupRequest());
@@ -99,7 +154,7 @@ describe("handlePilotSignup", () => {
 
   it("returns 200 only after the roster webhook accepts the record", async () => {
     webhook = WEBHOOK;
-    const fetchMock = vi.fn().mockResolvedValue(new Response("ok", { status: 200 }));
+    const fetchMock = vi.fn().mockResolvedValue(rosterReply({ ok: true }));
     vi.stubGlobal("fetch", fetchMock);
 
     const res = await post(signupRequest());

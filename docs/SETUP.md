@@ -43,8 +43,77 @@ Last updated: 2026-11-22 | Status: CONFIGURED (hosting code ready; first deploy 
 1. Log in to the Cloudflare dashboard (2FA on).
 2. **Workers & Pages → Create → Workers → Import a repository**. Choose the GitHub account and `asejik/learn-with-asejik`; give Cloudflare access to this repository only.
 3. Build settings: project name `learn-with-asejik` (must match `name` in `wrangler.jsonc`), build command `npm run build`, deploy command `npx wrangler deploy`, production branch `main`. Turn on builds for non-production branches so each PR gets a preview URL.
-4. In the Worker: **Settings → Variables and Secrets → Add**, type **Secret**, name `PILOT_SIGNUP_WEBHOOK_URL`, value the Google Apps Script URL.
+4. In the Worker: **Settings → Variables and Secrets → Add**, type **Secret**, name `PILOT_SIGNUP_WEBHOOK_URL`, value the Google Apps Script URL (section 4). You can deploy without it first: signup then fails closed with "isn't available right now" and lessons work normally.
 5. Deploy and open the `*.workers.dev` URL. Ask the AI agent to run the read-only checks (pages, security headers, `sw.js` caching, course redirect, offline reload), then make one real test signup yourself and confirm the row reaches the roster.
 6. **Settings → Domains & Routes → Add → Custom domain** → `learn.asejik.com`. If `asejik.com` is not on Cloudflare DNS, add the domain to Cloudflare first or create the record your DNS provider asks for.
 7. Add a free uptime monitor on the live URL (item 9), and record the hosting processor check in the P03 audit.
 8. Optional, your decision: **Settings → Observability → Workers Logs** keeps the Worker's error lines (no names, emails or webhook URL) in Cloudflare for a few days. Off by default; without it, use `npx wrangler tail` to watch live logs. If you turn it on, add it to the P03 data inventory.
+
+---
+
+## 4. Pilot Roster (Google Sheet + Apps Script, owner steps)
+
+The signup handler (`lib/pilotSignup.ts`) POSTs `{ fullName, email, consentedAt, ageConfirmed, source }` and only reports success when the script answers **JSON `{"ok": true}`**. Apps Script answers HTTP 200 even on failure, so any other reply is treated as "not recorded" and the learner is asked to try again.
+
+1. In your Google account (2FA on), create a sheet named `Learn with Asejik – Pilot Roster`. Rename the first tab to `Roster`; row 1 headers: `receivedAt | fullName | email | consentedAt | ageConfirmed | source`. Keep it private.
+2. **Extensions → Apps Script**, replace the code with the script below, save.
+3. **Deploy → New deployment → Web app**: Execute as **Me**, Who has access **Anyone** (Cloudflare calls it without a Google login; the long URL is the credential). Authorize, copy the URL ending in `/exec`.
+4. Store it only as the Cloudflare secret `PILOT_SIGNUP_WEBHOOK_URL` (and in `.env.local` for local testing). Never in code, chat or a `NEXT_PUBLIC_` variable.
+   - **Changing the script later:** use **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. This keeps the same URL. A *new deployment* gets a new URL, and the secret would still point at the old code.
+   - **If the URL leaks:** create a new deployment, update the secret to the new URL, then **archive the old deployment** in Manage deployments. A new deployment does not switch off the old URL.
+5. Make one real test signup on the deployed site and confirm the row appears.
+6. Retention: delete rows after the pilot plus 12 months, as the privacy notice promises.
+7. Duplicates: if the roster is slow, a learner can see "couldn't save" even though the row was written, and their retry adds a second row. Before contacting learners, remove duplicate rows by email (**Data → Data cleanup → Remove duplicates** on the email column).
+
+```javascript
+// Learn with Asejik pilot roster: receives signups from the Cloudflare Worker.
+const SHEET_NAME = "Roster";
+
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(10000);
+    const data = JSON.parse(e.postData.contents);
+    // Same limits as the website's checks, in case the URL is ever used directly.
+    const valid =
+      data.source === "learn-with-asejik-pilot" &&
+      data.ageConfirmed === true &&
+      isText(data.fullName, 100) &&
+      isText(data.email, 100) &&
+      data.email.indexOf("@") > 0 &&
+      isText(data.consentedAt, 40);
+    if (!valid) return reply({ ok: false, error: "invalid" });
+
+    SpreadsheetApp.getActive()
+      .getSheetByName(SHEET_NAME)
+      .appendRow([
+        new Date().toISOString(),
+        safeCell(data.fullName),
+        safeCell(data.email),
+        safeCell(data.consentedAt),
+        true,
+        data.source,
+      ]);
+    return reply({ ok: true });
+  } catch (err) {
+    return reply({ ok: false, error: "server" });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function isText(value, maxLength) {
+  return typeof value === "string" && value.length > 0 && value.length <= maxLength;
+}
+
+// Stop text like "=HYPERLINK(...)" from being run as a spreadsheet formula.
+function safeCell(value) {
+  return /^[=+\-@\t\r]/.test(value) ? "'" + value : value;
+}
+
+function reply(body) {
+  return ContentService.createTextOutput(JSON.stringify(body)).setMimeType(
+    ContentService.MimeType.JSON
+  );
+}
+```

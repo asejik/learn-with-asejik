@@ -30,7 +30,7 @@ describe("Cloudflare Worker", () => {
   });
 
   it("records a signup using the webhook secret from the Worker environment", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(new Response("ok", { status: 200 }));
+    const fetchMock = vi.fn().mockResolvedValue(Response.json({ ok: true }));
     vi.stubGlobal("fetch", fetchMock);
 
     const res = await worker.fetch(request("/api/pilot-signup"), { PILOT_SIGNUP_WEBHOOK_URL: WEBHOOK });
