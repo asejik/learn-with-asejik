@@ -54,7 +54,7 @@
         "template": "An API acts as a standardized {blank} that allows two applications to exchange data without exposing their internal databases.",
         "options": ["contract", "cable", "database", "firewall"],
         "correctAnswer": "contract",
-        "explanation": "Correct! An API is a formal contract specifying valid endpoints, required inputs, and expected response formats.",
+        "explanation": "An API is a formal contract specifying valid endpoints, required inputs, and expected response formats.",
         "bonusFact": "Over 80% of modern internet traffic consists of API calls exchanging lightweight JSON payloads."
       }
     },
@@ -84,7 +84,7 @@
           }
         ],
         "correctOptionIds": ["opt-2"],
-        "explanation": "Exactly! The ride-hailing app connects to Google's mapping API, requesting live map tiles on the fly.",
+        "explanation": "The ride-hailing app connects to Google's mapping API, requesting live map tiles on the fly.",
         "bonusFact": "APIs allow lean startups to build complex products quickly by assembling best-in-class third-party services."
       }
     },
@@ -153,7 +153,9 @@
             "definition": "The server transmits back an HTTP status code (like 200 OK) accompanied by the requested JSON data payload.",
             "bonusFact": "If something went wrong, the response provides an error message explaining why."
           }
-        ]
+        ],
+        "completionMessage": "You've explored every step of the request-response lifecycle.",
+        "completionBonusFact": "Understanding this three-part cycle makes debugging API errors (like 404 vs 500) much faster."
       }
     },
     {

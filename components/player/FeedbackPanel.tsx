@@ -73,7 +73,7 @@ export function FeedbackPanel({
                   <Info className="w-4 h-4" />
                 </div>
                 <h3 className="text-sm font-extrabold text-sky-900">
-                  Concept Discovered
+                  All parts explored
                 </h3>
               </>
             )}
@@ -97,7 +97,13 @@ export function FeedbackPanel({
 
         {/* Bonus Fact Callout */}
         {bonusFact && (
-          <div className="p-2.5 bg-emerald-100/70 rounded-xl border border-emerald-200 text-xs text-emerald-900 leading-normal">
+          <div
+            className={`p-2.5 rounded-xl border text-xs leading-normal ${
+              isCorrect
+                ? "bg-emerald-100/70 border-emerald-200 text-emerald-900"
+                : "bg-white border-slate-200 text-slate-700"
+            }`}
+          >
             <span className="font-bold">Bonus Insight: </span>
             <span>{bonusFact}</span>
           </div>

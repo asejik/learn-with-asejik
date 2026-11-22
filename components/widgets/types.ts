@@ -11,3 +11,6 @@ export interface BaseWidgetProps<T> {
   isAnswered: boolean;
   onContinue?: () => void;
 }
+
+/** For widgets with nothing to get right or wrong (e.g. exploring a diagram) */
+export type ExploredHandler = (result: { explanation: string; bonusFact?: string }) => void;

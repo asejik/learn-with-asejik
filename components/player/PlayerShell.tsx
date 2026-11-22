@@ -179,6 +179,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
               glossary={screen.glossary}
               onOpenGlossary={handleOpenGlossary}
               onSubmitAnswer={machine.submitAnswer}
+              onExplored={machine.showInfo}
               isAnswered={isAnswered}
             />
           )}
