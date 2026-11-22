@@ -9,19 +9,21 @@ import { PlayerShell } from "@/components/player/PlayerShell";
 import { Metadata } from "next";
 
 interface LessonPageProps {
-  params: {
+  // Next.js 15: route params arrive as a Promise
+  params: Promise<{
     courseSlug: string;
     lessonSlug: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
   return getAllLessonParams();
 }
 
-export function generateMetadata({ params }: LessonPageProps): Metadata {
+export async function generateMetadata({ params }: LessonPageProps): Promise<Metadata> {
+  const { courseSlug, lessonSlug } = await params;
   try {
-    const lesson = getLesson(params.courseSlug, params.lessonSlug);
+    const lesson = getLesson(courseSlug, lessonSlug);
     return {
       title: `${lesson.title} | Learn with Asejik`,
       description: `Interactive lesson on ${lesson.title}. Ultra-low data active recall learning.`,
@@ -33,10 +35,11 @@ export function generateMetadata({ params }: LessonPageProps): Metadata {
   }
 }
 
-export default function LessonPage({ params }: LessonPageProps) {
+export default async function LessonPage({ params }: LessonPageProps) {
+  const { courseSlug, lessonSlug } = await params;
   try {
-    const course = getCourseBySlug(params.courseSlug);
-    const lesson = getLesson(params.courseSlug, params.lessonSlug);
+    const course = getCourseBySlug(courseSlug);
+    const lesson = getLesson(courseSlug, lessonSlug);
 
     return <PlayerShell course={course} lesson={lesson} />;
   } catch {
