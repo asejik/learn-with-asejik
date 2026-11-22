@@ -1,48 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Static export for Cloudflare Workers static assets. Security headers live
+  // in public/_headers and redirects in out/_redirects (scripts/finish-export.ts);
+  // signups go through the Worker in worker/index.ts.
+  output: "export",
   images: {
     unoptimized: true,
   },
   reactStrictMode: true,
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob:",
-              "font-src 'self' data:",
-              "connect-src 'self' https:",
-              "frame-ancestors 'none'",
-              "object-src 'none'",
-              "base-uri 'self'",
-            ].join("; "),
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default nextConfig;

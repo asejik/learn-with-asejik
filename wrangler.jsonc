@@ -1,0 +1,20 @@
+// Cloudflare Workers deployment (P15-05). Pages are plain files from the
+// static export in out/; only /api/* runs the Worker (worker/index.ts).
+// Secret (set in the Cloudflare dashboard, never here): PILOT_SIGNUP_WEBHOOK_URL
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "learn-with-asejik",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./out",
+    "run_worker_first": ["/api/*"],
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  // Don't send Wrangler usage metrics from developer machines or CI.
+  "send_metrics": false,
+  "dev": {
+    "port": 3000
+  }
+}
