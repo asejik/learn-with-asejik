@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Lesson, Screen } from "@/lib/schema";
-import { saveCourseProgress, saveLessonState } from "@/lib/db";
+import { saveCourseProgress, saveLessonState, getLessonState } from "@/lib/db";
+import { restorePlayerPosition } from "./lessonProgress";
 
 const STORAGE_KEY_PROGRESS = "asejik_course_progress_v1";
 
@@ -26,6 +27,9 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
   const [isGated, setIsGated] = useState(true);
   const [retryQueue, setRetryQueue] = useState<string[]>([]);
   const [isLessonComplete, setIsLessonComplete] = useState(false);
+  // True until saved progress has been read back, so screen 1 never flashes
+  // before the learner's saved screen appears
+  const [isRestoring, setIsRestoring] = useState(true);
 
   // Map of screen ID to Screen object for fast lookup
   const screenMap = useMemo(() => {
@@ -33,6 +37,58 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
     lesson.screens.forEach((s) => map.set(s.id, s));
     return map;
   }, [lesson.screens]);
+
+  // Resume where the learner left off (US-04). Saved state that no longer
+  // matches the lesson content starts the lesson fresh.
+  useEffect(() => {
+    let cancelled = false;
+    const lessonScreenIds = lesson.screens.map((s) => s.id);
+
+    getLessonState(courseSlug, lesson.slug)
+      .then((saved) => {
+        if (cancelled) return;
+        const restored = restorePlayerPosition(lessonScreenIds, saved);
+        if (restored) {
+          setSequence(restored.sequence);
+          setCurrentIndex(restored.currentIndex);
+          setRetryQueue(restored.retryQueue);
+          const resumedScreen = lesson.screens.find(
+            (s) => s.id === restored.sequence[restored.currentIndex]
+          );
+          setIsGated(resumedScreen?.widgetType !== "reading");
+        }
+      })
+      .catch((err: unknown) => {
+        const reason = err instanceof Error ? err.name : "UnknownError";
+        console.warn(`[Player] Could not read saved lesson progress (${reason}); starting fresh`);
+      })
+      .finally(() => {
+        if (!cancelled) setIsRestoring(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [courseSlug, lesson.slug, lesson.screens]);
+
+  // Save the position after every step so a reload, or going offline,
+  // resumes on the same screen with any queued retries kept
+  useEffect(() => {
+    if (isRestoring || isLessonComplete) return;
+    saveLessonState(courseSlug, lesson.slug, {
+      currentScreenIndex: currentIndex,
+      sequence,
+      retryQueue,
+      positionSavedAt: Date.now(),
+    })
+      .then((saved) => {
+        if (!saved) console.warn("[Player] Lesson progress was not saved");
+      })
+      .catch((err: unknown) => {
+        const reason = err instanceof Error ? err.name : "UnknownError";
+        console.warn(`[Player] Could not save lesson progress (${reason})`);
+      });
+  }, [isRestoring, isLessonComplete, courseSlug, lesson.slug, currentIndex, sequence, retryQueue]);
 
   // Current screen object
   const currentScreenId = sequence[currentIndex] || sequence[0];
@@ -146,6 +202,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
     feedbackState,
     retryQueue,
     isLessonComplete,
+    isRestoring,
     ungate,
     submitAnswer,
     nextScreen,

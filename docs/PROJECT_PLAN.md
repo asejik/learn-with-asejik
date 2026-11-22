@@ -139,7 +139,8 @@ Lesson (lessons/<lesson-slug>.json)
   - Fields: `{ completedLessonSlugs: string[], activeLessonSlug: string, lastActiveAt: number, percentage: number }`
 * **Object Store 3: `lesson_state`**
   - Key: `${courseSlug}_${lessonSlug}`
-  - Fields: `{ currentScreenIndex: number, completedScreenIds: string[], retryQueue: string[], completedAt?: number, rating?: "thumbs-up" | "thumbs-down" }`
+  - Fields: `{ currentScreenIndex: number, completedScreenIds: string[], retryQueue: string[], sequence?: string[], positionSavedAt?: number, completedAt?: number, rating?: "thumbs-up" | "thumbs-down" }`
+  - `sequence` (screen order including retry repeats) and `positionSavedAt` are written after every step so the player resumes mid-lesson (US-04). Saved state that no longer matches the lesson content starts the lesson fresh.
 
 ---
 
