@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { isRetryAttempt, planRetry, restorePlayerPosition, retryLabel } from "./lessonProgress";
+import { describe, it, expect, vi } from "vitest";
+import { isRetryAttempt, planRetry, readWithTimeout, restorePlayerPosition, retryLabel } from "./lessonProgress";
 
 const SCREEN_IDS = ["s1", "s2", "s3", "s4", "s5"];
 
@@ -143,5 +143,23 @@ describe("isRetryAttempt", () => {
     expect(isRetryAttempt(sequence, 1)).toBe(false);
     expect(isRetryAttempt(sequence, 3)).toBe(true);
     expect(isRetryAttempt(sequence, 0)).toBe(false);
+  });
+});
+
+describe("readWithTimeout", () => {
+  it("returns the value when the read is fast", async () => {
+    expect(await readWithTimeout(Promise.resolve("saved"), 3000)).toEqual({ timedOut: false, value: "saved" });
+  });
+
+  it("gives up when the read never finishes", async () => {
+    vi.useFakeTimers();
+    const result = readWithTimeout(new Promise<string>(() => undefined), 3000);
+    await vi.advanceTimersByTimeAsync(3000);
+    expect(await result).toEqual({ timedOut: true });
+    vi.useRealTimers();
+  });
+
+  it("passes a read error on", async () => {
+    await expect(readWithTimeout(Promise.reject(new Error("boom")), 3000)).rejects.toThrow("boom");
   });
 });
