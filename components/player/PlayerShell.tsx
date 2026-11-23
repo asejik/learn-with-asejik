@@ -68,10 +68,20 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
   // Wait for saved progress before showing a screen, so screen 1 doesn't flash
   if (machine.isRestoring) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-2 px-4 text-center">
         <p role="status" className="text-sm font-semibold text-slate-500">
           Restoring your place…
         </p>
+        {/* Only appears if this screen is still up after 8 seconds (see globals.css) */}
+        <div className="reveal-late text-xs text-slate-600">
+          <p>Taking longer than usual. Check your connection, then reload.</p>
+          <a
+            href=""
+            className="mt-2 inline-flex items-center justify-center min-h-tap px-5 rounded-xl bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 transition"
+          >
+            Reload
+          </a>
+        </div>
       </div>
     );
   }

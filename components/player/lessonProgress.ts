@@ -101,3 +101,25 @@ export function retryLabel(screensBefore: number): string {
 export function isRetryAttempt(sequence: string[], index: number): boolean {
   return index > sequence.indexOf(sequence[index]);
 }
+
+/** How long to wait for saved progress before starting the lesson fresh. */
+export const RESTORE_TIMEOUT_MS = 3000;
+
+export type TimedRead<T> = { timedOut: false; value: T } | { timedOut: true };
+
+/** Resolves with the read's value, or `{ timedOut: true }` if it takes too long. */
+export function readWithTimeout<T>(read: Promise<T>, ms: number): Promise<TimedRead<T>> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => resolve({ timedOut: true }), ms);
+    read.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve({ timedOut: false, value });
+      },
+      (error: unknown) => {
+        clearTimeout(timer);
+        reject(error);
+      }
+    );
+  });
+}

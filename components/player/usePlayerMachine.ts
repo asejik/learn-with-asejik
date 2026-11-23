@@ -1,9 +1,15 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { Lesson, Screen } from "@/lib/schema";
 import { saveCourseProgress, saveLessonState, getLessonState } from "@/lib/db";
-import { isRetryAttempt, planRetry, restorePlayerPosition } from "./lessonProgress";
+import {
+  RESTORE_TIMEOUT_MS,
+  isRetryAttempt,
+  planRetry,
+  readWithTimeout,
+  restorePlayerPosition,
+} from "./lessonProgress";
 
 const STORAGE_KEY_PROGRESS = "asejik_course_progress_v1";
 
@@ -31,6 +37,9 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
   // True until saved progress has been read back, so screen 1 never flashes
   // before the learner's saved screen appears
   const [isRestoring, setIsRestoring] = useState(true);
+  // Set when saved progress did not load in time. Storage may only be slow, so
+  // this visit must not overwrite the learner's saved position.
+  const restoreTimedOut = useRef(false);
 
   // Map of screen ID to Screen object for fast lookup
   const screenMap = useMemo(() => {
@@ -45,10 +54,15 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
     let cancelled = false;
     const lessonScreenIds = lesson.screens.map((s) => s.id);
 
-    getLessonState(courseSlug, lesson.slug)
-      .then((saved) => {
+    readWithTimeout(getLessonState(courseSlug, lesson.slug), RESTORE_TIMEOUT_MS)
+      .then((read) => {
         if (cancelled) return;
-        const restored = restorePlayerPosition(lessonScreenIds, saved);
+        if (read.timedOut) {
+          restoreTimedOut.current = true;
+          console.warn("[Player] Saved lesson progress did not load in time; starting fresh");
+          return;
+        }
+        const restored = restorePlayerPosition(lessonScreenIds, read.value);
         if (restored) {
           setSequence(restored.sequence);
           setCurrentIndex(restored.currentIndex);
@@ -75,7 +89,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
   // Save the position after every step so a reload, or going offline,
   // resumes on the same screen with any queued retries kept
   useEffect(() => {
-    if (isRestoring || isLessonComplete) return;
+    if (isRestoring || isLessonComplete || restoreTimedOut.current) return;
     saveLessonState(courseSlug, lesson.slug, {
       currentScreenIndex: currentIndex,
       sequence,
