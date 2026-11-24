@@ -3,6 +3,20 @@ import { TITLES, answer, continueFromFeedback, feedback, openLesson } from "./le
 
 const heading = (page: Page) => page.getByRole("heading", { level: 1 });
 
+test("catalog: buttons and links are at least 44px", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  const small = await page.evaluate(() =>
+    Array.from(document.querySelectorAll("main button:not([disabled]), main a, nav a, nav button"))
+      .map((el) => {
+        const r = el.getBoundingClientRect();
+        return { text: (el.textContent || el.getAttribute("aria-label") || "").trim().slice(0, 30), h: r.height, w: r.width };
+      })
+      .filter((b) => b.h < 44 || b.w < 44)
+  );
+  expect(small).toEqual([]);
+});
+
 test.describe("lesson player", () => {
   test("completes the lesson and shows the sign-up form", async ({ page }) => {
     await openLesson(page);
@@ -77,8 +91,8 @@ test.describe("lesson player", () => {
     for (let i = 0; i < TITLES.length; i++) {
       const sideways = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
       expect(sideways, `sideways scroll on screen ${i + 1}`).toBe(false);
-      // Answer buttons and nav controls. Inline glossary words (title="Define: ...") are
-      // left out until the owner decides (register P15-26: they are about 26px tall).
+      // Answer buttons and nav controls. Inline glossary words are checked
+      // separately below: they stay inline, with an invisible 44px hit area.
       const small = await page.evaluate(() =>
         Array.from(document.querySelectorAll("main button:not([disabled]):not([title^='Define:']), nav a, nav button"))
           .map((el) => {
@@ -92,5 +106,26 @@ test.describe("lesson player", () => {
       if (i > 0) await continueFromFeedback(page);
     }
     expect(errors).toEqual([]);
+  });
+
+  test("glossary words have a hit area of at least 44 x 44px", async ({ page }) => {
+    await openLesson(page);
+    const words = page.locator("main button[title^='Define:']");
+    expect(await words.count()).toBeGreaterThan(0);
+    for (let n = 0; n < (await words.count()); n++) {
+      const word = words.nth(n);
+      await word.scrollIntoViewIfNeeded();
+      const box = (await word.boundingBox())!;
+      const cx = box.x + box.width / 2;
+      const cy = box.y + box.height / 2;
+      // A tap anywhere in a 44px square around the word must land on the word
+      for (const [dx, dy] of [[-21, 0], [21, 0], [0, -21], [0, 21]]) {
+        const hit = await word.evaluate(
+          (el, [x, y]) => el.contains(document.elementFromPoint(x, y)),
+          [cx + dx, cy + dy]
+        );
+        expect(hit, `word ${n} at offset ${dx},${dy}`).toBe(true);
+      }
+    }
   });
 });
