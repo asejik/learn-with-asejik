@@ -9,6 +9,7 @@ import { CourseCard } from "./CourseCard";
 import { ClearDataModal } from "./ClearDataModal";
 import { ShieldCheck, Trash2, SearchX } from "lucide-react";
 import { getAllCourseProgress, clearAllLocalData } from "@/lib/db";
+import { coursePercent, resumeLesson } from "@/lib/courseProgress";
 
 interface CatalogViewProps {
   initialCourses: Course[];
@@ -20,6 +21,8 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<"all" | "grouped" | "alpha">("all");
   const [progressMap, setProgressMap] = useState<Record<string, number>>({});
+  // Lessons finished per course, from which the real course percentage is worked out
+  const [completedMap, setCompletedMap] = useState<Record<string, string[]>>({});
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
   // Failure-path safe client progress hydration (IndexedDB + localStorage)
@@ -29,11 +32,11 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
       .then((records) => {
         if (!isMounted) return;
         if (records && records.length > 0) {
-          const map: Record<string, number> = {};
+          const completed: Record<string, string[]> = {};
           records.forEach((r) => {
-            map[r.courseSlug] = r.percentage;
+            completed[r.courseSlug] = r.completedLessonSlugs;
           });
-          setProgressMap(map);
+          setCompletedMap(completed);
         } else {
           // Fallback to localStorage
           try {
@@ -115,10 +118,17 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
     return groups;
   }, [filteredCourses, viewMode]);
 
+  // Saved lessons give the real percentage; the localStorage copy is the fallback
+  function percentFor(course: Course): number {
+    const completed = completedMap[course.slug];
+    return completed ? coursePercent(course, completed) : progressMap[course.slug] || 0;
+  }
+
   // Handle clear data action (purges IndexedDB & localStorage)
   async function handleConfirmClearData() {
     await clearAllLocalData();
     setProgressMap({});
+    setCompletedMap({});
   }
 
   return (
@@ -176,7 +186,8 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
                     <CourseCard
                       key={course.slug}
                       course={course}
-                      progressPercent={progressMap[course.slug] || 0}
+                      progressPercent={percentFor(course)}
+                      resumeLessonSlug={resumeLesson(course, completedMap[course.slug] ?? [])?.slug}
                     />
                   ))}
                 </div>
@@ -190,7 +201,8 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
               <CourseCard
                 key={course.slug}
                 course={course}
-                progressPercent={progressMap[course.slug] || 0}
+                progressPercent={percentFor(course)}
+                      resumeLessonSlug={resumeLesson(course, completedMap[course.slug] ?? [])?.slug}
               />
             ))}
           </div>

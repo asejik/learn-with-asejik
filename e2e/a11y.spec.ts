@@ -24,6 +24,7 @@ test("catalog, privacy and course pages", async ({ page }) => {
 });
 
 test("every lesson screen and its feedback panel", async ({ page }) => {
+  test.setTimeout(120_000); // about 13 axe scans in one test
   await openLesson(page);
   for (let i = 0; i < TITLES.length; i++) {
     await scan(page, `screen ${i + 1} before answering`);

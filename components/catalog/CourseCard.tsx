@@ -5,17 +5,19 @@ import { ArrowRight, BookOpen, Clock, HardDrive, CheckCircle2 } from "lucide-rea
 interface CourseCardProps {
   course: Course;
   progressPercent?: number;
+  /** Lesson the button opens: the first one not finished yet */
+  resumeLessonSlug?: string;
 }
 
-export function CourseCard({ course, progressPercent = 0 }: CourseCardProps) {
+export function CourseCard({ course, progressPercent = 0, resumeLessonSlug }: CourseCardProps) {
   const isCompleted = progressPercent >= 100;
   const isStarted = progressPercent > 0 && !isCompleted;
   const isCourseMode = course.mode === "course";
 
-  // First lesson destination
-  const firstLessonSlug = course.chapters[0]?.lessons[0]?.slug;
-  const destinationHref = firstLessonSlug
-    ? `/courses/${course.slug}/${firstLessonSlug}`
+  // The first lesson, or the first one the learner has not finished
+  const lessonSlug = resumeLessonSlug ?? course.chapters[0]?.lessons[0]?.slug;
+  const destinationHref = lessonSlug
+    ? `/courses/${course.slug}/${lessonSlug}`
     : `/courses/${course.slug}`;
 
   return (
