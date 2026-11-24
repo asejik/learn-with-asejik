@@ -59,7 +59,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
           <p>Taking longer than usual. Check your connection, then reload.</p>
           <a
             href=""
-            className="mt-2 inline-flex items-center justify-center min-h-tap px-5 rounded-xl bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 transition"
+            className="mt-2 inline-flex items-center justify-center min-h-tap px-5 rounded-full bg-brand-600 text-white text-sm font-bold hover:bg-brand-700 transition"
           >
             Reload
           </a>
@@ -116,7 +116,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
           {/* Section Breadcrumb & Title */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-brand-600">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-700">
                 {course.title}
               </span>
               {machine.isRetry && (
@@ -126,7 +126,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
                 </span>
               )}
             </div>
-            <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+            <h1 className="font-display text-2xl sm:text-3xl text-slate-900 tracking-tight leading-tight">
               {screen.title}
             </h1>
           </div>

@@ -101,7 +101,7 @@ export default function ReadingWidget({
           <button
             type="button"
             onClick={onContinue}
-            className="w-full min-h-tap px-4 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-sm flex items-center justify-center gap-2 transition shadow-sm"
+            className="w-full min-h-tap px-4 py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-sm flex items-center justify-center gap-2 transition shadow-sm"
           >
             <span>Continue to Checkpoint</span>
             <ArrowRight className="w-4 h-4" />

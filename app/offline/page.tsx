@@ -13,7 +13,7 @@ export default function OfflinePage() {
       <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center">
         <WifiOff className="w-6 h-6 text-amber-600" aria-hidden="true" />
       </div>
-      <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">You&apos;re offline</h1>
+      <h1 className="font-display text-3xl text-slate-900 tracking-tight">You&apos;re offline</h1>
       <p className="text-sm text-slate-600 leading-relaxed">
         This page isn&apos;t saved on this device yet. Lessons you have opened before still work
         without a connection.

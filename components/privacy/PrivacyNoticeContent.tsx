@@ -8,7 +8,7 @@ export function PrivacyNoticeContent() {
     <article className="prose prose-slate max-w-none text-slate-700 space-y-8 text-sm leading-relaxed">
       {/* Core Principles */}
       <section className="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
-        <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-lg text-slate-900 flex items-center gap-2">
           <Lock className="w-4 h-4 text-brand-600" />
           <span>Privacy by Design & Data Minimization</span>
         </h2>
@@ -19,7 +19,7 @@ export function PrivacyNoticeContent() {
 
       {/* 1. Information Stored Locally */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-xl text-slate-900 flex items-center gap-2">
           <Database className="w-4 h-4 text-slate-700" />
           <span>1. Information Stored Locally on Your Device</span>
         </h2>
@@ -40,7 +40,7 @@ export function PrivacyNoticeContent() {
 
       {/* 2. Optional Pilot Signup */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-xl text-slate-900 flex items-center gap-2">
           <Mail className="w-4 h-4 text-slate-700" />
           <span>2. Optional Information You May Provide</span>
         </h2>
@@ -56,7 +56,7 @@ export function PrivacyNoticeContent() {
 
       {/* 3. Age */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-xl text-slate-900 flex items-center gap-2">
           <UserCheck className="w-4 h-4 text-slate-700" />
           <span>3. Who Can Sign Up</span>
         </h2>
@@ -67,7 +67,7 @@ export function PrivacyNoticeContent() {
 
       {/* 4. Processors, transfers and retention */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-xl text-slate-900 flex items-center gap-2">
           <Server className="w-4 h-4 text-slate-700" />
           <span>4. Who Processes Your Details, Where, and for How Long</span>
         </h2>
@@ -81,7 +81,7 @@ export function PrivacyNoticeContent() {
 
       {/* 5. Who is responsible */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-xl text-slate-900 flex items-center gap-2">
           <UserCheck className="w-4 h-4 text-slate-700" />
           <span>Who Is Responsible for Your Details</span>
         </h2>
@@ -93,7 +93,7 @@ export function PrivacyNoticeContent() {
 
       {/* 5. Your Rights */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="font-display text-xl text-slate-900 flex items-center gap-2">
           <Trash2 className="w-4 h-4 text-slate-700" />
           <span>5. Your Rights & Clearing Data</span>
         </h2>

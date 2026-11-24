@@ -133,7 +133,7 @@ export default function MatchPairsWidget({
                   type="button"
                   disabled={isMatched || isAnswered}
                   onClick={() => handleSelectLeft(pair.id)}
-                  className={`w-full min-h-tap p-3 sm:p-3.5 rounded-xl border text-left text-xs sm:text-sm font-bold transition flex items-center justify-between gap-2 active:scale-98 ${
+                  className={`w-full min-h-tap p-3 sm:p-3.5 rounded-full border text-left text-xs sm:text-sm font-bold transition flex items-center justify-between gap-2 active:scale-98 ${
                     isMatched
                       ? "bg-emerald-50 text-emerald-900 border-emerald-300 opacity-90 cursor-default"
                       : isSelected
@@ -169,7 +169,7 @@ export default function MatchPairsWidget({
                   type="button"
                   disabled={isMatched || isAnswered}
                   onClick={() => handleSelectRight(pair.id)}
-                  className={`w-full min-h-tap p-3 sm:p-3.5 rounded-xl border text-left text-xs sm:text-sm font-semibold transition flex items-center justify-between gap-2 active:scale-98 ${
+                  className={`w-full min-h-tap p-3 sm:p-3.5 rounded-full border text-left text-xs sm:text-sm font-semibold transition flex items-center justify-between gap-2 active:scale-98 ${
                     isMatched
                       ? "bg-emerald-50 text-emerald-900 border-emerald-300 opacity-90 cursor-default"
                       : isSelected

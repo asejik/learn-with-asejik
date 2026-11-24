@@ -148,7 +148,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
             {nextLesson ? "Lesson Completed" : <>Tutorial Completed &bull; 100% Progress</>}
           </span>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
+          <h1 className="font-display text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
             {lesson.title}
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
@@ -222,7 +222,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
                 Pilot signup
               </span>
             </div>
-            <h2 className="text-base sm:text-lg font-bold text-slate-900">
+            <h2 className="font-display text-xl sm:text-2xl text-slate-900">
               Join the pilot
             </h2>
             <p className="text-xs text-slate-600 leading-relaxed">
@@ -350,7 +350,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
               <button
                 type="submit"
                 disabled={!consented || !ageConfirmed || !fullName.trim() || !email.trim() || isSubmitting}
-                className={`w-full min-h-tap px-4 py-3 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-98 ${
+                className={`w-full min-h-tap px-4 py-3 rounded-full font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-98 ${
                   consented && ageConfirmed && fullName.trim() && email.trim() && !isSubmitting
                     ? "bg-brand-600 hover:bg-brand-700 text-white shadow-sm cursor-pointer"
                     : "bg-slate-200 text-slate-400 cursor-not-allowed"
@@ -369,7 +369,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
           {nextLesson && (
             <Link
               href={`/courses/${course.slug}/${nextLesson.slug}`}
-              className="w-full min-h-tap px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-sm"
+              className="w-full min-h-tap px-6 py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-sm"
             >
               <span>Next lesson: {nextLesson.title}</span>
               <ArrowRight className="w-4 h-4" />
@@ -377,7 +377,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
           )}
           <Link
             href="/"
-            className="w-full min-h-tap px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-sm"
+            className="w-full min-h-tap px-6 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-sm"
           >
             <span>Return to Course Catalog</span>
             <ArrowRight className="w-4 h-4" />

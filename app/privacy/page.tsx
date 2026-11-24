@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
           <span>NDPA 2023 &bull; GAID 2025</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+        <h1 className="font-display text-4xl text-slate-900 tracking-tight sm:text-5xl">
           Privacy Notice & Learner Rights
         </h1>
         <p className="text-xs text-slate-500">

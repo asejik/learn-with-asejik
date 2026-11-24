@@ -114,7 +114,7 @@ export function FeedbackPanel({
           <button
             type="button"
             onClick={onContinue}
-            className={`w-full min-h-tap px-4 py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-sm ${
+            className={`w-full min-h-tap px-4 py-3 rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition shadow-sm ${
               isCorrect
                 ? "bg-emerald-700 hover:bg-emerald-800 text-white"
                 : isIncorrect
