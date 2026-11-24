@@ -27,7 +27,52 @@ export function getCourseBySlug(courseSlug: string): Course {
     );
   }
 
+  checkCourseFiles(courseSlug, result.data);
   return result.data;
+}
+
+/**
+ * The course file and its lesson files must agree: folder name = course slug,
+ * every listed lesson has a file with the same slug and title, and no lesson
+ * file is left unlisted (it would never be reachable).
+ */
+function checkCourseFiles(folder: string, course: Course) {
+  const problems: string[] = [];
+  if (course.slug !== folder) {
+    problems.push(`course slug "${course.slug}" does not match its folder "${folder}"`);
+  }
+  const listed = new Set<string>();
+  for (const chapter of course.chapters) {
+    for (const entry of chapter.lessons) {
+      listed.add(entry.slug);
+      const file = path.join(COURSES_DIRECTORY, folder, "lessons", `${entry.slug}.json`);
+      if (!fs.existsSync(file)) {
+        problems.push(`lesson "${entry.slug}" is listed in course.json but has no file`);
+        continue;
+      }
+      const lesson = LessonSchema.safeParse(JSON.parse(fs.readFileSync(file, "utf-8")));
+      if (!lesson.success) continue; // getLesson reports the details
+      if (lesson.data.slug !== entry.slug) {
+        problems.push(`lesson file "${entry.slug}.json" has slug "${lesson.data.slug}"`);
+      }
+      if (lesson.data.title !== entry.title) {
+        problems.push(`lesson "${entry.slug}" is titled "${entry.title}" in course.json but "${lesson.data.title}" in its file`);
+      }
+    }
+  }
+  const lessonsDir = path.join(COURSES_DIRECTORY, folder, "lessons");
+  if (fs.existsSync(lessonsDir)) {
+    for (const file of fs.readdirSync(lessonsDir).filter((f) => f.endsWith(".json"))) {
+      if (!listed.has(file.replace(/\.json$/, ""))) {
+        problems.push(`lesson file "${file}" is not listed in course.json`);
+      }
+    }
+  }
+  if (problems.length > 0) {
+    throw new Error(
+      `[Content Schema Error] Course '${folder}' does not match its files:\n${problems.map((p) => `  - ${p}`).join("\n")}`
+    );
+  }
 }
 
 /**
