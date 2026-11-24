@@ -32,7 +32,7 @@ test("every lesson screen and its feedback panel", async ({ page }) => {
     if (i > 0) await scan(page, `screen ${i + 1} feedback`);
     if (i > 0) await continueFromFeedback(page);
   }
-  await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
   await scan(page, "completion screen");
 });
 

@@ -102,7 +102,7 @@ export function PWARegister() {
       {showReconnected && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-3.5 py-2 rounded-full bg-emerald-900/90 text-white text-xs font-semibold shadow-lg backdrop-blur-xs border border-emerald-700 animate-fadeIn">
           <Wifi className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-          <span>Back Online &bull; Ready to sync</span>
+          <span>Back Online</span>
         </div>
       )}
     </>

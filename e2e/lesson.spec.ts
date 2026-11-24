@@ -25,7 +25,7 @@ test.describe("lesson player", () => {
       await answer(page, i);
       if (i > 0) await continueFromFeedback(page);
     }
-    await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
     // One-lesson tutorial: nothing follows, and the catalog shows it complete
     await expect(page.getByText(/Tutorial Completed/)).toBeVisible();
     await expect(page.getByRole("link", { name: /Next lesson/ })).toHaveCount(0);
@@ -63,7 +63,7 @@ test.describe("lesson player", () => {
     await expect(heading(page)).toHaveText(TITLES[5]);
     await answer(page, 5);
     await continueFromFeedback(page);
-    await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
   });
 
   test("a reload resumes at the same screen", async ({ page }) => {
@@ -129,7 +129,7 @@ test.describe("lesson player", () => {
       await answer(page, i);
       await continueFromFeedback(page);
     }
-    await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
     await expect(warning).toBeVisible(); // and again on the completion screen
   });
 

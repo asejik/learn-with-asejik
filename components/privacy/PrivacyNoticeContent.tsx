@@ -13,7 +13,7 @@ export function PrivacyNoticeContent() {
           <span>Privacy by Design & Data Minimization</span>
         </h2>
         <p className="text-xs text-slate-600 leading-relaxed">
-          You can explore, read, and complete lessons on {siteConfig.name} without creating an account or providing any personal data. All lesson progress is stored strictly on your device inside your browser&apos;s local storage.
+          You can explore, read, and complete lessons on {siteConfig.name} without signing up or giving any personal data. Lesson progress is stored on your device, in your browser&apos;s storage.
         </p>
       </section>
 
@@ -45,7 +45,7 @@ export function PrivacyNoticeContent() {
           <span>2. Optional Information You May Provide</span>
         </h2>
         <p className="text-xs text-slate-600">
-          When you complete a tutorial, you may optionally provide your <strong>Name</strong> and <strong>Email Address</strong> to receive a completion certificate or join our pilot learner updates.
+          When you complete a tutorial, you may optionally provide your <strong>Name</strong> and <strong>Email Address</strong> to join the pilot, so Asejik can email you about new lessons and ask for your feedback.
         </p>
         <ul className="list-disc pl-5 text-xs text-slate-600 space-y-1">
           <li><strong>Lawful Basis:</strong> Explicit Consent (Section 25 of the NDPA 2023).</li>
@@ -73,10 +73,22 @@ export function PrivacyNoticeContent() {
         </h2>
         <ul className="list-disc pl-5 text-xs text-slate-600 space-y-1">
           <li><strong>Pilot roster:</strong> if you sign up, your name, email, consent time and age confirmation are sent over an encrypted connection to a private, access-restricted Google Sheet (provided by Google) that only {siteConfig.brandName} manages.</li>
-          <li><strong>Website hosting:</strong> the site is planned to be hosted on Cloudflare, which handles the requests your browser makes to load pages and send the signup form, including your IP address and browser details in short-lived request logs.</li>
+          <li><strong>Website hosting:</strong> the site is hosted on Cloudflare, which handles the requests your browser makes to load pages and send the signup form, including your IP address and browser details in short-lived request logs.</li>
           <li><strong>Outside Nigeria:</strong> these providers may store or process your details on servers outside Nigeria.</li>
-          <li><strong>How long we keep it:</strong> pilot roster details are kept for the length of the pilot plus 12 months, or until you ask us to delete them, whichever comes first.</li>
+          <li><strong>How long we keep it:</strong> pilot roster details are kept until the pilot ends and then deleted within 30 days, or sooner if you ask us to delete them.</li>
         </ul>
+      </section>
+
+      {/* 5. Who is responsible */}
+      <section className="space-y-3">
+        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <UserCheck className="w-4 h-4 text-slate-700" />
+          <span>Who Is Responsible for Your Details</span>
+        </h2>
+        <p className="text-xs text-slate-600">
+          {siteConfig.brandName}, an individual operating in Nigeria, decides how pilot details are used. Contact: <a href={`mailto:${siteConfig.contactEmail}`} className="text-brand-600 font-semibold underline">{siteConfig.contactEmail}</a>.
+        </p>
+        <p className="text-xs text-slate-500">Notice version 2, 24 November 2026.</p>
       </section>
 
       {/* 5. Your Rights */}
@@ -86,7 +98,7 @@ export function PrivacyNoticeContent() {
           <span>5. Your Rights & Clearing Data</span>
         </h2>
         <p className="text-xs text-slate-600">
-          Under the NDPA 2023, you have the right to access, rectify, or request deletion of your information at any time. You can also withdraw your consent at any time by emailing us; this does not affect anything we did with your details before you withdrew.
+          Under the NDPA 2023, you have the right to ask for a copy of your details, to have them corrected or deleted, to ask us to limit how we use them, and to object to our use of them. You can also withdraw your consent at any time by emailing us; this does not affect anything we did with your details before you withdrew.
         </p>
         <p className="text-xs text-slate-600">
           If you believe your data has been mishandled, you have the right to complain to the Nigeria Data Protection Commission (NDPC) at ndpc.gov.ng.

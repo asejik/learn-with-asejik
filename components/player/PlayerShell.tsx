@@ -38,14 +38,8 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
     const found = machine.currentScreen.glossary.find(
       (g) => g.term.toLowerCase() === term.toLowerCase()
     );
-    if (found) {
-      setActiveGlossaryTerm(found);
-    } else {
-      setActiveGlossaryTerm({
-        term,
-        definition: `Key concept in ${lesson.title}. Explored in detail throughout this chapter.`,
-      });
-    }
+    // A term with no authored definition opens nothing: no invented text
+    if (found) setActiveGlossaryTerm(found);
   }
 
   // Handle continue transition to advance to next screen

@@ -8,8 +8,8 @@ Initial Draft: 2026-11-21 | Governed by: Nigeria Data Protection Act (NDPA 2023)
 
 | Field Name | Category | Purpose of Collection | Lawful Basis | Sensitive? | Storage Location | Access Controls | Retention Period | Deletion Method |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Full Name** | Identity Data | Personalize lesson completion certificates and identify pilot learner. | Consent (NDPA s.25) | No | 1. Client IndexedDB (`user_profile`)<br>2. Private Pilot Roster (Google Sheet) | Learner on device; Asejik (authenticated 2FA) | Duration of pilot + 12 months or until deletion requested | Client IndexedDB wipe; row deletion in pilot sheet upon email request |
-| **Email Address** | Contact Data | Send completion confirmation, course update notifications, and pilot feedback requests. | Consent (NDPA s.25) | No | 1. Client IndexedDB (`user_profile`)<br>2. Private Pilot Roster (Google Sheet) | Learner on device; Asejik (authenticated 2FA) | Duration of pilot + 12 months or until unsubscribe/deletion | Client IndexedDB wipe; row deletion in pilot sheet upon email request |
+| **Full Name** | Identity Data | Join the pilot so Asejik can email you about new lessons and ask for your feedback (the one stated purpose). | Consent (NDPA s.25) | No | 1. Client IndexedDB (`user_profile`)<br>2. Private Pilot Roster (Google Sheet) | Learner on device; Asejik (authenticated 2FA) | Until the pilot ends, then deleted within 30 days, or sooner on request | Client IndexedDB wipe; row deletion in pilot sheet upon email request |
+| **Email Address** | Contact Data | Join the pilot so Asejik can email you about new lessons and ask for your feedback (the one stated purpose). | Consent (NDPA s.25) | No | 1. Client IndexedDB (`user_profile`)<br>2. Private Pilot Roster (Google Sheet) | Learner on device; Asejik (authenticated 2FA) | Until the pilot ends, then deleted within 30 days, or sooner on request | Client IndexedDB wipe; row deletion in pilot sheet upon email request |
 | **Age Confirmation (18+)** | Compliance Metadata | Record that the learner confirmed they are 18 or older; pilot signup is adults-only. A yes/no only: no date of birth is collected. | Legal Obligation / Accountability | No | Private Pilot Roster (Google Sheet) | Asejik (authenticated 2FA) | Same as user record | Cleared along with user record |
 | **Consent Timestamp** | Compliance Metadata | Record exact ISO timestamp when user ticked the consent box. | Legal Obligation / Accountability | No | 1. Client IndexedDB (`user_profile`)<br>2. Private Pilot Roster (Google Sheet) | Learner on device; Asejik (authenticated 2FA) | Same as user record | Cleared along with user record |
 
@@ -17,7 +17,7 @@ Initial Draft: 2026-11-21 | Governed by: Nigeria Data Protection Act (NDPA 2023)
 
 ## 2. Non-Personal Local Telemetry (Stored Client-Side in IndexedDB)
 
-These data points are stored strictly on the learner's device inside browser IndexedDB (`asejik_learning_db`) and are **not** linked to identity in the cloud:
+These data points are stored on the learner's device inside browser IndexedDB (`asejik_learning_db`) and are **not** linked to identity in the cloud:
 * **Course & Lesson Progress**: Active lesson slug, completed screen IDs, timestamp of last activity, and the current screen position and screen order within a lesson (so a reload resumes on the same screen).
 * **Active Recall Queue**: Queued question IDs for the 3-screen retry loop.
 * **Content Feedback Rating**: Thumbs-up or thumbs-down rating recorded upon lesson completion.

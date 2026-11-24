@@ -180,7 +180,7 @@ export async function handlePilotSignup(
     return Response.json(
       {
         success: true,
-        message: "Successfully joined the pilot! Your progress is now linked.",
+        message: "You have joined the pilot.",
       },
       { status: 200 }
     );
