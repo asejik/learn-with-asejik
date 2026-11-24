@@ -96,7 +96,11 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
   const isAnswered = machine.feedbackState.status !== null;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
+    <div
+      className={`min-h-screen bg-slate-50 flex flex-col justify-between ${
+        isAnswered ? "lg:pr-96" : ""
+      }`}
+    >
       {/* 1. Top Navigation Bar */}
       <PlayerNavBar
         totalScreens={machine.totalScreens}
