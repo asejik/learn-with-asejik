@@ -4,6 +4,8 @@ import { TITLES, answer, continueFromFeedback, openLesson } from "./lessonSteps"
 
 // Serious and critical WCAG A/AA problems fail the test
 async function scan(page: Page, label: string) {
+  // Judge the settled colours: axe can otherwise sample a colour mid-transition
+  await page.addStyleTag({ content: "*{transition:none!important;animation:none!important}" });
   const { violations } = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();
