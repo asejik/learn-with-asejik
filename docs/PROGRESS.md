@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-22 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAUNCH GATE FORMAL GO)
+Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE GO IS UNSUPPORTED: the audits behind it left no reports (P15-01); re-running them, then P14 decides
 
 ---
 
@@ -71,7 +71,7 @@ Last updated: 2026-11-22 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - [x] Throttled low-data payload verified: 111 kB First Load JS (< 200 KB ceiling, zero eager media)
   - [x] Mobile thumb ergonomics verified: 100% usable on 375px screens with 0 overflow and >= 44x44px tap targets
   - [x] Created branded 404 page (`app/not-found.tsx`) with catalog navigation
-  - [x] P08 Security Audit (LIGHT), P03 Privacy Audit (NDPA 2023), and P14 Launch Gate executed: **FORMAL GO**
+  - [x] P08 Security Audit (LIGHT), P03 Privacy Audit (NDPA 2023), and P14 Launch Gate executed: **FORMAL GO** (UNSUPPORTED since 2026-11-24: no reports exist in docs/audits/; being re-run under P15-01)
 
 ---
 
