@@ -1,6 +1,6 @@
 # PROJECT PROGRESS: Learn with Asejik
 
-Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE GO IS UNSUPPORTED: the audits behind it left no reports (P15-01); re-running them, then P14 decides
+Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24): NO-GO until the listed blockers are done or accepted; see docs/audits/2026-11-24_P14_launch_gate.md
 
 ---
 
@@ -218,3 +218,4 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE GO IS UNSUPPORTED
 - [x] **P09 architecture and quality review run** (2026-11-24, P15-01): grade C (the content-microcopy section scores 2 and three P03 HIGH items are open). 6 new findings P16-U01 to U06; the main one is focus management for keyboard and screen-reader learners. Still to run: P12, P13, then P14.
 - [x] **P12 egress audit (LIGHT) run** (2026-11-24, P15-01): egress is not a cost risk (first visit about 245 KB, 0 KB while idle or playing, caching headers correct). 2 findings P16-E01 (the 48 KB font keeps the first visit over 200 KB; owner design decision) and P16-E02 (no usage alerts). Still to run: P13, then P14. After P14: a fix phase, in batches the owner approves, covers every open P16 finding (P03, P07, P08, P09, P12) and none is fixed yet.
 - [x] **P13 live operations (Part A, LIGHT) and `docs/RUNBOOK.md`** (2026-11-24, P15-01): the runbook covers system map, rollback, signup kill switch, URL rotation, logs, severities, a draft breach procedure (for a DPCO to review), monitor setup, a maintenance calendar and a drill. 4 findings P16-O01 to O04; the main one is that no uptime monitor exists yet (owner action: three UptimeRobot monitors, about 15 minutes). Runbook steps are UNTESTED until the owner runs the drill. Still to run: P14 launch gate, then the fix phase.
+- [x] **P15-01 closed: P14 launch gate run** (2026-11-24): all audits now have reports (P03, P07, P08, P09, P12, P13) and the gate decision is **NO-GO**, because of 3 unaccepted HIGH privacy-paperwork findings (P16-P01 to P03), READY WITH FIXES not yet fixed, no uptime monitor, no HTTP-to-HTTPS redirect, untested kill switch and rollback, and no restore or backup of the roster. The report lists the owner actions, a small code batch, and the one written acceptance that would make it GO WITH ACCEPTED RISKS for a closed pilot of up to 50 learners. Next: the fix phase, in batches the owner approves.
