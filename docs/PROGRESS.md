@@ -234,3 +234,6 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Signup labels are now linked to their inputs (`htmlFor`/`id`).
   - New guard test `lib/wording.test.ts` fails if the banned words come back in the learner-facing files. 130 unit tests, type check, lint, build and 24 browser tests pass.
   - UNVERIFIED: the form at 375px and 1280px was not looked at on screen after the longer consent text; the legal wording of the rights list needs the DPCO's review.
+- [x] **Workers Logs kept on by config** (2026-11-24, branch `fix/workers-logs-config`; P16-O01 part)
+  - The owner turned Workers Logs on in the dashboard and found it off again later: each deploy applies `wrangler.jsonc`, which had no `observability` block. The block (logs on, full sampling, traces and issue detection left off) is now in `wrangler.jsonc`, with the values Cloudflare showed. `wrangler deploy --dry-run` accepts it.
+  - UNVERIFIED until the deploy: that the setting stays on afterwards. Owner to look at the dashboard after this merges.
