@@ -21,7 +21,7 @@ export interface FeedbackState {
   retryAfterScreens?: number | null;
 }
 
-export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
+export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLessons: number) {
   // Screen sequence array of screen IDs, starts with initial lesson screens
   const [sequence, setSequence] = useState<string[]>(() =>
     lesson.screens.map((s) => s.id)
@@ -194,7 +194,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
       setFeedbackState({ status: null });
 
       // Safely record completion in IndexedDB and localStorage (Question 9 resilience)
-      saveCourseProgress(courseSlug, lesson.slug, 100);
+      const courseSaved = saveCourseProgress(courseSlug, lesson.slug, totalLessons);
       saveLessonState(courseSlug, lesson.slug, {
         currentScreenIndex: nextIdx,
         completedScreenIds: sequence,
@@ -202,18 +202,21 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson) {
         completedAt: Date.now(),
       });
 
-      try {
-        if (typeof window !== "undefined" && window.localStorage) {
-          const raw = window.localStorage.getItem(STORAGE_KEY_PROGRESS);
-          const existing = raw ? JSON.parse(raw) : {};
-          existing[courseSlug] = 100;
-          window.localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(existing));
-        }
-      } catch {
-        // Storage failure fallback
-      }
+      // The catalog's fallback copy holds the course percentage, not the lesson's
+      courseSaved
+        .then((percentage) => {
+          if (typeof window !== "undefined" && window.localStorage) {
+            const raw = window.localStorage.getItem(STORAGE_KEY_PROGRESS);
+            const existing = raw ? JSON.parse(raw) : {};
+            existing[courseSlug] = percentage;
+            window.localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(existing));
+          }
+        })
+        .catch((error) => {
+          console.warn("Could not save the course progress copy", error);
+        });
     }
-  }, [currentIndex, sequence, screenMap, courseSlug, lesson.slug, retryQueue]);
+  }, [currentIndex, sequence, screenMap, courseSlug, lesson.slug, retryQueue, totalLessons]);
 
   return {
     currentIndex,

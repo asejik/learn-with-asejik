@@ -18,6 +18,7 @@ import { AITutorDrawer } from "./AITutorDrawer";
 import { GlossaryDrawer } from "./GlossaryDrawer";
 import { LessonCompletionView } from "./LessonCompletionView";
 import { usePlayerMachine } from "./usePlayerMachine";
+import { courseLessons, nextLesson } from "@/lib/courseProgress";
 import { RotateCcw } from "lucide-react";
 
 // Modular Widgets from components/widgets/
@@ -36,7 +37,7 @@ interface PlayerShellProps {
 }
 
 export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps) {
-  const machine = usePlayerMachine(course.slug, lesson);
+  const machine = usePlayerMachine(course.slug, lesson, courseLessons(course).length);
 
   // Drawer states
   const [isAITutorOpen, setIsAITutorOpen] = useState(false);
@@ -88,7 +89,14 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
 
   // If lesson is complete, render celebration completion view with value-first onboarding
   if (machine.isLessonComplete) {
-    return <LessonCompletionView course={course} lesson={lesson} privacyNotice={privacyNotice} />;
+    return (
+      <LessonCompletionView
+        course={course}
+        lesson={lesson}
+        nextLesson={nextLesson(course, lesson.slug)}
+        privacyNotice={privacyNotice}
+      />
+    );
   }
 
   const screen = machine.currentScreen;

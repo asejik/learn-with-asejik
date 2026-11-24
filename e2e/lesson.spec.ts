@@ -26,6 +26,11 @@ test.describe("lesson player", () => {
       if (i > 0) await continueFromFeedback(page);
     }
     await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+    // One-lesson tutorial: nothing follows, and the catalog shows it complete
+    await expect(page.getByText(/Tutorial Completed/)).toBeVisible();
+    await expect(page.getByRole("link", { name: /Next lesson/ })).toHaveCount(0);
+    await page.goto("/");
+    await expect(page.getByText("100%")).toBeVisible();
   });
 
   test("Continue is hidden until the learner answers, and a wrong answer shows amber feedback", async ({ page }) => {

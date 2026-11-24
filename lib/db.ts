@@ -107,33 +107,34 @@ export async function getUserProfile(): Promise<UserProfile | null> {
 export async function saveCourseProgress(
   courseSlug: string,
   lessonSlug: string,
-  percentage: number
-): Promise<boolean> {
+  totalLessons: number
+): Promise<number> {
   const existing = await getCourseProgress(courseSlug);
+  // Finishing a lesson completes that lesson, not the course
   const completedLessons = new Set(existing?.completedLessonSlugs || []);
-  if (percentage >= 100) {
-    completedLessons.add(lessonSlug);
-  }
+  completedLessons.add(lessonSlug);
+  const percentage =
+    totalLessons > 0 ? Math.min(100, Math.round((completedLessons.size / totalLessons) * 100)) : 0;
 
   const record: CourseProgressRecord = {
     courseSlug,
     completedLessonSlugs: Array.from(completedLessons),
     activeLessonSlug: lessonSlug,
     lastActiveAt: Date.now(),
-    percentage: Math.max(existing?.percentage || 0, percentage),
+    percentage,
   };
 
   try {
     const db = await getDb();
     if (db) {
       await db.put("course_progress", record);
-      return true;
+      return percentage;
     }
   } catch {
     // Fallback
   }
   inMemoryFallback.courseProgress.set(courseSlug, record);
-  return true;
+  return percentage;
 }
 
 export async function getCourseProgress(

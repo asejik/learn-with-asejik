@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { saveLessonState, getLessonState, saveUserProfile, getUserProfile } from "@/lib/db";
 import { PrivacyDrawer } from "./PrivacyDrawer";
+import type { LessonRef } from "@/lib/courseProgress";
 
 const NOT_SENT_MESSAGE =
   "We couldn't send your details, so you haven't joined the pilot yet. They're saved on this device only. Tick both boxes and try again when you're online.";
@@ -23,11 +24,13 @@ const NOT_SENT_MESSAGE =
 interface LessonCompletionViewProps {
   course: Course;
   lesson: Lesson;
+  /** The lesson that follows this one, or null on the last lesson */
+  nextLesson: LessonRef | null;
   /** The privacy notice, rendered on the server and shown in a drawer */
   privacyNotice: ReactNode;
 }
 
-export function LessonCompletionView({ course, lesson, privacyNotice }: LessonCompletionViewProps) {
+export function LessonCompletionView({ course, lesson, nextLesson, privacyNotice }: LessonCompletionViewProps) {
   // Content Rating State
   const [rating, setRating] = useState<"thumbs-up" | "thumbs-down" | null>(null);
   const [ratingSaved, setRatingSaved] = useState(false);
@@ -133,7 +136,7 @@ export function LessonCompletionView({ course, lesson, privacyNotice }: LessonCo
 
         <div className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-            Tutorial Completed &bull; 100% Progress
+            {nextLesson ? "Lesson Completed" : <>Tutorial Completed &bull; 100% Progress</>}
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
             {lesson.title}
@@ -344,7 +347,16 @@ export function LessonCompletionView({ course, lesson, privacyNotice }: LessonCo
         </div>
 
         {/* Return to Catalog Action */}
-        <div className="pt-2">
+        <div className="pt-2 space-y-3">
+          {nextLesson && (
+            <Link
+              href={`/courses/${course.slug}/${nextLesson.slug}`}
+              className="w-full min-h-tap px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 active:scale-98 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-sm"
+            >
+              <span>Next lesson: {nextLesson.title}</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
           <Link
             href="/"
             className="w-full min-h-tap px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 active:scale-98 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-sm"
