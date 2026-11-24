@@ -7,6 +7,7 @@ import { FeedbackPanel } from "./FeedbackPanel";
 import { AITutorDrawer } from "./AITutorDrawer";
 import { GlossaryDrawer } from "./GlossaryDrawer";
 import { LessonCompletionView } from "./LessonCompletionView";
+import { StorageWarning } from "./StorageWarning";
 import { usePlayerMachine } from "./usePlayerMachine";
 import { courseLessons, nextLesson } from "@/lib/courseProgress";
 import { RotateCcw } from "lucide-react";
@@ -80,6 +81,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
         course={course}
         lesson={lesson}
         nextLesson={nextLesson(course, lesson.slug)}
+        storageFailed={machine.storageFailed}
         privacyNotice={privacyNotice}
       />
     );
@@ -105,6 +107,12 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
         onOpenAITutor={() => setIsAITutorOpen(true)}
         courseSlug={course.slug}
       />
+
+      {machine.storageFailed && (
+        <div className="max-w-2xl w-full mx-auto px-4 pt-3">
+          <StorageWarning />
+        </div>
+      )}
 
       {/* 2. Main Screen Interaction Area */}
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col justify-between">

@@ -108,7 +108,7 @@ export async function saveCourseProgress(
   courseSlug: string,
   lessonSlug: string,
   totalLessons: number
-): Promise<number> {
+): Promise<{ percentage: number; persisted: boolean }> {
   const existing = await getCourseProgress(courseSlug);
   // Finishing a lesson completes that lesson, not the course
   const completedLessons = new Set(existing?.completedLessonSlugs || []);
@@ -128,13 +128,14 @@ export async function saveCourseProgress(
     const db = await getDb();
     if (db) {
       await db.put("course_progress", record);
-      return percentage;
+      return { percentage, persisted: true };
     }
   } catch {
     // Fallback
   }
+  // Kept in memory only: lost when the page closes, so tell the caller
   inMemoryFallback.courseProgress.set(courseSlug, record);
-  return percentage;
+  return { percentage, persisted: false };
 }
 
 export async function getCourseProgress(
@@ -214,8 +215,9 @@ async function writeLessonState(
   } catch {
     // Fallback
   }
+  // Kept in memory only: lost when the page closes, so report it as not saved
   inMemoryFallback.lessonState.set(key, record);
-  return true;
+  return false;
 }
 
 export async function getLessonState(

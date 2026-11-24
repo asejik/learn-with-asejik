@@ -40,6 +40,9 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
   // Set when saved progress did not load in time. Storage may only be slow, so
   // this visit must not overwrite the learner's saved position.
   const restoreTimedOut = useRef(false);
+  // Set when a save did not reach the phone's storage (full, blocked, private
+  // browsing), so the learner is told progress may be lost
+  const [storageFailed, setStorageFailed] = useState(false);
 
   // Map of screen ID to Screen object for fast lookup
   const screenMap = useMemo(() => {
@@ -97,11 +100,15 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
       positionSavedAt: Date.now(),
     })
       .then((saved) => {
-        if (!saved) console.warn("[Player] Lesson progress was not saved");
+        if (!saved) {
+          console.warn("[Player] Lesson progress was not saved");
+          setStorageFailed(true);
+        }
       })
       .catch((err: unknown) => {
         const reason = err instanceof Error ? err.name : "UnknownError";
         console.warn(`[Player] Could not save lesson progress (${reason})`);
+        setStorageFailed(true);
       });
   }, [isRestoring, isLessonComplete, courseSlug, lesson.slug, currentIndex, sequence, retryQueue]);
 
@@ -200,11 +207,16 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
         completedScreenIds: sequence,
         retryQueue,
         completedAt: Date.now(),
-      });
+      })
+        .then((saved) => {
+          if (!saved) setStorageFailed(true);
+        })
+        .catch(() => setStorageFailed(true));
 
       // The catalog's fallback copy holds the course percentage, not the lesson's
       courseSaved
-        .then((percentage) => {
+        .then(({ percentage, persisted }) => {
+          if (!persisted) setStorageFailed(true);
           if (typeof window !== "undefined" && window.localStorage) {
             const raw = window.localStorage.getItem(STORAGE_KEY_PROGRESS);
             const existing = raw ? JSON.parse(raw) : {};
@@ -229,6 +241,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
     /** The current screen is a retry of an earlier wrong answer */
     isRetry: isRetryAttempt(sequence, currentIndex),
     isLessonComplete,
+    storageFailed,
     isRestoring,
     ungate,
     submitAnswer,
