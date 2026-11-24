@@ -153,7 +153,7 @@ export default function DiagramExplorerWidget({
               <span>Continue with Inspection Complete</span>
             </button>
           ) : (
-            <div className="w-full min-h-tap p-3 rounded-xl bg-slate-100 border border-slate-200 text-center flex items-center justify-center gap-2 text-xs font-semibold text-slate-500">
+            <div className="w-full min-h-tap p-3 rounded-xl bg-slate-100 border border-slate-200 text-center flex items-center justify-center gap-2 text-xs font-semibold text-slate-700">
               <span>
                 Tap the remaining {data.nodes.length - visitedNodeIds.length}{" "}
                 step(s) above to unlock Continue.

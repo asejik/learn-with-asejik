@@ -28,7 +28,7 @@ Build a fast, mobile-first, low-data interactive learning platform that supports
 - Build: npm run build (also runs the content schema validation)
 - Dev server: npm run dev
 - Start: npm run start
-- Tests: [to be configured in package.json]
+- Tests: npm test (unit); npm run test:e2e (browser, needs npm run build first)
 
 ## Low-data and mobile constraints
 - Target users are often on mid-range Android phones and metered mobile data in Nigeria.

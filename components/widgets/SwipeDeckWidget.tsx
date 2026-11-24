@@ -193,7 +193,7 @@ export default function SwipeDeckWidget({
 
             {/* Statement Text */}
             <div className="space-y-2 mt-2">
-              <div className="flex items-center gap-1.5 text-slate-400">
+              <div className="flex items-center gap-1.5 text-slate-600">
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span className="text-[11px] font-bold uppercase tracking-wider">
                   Statement
@@ -204,7 +204,7 @@ export default function SwipeDeckWidget({
               </p>
             </div>
 
-            <p className="text-[11px] text-slate-400 text-center font-medium mt-4">
+            <p className="text-[11px] text-slate-600 text-center font-medium mt-4">
               Swipe right for True • Swipe left for False
             </p>
           </div>

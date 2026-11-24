@@ -32,7 +32,7 @@ export function PlayerNavBar({
       </Link>
 
       {/* Segmented Progress Rail */}
-      <div className="flex-1 flex items-center gap-1.5 px-1" role="progressbar" aria-valuenow={currentIndex + 1} aria-valuemin={1} aria-valuemax={totalScreens}>
+      <div className="flex-1 flex items-center gap-1.5 px-1" role="progressbar" aria-label="Lesson progress" aria-valuenow={currentIndex + 1} aria-valuemin={1} aria-valuemax={totalScreens}>
         {Array.from({ length: totalScreens }).map((_, idx) => {
           const isCompleted = idx < currentIndex;
           const isCurrent = idx === currentIndex;
@@ -54,7 +54,7 @@ export function PlayerNavBar({
 
       {/* Screen Readout & AI Tutor Trigger */}
       <div className="flex items-center gap-2">
-        <span className="text-[11px] font-mono font-bold text-slate-400 hidden sm:inline">
+        <span className="text-[11px] font-mono font-bold text-slate-600 hidden sm:inline">
           {currentIndex + 1}/{totalScreens}
         </span>
 

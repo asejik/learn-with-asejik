@@ -48,7 +48,7 @@ export default function ClozeWidget({
                 className={`inline-block px-3 py-1 mx-1.5 rounded-lg font-bold border-2 transition-all ${
                   selectedWord
                     ? "border-brand-500 bg-brand-50 text-brand-900 shadow-2xs"
-                    : "border-dashed border-slate-400 bg-slate-50 text-slate-400"
+                    : "border-dashed border-slate-400 bg-slate-50 text-slate-600"
                 }`}
               >
                 {selectedWord || "_______"}

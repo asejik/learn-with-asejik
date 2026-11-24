@@ -146,7 +146,7 @@ export function LessonCompletionView({ course, lesson, privacyNotice }: LessonCo
         {/* Key Concepts Mastered */}
         {lesson.keyTerms.length > 0 && (
           <div className="p-4 bg-white rounded-2xl border border-slate-200 text-left space-y-2.5 shadow-2xs">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
               Key Concepts Mastered
             </span>
             <div className="flex flex-wrap gap-1.5">
