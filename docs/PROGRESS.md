@@ -12,7 +12,7 @@ Last updated: 2026-11-22 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
 - [x] **P04: Project Setup & Guardrails** (Completed 2026-11-21) — Git repository initialized, `.gitignore`, `.env.example`, `.github/workflows/ci.yml`, `.github/dependabot.yml`, and [`docs/SETUP.md`](file:///d:/dev/e-learning/docs/SETUP.md) created.
 - [x] **P05: UI Design Direction** (Completed 2026-11-21) — Direction A (Vibrant Editorial Studio) selected and [`docs/DESIGN.md`](file:///d:/dev/e-learning/docs/DESIGN.md) created with WCAG 2.2 AA tokens, 44px tap targets, and low-data constraints.
 - [ ] **P07: Production Readiness Audit (MID)** (Scheduled mid-build)
-- [ ] **P08: Security Audit (LIGHT)** (Scheduled before pilot release)
+- [x] **P08: Security Audit (LIGHT scope: sections 1, 3, 5, 11, 12)** (Run 2026-11-24 by an independent session; 0 critical, 0 high, 4 medium, 9 low, register IDs P16-S01 to P16-S13. The report and register are git-ignored because this repo is public; they are on the owner's machine under `docs/audits/`. Fixes still to be approved.)
 - [ ] **P03: Privacy & Data Protection (AUDIT Mode)** (Scheduled before pilot release)
 - [ ] **P09: Architecture & Quality Review** (Scheduled before pilot release)
 - [ ] **P13: Live Operations (LIGHT)** (Scheduled before pilot release)
@@ -209,3 +209,7 @@ Last updated: 2026-11-22 | Status: ALL MILESTONES COMPLETED (PILOT READY — LAU
   - `WidgetTypeEnum` is gone: `WidgetType` is read from the screen union, so the schema union is the one list of types. Adding a widget now means: its data schema and a `screenOf(...)` line in `lib/schema.ts`, its component, and one line in the registry. A type missing from the registry, or an extra one, is a compile error (checked by deleting an entry: tsc failed with "Property 'matchPairs' is missing").
   - One cast remains in the shell (a lookup cannot keep each type paired with its own data); it is commented.
   - Rule change by the owner: the 200 KB lesson limit no longer applies to optional heavy runtimes (e.g. a Python runner of about 10 MB). AGENTS.md and DESIGN.md now say such a runtime loads only after a tap, shows its download size first (my addition, for metered data) and is cached for offline use. The first lesson load stays under 200 KB.
+- [x] **P08 security audit (LIGHT scope)** (2026-11-24, branch `claude/audit-p08-security-d7c81b`; independent session; no code changed)
+  - Result: 0 critical, 0 high, 4 medium, 9 low (P16-S01 to P16-S13). Top items: the live site answers on plain HTTP with no HSTS; the public signup endpoint has no abuse limit and trusts the browser's consent time; the build runs an unpinned `tsx`. `npm audit` is clean (0 vulnerabilities); no secrets found in code or history (regex scan); no secret rotation needed.
+  - The report (`docs/audits/2026-11-24_P08_security_audit.md`) and the register (`docs/audits/FINDINGS.md`) are git-ignored on purpose (public repo, they list unfixed weaknesses), so they are on the owner's machine only, not in this commit.
+  - Not verified: Gitleaks was not run; the deployed Apps Script, dashboard settings and external header scanners need the owner (listed in the report). Fixes wait for the owner to approve finding IDs; this does not by itself make the launch gate GO (P03, P07, P09, P12, P13, P14 still to run).
