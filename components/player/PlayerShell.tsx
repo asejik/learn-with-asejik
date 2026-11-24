@@ -1,17 +1,7 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
-import { z } from "zod";
-import {
-  Course,
-  Lesson,
-  ReadingWidgetDataSchema,
-  ClozeWidgetDataSchema,
-  ChoiceWidgetDataSchema,
-  SwipeDeckWidgetDataSchema,
-  DiagramExplorerWidgetDataSchema,
-  MatchPairsWidgetDataSchema,
-} from "@/lib/schema";
+import { useState, type ComponentType, type ReactNode } from "react";
+import { Course, Lesson, Screen } from "@/lib/schema";
 import { PlayerNavBar } from "./PlayerNavBar";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { AITutorDrawer } from "./AITutorDrawer";
@@ -21,13 +11,9 @@ import { usePlayerMachine } from "./usePlayerMachine";
 import { courseLessons, nextLesson } from "@/lib/courseProgress";
 import { RotateCcw } from "lucide-react";
 
-// Modular Widgets from components/widgets/
-import ReadingWidget from "../widgets/ReadingWidget";
-import ClozeWidget from "../widgets/ClozeWidget";
-import ChoiceWidget from "../widgets/ChoiceWidget";
-import SwipeDeckWidget from "../widgets/SwipeDeckWidget";
-import DiagramExplorerWidget from "../widgets/DiagramExplorerWidget";
-import MatchPairsWidget from "../widgets/MatchPairsWidget";
+// Modular widgets live in components/widgets/ and are found through the registry
+import { WIDGETS } from "../widgets/registry";
+import type { WidgetProps } from "../widgets/types";
 
 interface PlayerShellProps {
   course: Course;
@@ -102,6 +88,8 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
   const screen = machine.currentScreen;
   const isLastScreen = machine.currentIndex === machine.totalScreens - 1;
   const isAnswered = machine.feedbackState.status !== null;
+  // The registry pairs each type with its own data; TypeScript cannot follow that pairing through a lookup
+  const Widget = WIDGETS[screen.widgetType] as ComponentType<WidgetProps<Screen["widgetData"]>>;
 
   return (
     <div
@@ -141,83 +129,17 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
             </h1>
           </div>
 
-          {/* MODULAR WIDGET DELEGATION (components/widgets/) */}
-
-          {screen.widgetType === "reading" && (
-            <ReadingWidget
-              screenId={screen.id}
-              data={screen.widgetData as z.infer<typeof ReadingWidgetDataSchema>}
-              glossary={screen.glossary}
-              onOpenGlossary={handleOpenGlossary}
-              onSubmitAnswer={machine.submitAnswer}
-              isAnswered={isAnswered}
-              onContinue={handleContinue}
-            />
-          )}
-
-          {screen.widgetType === "cloze" && (
-            <ClozeWidget
-              screenId={screen.id}
-              data={screen.widgetData as z.infer<typeof ClozeWidgetDataSchema>}
-              glossary={screen.glossary}
-              onOpenGlossary={handleOpenGlossary}
-              onSubmitAnswer={machine.submitAnswer}
-              isAnswered={isAnswered}
-            />
-          )}
-
-          {screen.widgetType === "choice" && (
-            <ChoiceWidget
-              screenId={screen.id}
-              data={screen.widgetData as z.infer<typeof ChoiceWidgetDataSchema>}
-              glossary={screen.glossary}
-              onOpenGlossary={handleOpenGlossary}
-              onSubmitAnswer={machine.submitAnswer}
-              isAnswered={isAnswered}
-            />
-          )}
-
-          {screen.widgetType === "swipeDeck" && (
-            <SwipeDeckWidget
-              screenId={screen.id}
-              data={
-                screen.widgetData as z.infer<typeof SwipeDeckWidgetDataSchema>
-              }
-              glossary={screen.glossary}
-              onOpenGlossary={handleOpenGlossary}
-              onSubmitAnswer={machine.submitAnswer}
-              isAnswered={isAnswered}
-            />
-          )}
-
-          {screen.widgetType === "diagramExplorer" && (
-            <DiagramExplorerWidget
-              screenId={screen.id}
-              data={
-                screen.widgetData as z.infer<
-                  typeof DiagramExplorerWidgetDataSchema
-                >
-              }
-              glossary={screen.glossary}
-              onOpenGlossary={handleOpenGlossary}
-              onSubmitAnswer={machine.submitAnswer}
-              onExplored={machine.showInfo}
-              isAnswered={isAnswered}
-            />
-          )}
-
-          {screen.widgetType === "matchPairs" && (
-            <MatchPairsWidget
-              screenId={screen.id}
-              data={
-                screen.widgetData as z.infer<typeof MatchPairsWidgetDataSchema>
-              }
-              glossary={screen.glossary}
-              onOpenGlossary={handleOpenGlossary}
-              onSubmitAnswer={machine.submitAnswer}
-              isAnswered={isAnswered}
-            />
-          )}
+          {/* MODULAR WIDGET DELEGATION (components/widgets/registry.ts) */}
+          <Widget
+            screenId={screen.id}
+            data={screen.widgetData}
+            glossary={screen.glossary}
+            onOpenGlossary={handleOpenGlossary}
+            onSubmitAnswer={machine.submitAnswer}
+            onExplored={machine.showInfo}
+            isAnswered={isAnswered}
+            onContinue={handleContinue}
+          />
         </div>
       </main>
 
