@@ -1,78 +1,84 @@
-# DESIGN SYSTEM: Vibrant Editorial Studio (Direction A)
+# DESIGN SYSTEM: Warm Editorial Studio (Direction B, adopted 2026-11-25)
 
 > **Project**: Learn with Asejik  
 > **Standard**: P05 UI Design Direction  
-> **Core Archetype**: High-Contrast Technical Editorial (Brilliant.org & ByteByteGo Standard)  
+> **Core Archetype**: Warm editorial publication (cream paper, ink text, one terracotta accent, serif headlines, small monospace labels). Reference sites: The Neuron Academy and System Design Tutorial.  
 > **Primary Viewport Target**: 375px Android mobile on metered data  
 > **Interactive Payload Ceiling**: < 200 KB per lesson (optional tap-to-load runtimes, e.g. a code runner, are extra and cached after first use)  
+> **Replaces**: Direction A (cold slate and cobalt). The mock the owner approved is the private Design artifact "Learn with Asejik: Design Mock".
 
 ---
 
 ## 1. Brand Personality & Philosophy
 
-- **Personality**: Sharp, lucid, authoritative, intellectually engaging.
-- **Tone**: Modern engineering publication. Zero generic AI aesthetic (no purple/pink neon gradients, no stacked glassmorphism, no centered button hero cards with vague marketing copy).
-- **Core Mantra**: *Restraint beats effects.* Contrast, typography, and crisp spatial structure create visual hierarchy before color is introduced.
+- **Personality**: Warm, clear, confident, practical. A good magazine, not a dashboard.
+- **Tone**: Plain words, short sentences. No marketing filler, no invented numbers, no testimonials or logos we do not have.
+- **Never**: purple or pink neon gradients, glassmorphism, stock photos, emoji as decoration, centred hero cards with vague copy.
+- **Core Mantra**: *Restraint beats effects.* Type, spacing and one accent colour carry the design.
 
 ---
 
-## 2. Color System & Accessibility (WCAG 2.2 AA Certified)
+## 2. Color System & Accessibility (WCAG 2.2 AA)
 
-All color combinations have been verified against WCAG 2.2 AA contrast standards ($\ge 4.5:1$ for normal text, $\ge 3:1$ for large text and UI components).
+Colours live in `tailwind.config.ts`; that file is the source of truth. The existing class names stay (`slate-*`, `brand-*`, `white`), and the config maps them to the warm palette, so components do not change when the palette does:
 
-### 2.1 Surfaces & Canvas
-| Token Name | Hex | CSS Variable / Tailwind | Role | Contrast vs Text |
+- `white` = warm card paper `#FBF7EF` (not pure white).
+- `slate-*` = the warm neutral scale below.
+- `brand-*` = terracotta.
+
+### 2.1 Surfaces & Ink (measured contrast against page paper `#F6EFE3`)
+| Token | Hex | Use | Contrast on paper |
+| :--- | :--- | :--- | :--- |
+| `slate-50` | `#F6EFE3` | Page paper | Base |
+| `white` | `#FBF7EF` | Cards, drawers, sheets | Lighter than paper |
+| `slate-100` | `#EFE6D6` | Muted fills, inactive chips | Subtle |
+| `slate-200` | `#D9CDBB` | Hairline borders and dividers | Structural |
+| `slate-300` | `#C4B6A1` | Disabled borders | Structural |
+| `slate-400` | `#8F8070` | Icons only, never text | 3.35:1 |
+| `slate-500` | `#6B5E52` | Muted text, metadata | 5.49:1 |
+| `slate-700` | `#4A4037` | Body text | 8.84:1 |
+| `slate-900` | `#1B1612` | Headings, ink, dark bands | 15.7:1 |
+
+### 2.2 Accent: Terracotta
+| Token | Hex | Use | Contrast |
+| :--- | :--- | :--- | :--- |
+| `brand-50` | `#FBEBDD` | Selected option fill, tag fill | with `brand-800` text 8.4:1 |
+| `brand-100` | `#F6D5BD` | Soft highlights | |
+| `brand-500` | `#C65F2B` | Large display accents and illustration only | not for small text |
+| `brand-600` | `#A94A1C` | Primary buttons, links, active states | 4.99:1 on paper; cream text on it 5.34:1 |
+| `brand-700` | `#8F3C14` | Link hover, eyebrow labels | 6.51:1 on paper |
+
+Rule: terracotta is the only accent. Small text uses `brand-600` or darker. `brand-500` is for big headline words and shapes.
+
+### 2.3 Semantic Feedback & Status (Always Paired with Icons)
+Unchanged and kept apart from the accent so correct, wrong and info never look like branding. Color is never the only signal.
+
+| State | Background | Border / Accent | Icon | Text |
 | :--- | :--- | :--- | :--- | :--- |
-| `canvas-base` | `#F8FAFC` | `bg-slate-50` / `--bg-canvas` | Main app background (soft daylight white) | Base |
-| `surface-card` | `#FFFFFF` | `bg-white` / `--bg-surface` | Primary card and drawer container surface | 1.05:1 vs canvas |
-| `surface-muted` | `#F1F5F9` | `bg-slate-100` / `--bg-muted` | Inactive tabs, code blocks, quote backgrounds | Subtle contrast |
-| `surface-subtle` | `#E2E8F0` | `bg-slate-200` / `--bg-subtle` | Dividers, skeleton loaders, disabled buttons | Structural |
-
-### 2.2 Typography & Ink
-| Token Name | Hex | Tailwind | Role | Contrast vs White |
-| :--- | :--- | :--- | :--- | :--- |
-| `text-primary` | `#0F172A` | `text-slate-900` | Headings, primary titles, emphasized prose | **16.1:1** (AAA) |
-| `text-secondary` | `#334155` | `text-slate-700` | Standard body prose, interactive labels | **10.5:1** (AAA) |
-| `text-muted` | `#64748B` | `text-slate-500` | Timestamps, file sizes, metadata, captions | **4.6:1** (AA) |
-| `text-inverted` | `#FFFFFF` | `text-white` | Text on saturated primary buttons and badges | **8.2:1** vs Primary |
-
-### 2.3 Brand Accents & Interactive
-| Token Name | Hex | Tailwind | Role | Usage Rule |
-| :--- | :--- | :--- | :--- | :--- |
-| `brand-primary` | `#2563EB` | `bg-blue-600` | Main action buttons, active tabs, links | Primary interactive focal point |
-| `brand-hover` | `#1D4ED8` | `bg-blue-700` | Button hover and pressed states | Touch/hover state |
-| `brand-subtle` | `#EFF6FF` | `bg-blue-50` | Selected option background, tag containers | Highlight backgrounds |
-| `brand-highlight` | `#D97706` | `text-amber-600` | Marigold highlight for Mode badges, streak chips | Warm secondary pop |
-
-### 2.4 Semantic Feedback & Status (Always Paired with Icons)
-Color is never used as the sole indicator of status.
-
-| State | Background | Border / Accent | Icon | Text | Role |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Correct** | `#ECFDF5` (`emerald-50`) | `#059669` (`emerald-600`) | `CheckCircle2` | `#065F46` | Immediate correct answer feedback + bonus fact |
-| **Incorrect** | `#FFFBEB` (`amber-50`) | `#D97706` (`amber-600`) | `AlertTriangle` | `#92400E` | Incorrect answer explanation + 3-screen retry queue |
-| **Discovery / Info**| `#F0F9FF` (`sky-50`) | `#0284C7` (`sky-600`) | `Info` | `#075985` | Clickable diagram definitions & inline references |
-| **Danger / Error** | `#FEF2F2` (`rose-50`) | `#DC2626` (`rose-600`) | `XCircle` | `#991B1B` | Critical system error, data wipe confirmation |
+| **Correct** | `emerald-50` | `emerald-600` | `CheckCircle2` | `emerald-800` |
+| **Incorrect** | `amber-50` | `amber-600` | `AlertTriangle` | `amber-800` |
+| **Discovery / Info** | `sky-50` | `sky-600` | `Info` | `sky-800` |
+| **Danger / Error** | `rose-50` | `rose-600` | `XCircle` | `rose-800` |
 
 ---
 
 ## 3. Typography Hierarchy & Weight Budget
 
-To preserve the $< 200\text{ KB}$ payload constraint over metered cellular connections, we use a strict weight budget: **maximum 2 font families and 4 weights total**, with native system-sans fallback.
+Weight budget: **one downloaded family**. Headlines use Fraunces (serif), Bold 700, upright and italic (two latin files, about 41 KB, cached after the first visit). Body, controls and everything else use the system UI font (no download). Labels use the system monospace. This is smaller than the old Inter file (48 KB), so fonts cost less than before.
 
-- **Display & Headings**: `font-display` (Plus Jakarta Sans or system geometric sans: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`). Weights: **Bold (700)**, **Black (900)**.
-- **Body & Controls**: `font-sans` (Inter or system-ui). Weights: **Regular (400)**, **Medium (500)**, **Semibold (600)**.
-- **Monospace & Code**: `font-mono` (JetBrains Mono, Fira Code, or `ui-monospace`). Weight: **Regular (400)**.
+- **Display & Headings**: `font-display` (Fraunces 700). One word of a headline may be italic and terracotta (`brand-500` at display sizes only).
+- **Body & Controls**: `font-sans` (system UI). Regular 400, Medium 500, Semibold 600.
+- **Labels & Metadata**: `font-mono` (system mono), small, uppercase, wide tracking. Used for eyebrows, lesson counts and times.
 
 ### Type Scale
-| Level | Mobile (375px) | Desktop (1280px) | Weight | Tracking & Line Height |
+| Level | Mobile (375px) | Desktop (1280px) | Font | Notes |
 | :--- | :--- | :--- | :--- | :--- |
-| `Display / H1` | `24px` (`text-2xl`) | `36px` (`text-4xl`) | `font-black` (900) | `tracking-tight leading-tight` |
-| `H2 (Section)` | `18px` (`text-lg`) | `24px` (`text-2xl`) | `font-bold` (700) | `tracking-tight leading-snug` |
-| `H3 (Card/Title)`| `16px` (`text-base`)| `18px` (`text-lg`) | `font-bold` (700) | `leading-snug` |
-| `Body Standard`| `14px` (`text-sm`) | `15px` (`text-base`)| `font-normal` (400)| `leading-relaxed` |
-| `Body Compact` | `13px` (`text-[13px]`)| `14px` (`text-sm`) | `font-normal` (400)| `leading-normal` |
-| `Caption / Meta`| `11px` (`text-xs`)| `12px` (`text-xs`) | `font-medium` (500)| `tracking-wide uppercase` |
+| `Display / H1` | `40px` | `64px` | display | `leading-[1.04] tracking-tight` |
+| `H2 (Section)` | `30px` | `42px` | display | `leading-tight tracking-tight` |
+| `H3 (Card/Title)` | `22px` | `26px` | display | `leading-snug` |
+| `Body Standard` | `16px` | `18px` | sans | `leading-relaxed` |
+| `Body Compact` | `14px` | `15px` | sans | |
+| `Label / Meta` | `11px` | `12px` | mono | `uppercase tracking-[0.12em]` |
 
 ---
 
@@ -128,11 +134,11 @@ Every interactive touch target (buttons, choice options, tag pills, drawer toggl
 ## 7. Signature Moments (The 3 Defining Details)
 
 1. **Segmented Progress Rail**:  
-   At the top of the lesson player, a segmented rail of pill dashes represents each screen in the lesson. As the learner advances, the active pill fills with electric cobalt blue (`#2563EB`) in a crisp 250ms transition.
+   At the top of the lesson player, a segmented rail of pill dashes represents each screen in the lesson. As the learner advances, the active pill fills with terracotta (`brand-600`) in a crisp 250ms transition.
 2. **Immediate Slide-Up Feedback Bottom Sheet**:  
    Upon submitting an active recall check, an immediate bottom sheet emerges from the bottom on mobile (or right-hand panel on desktop). It pairs a prominent colored icon badge (`CheckCircle2` or `AlertTriangle`) with a crisp verdict and an indented, high-retention "Bonus Fact" or corrective explanation.
 3. **Inline Dotted Glossary Drawer**:  
-   Technical terms within lesson prose have a subtle dotted underline (`border-b border-dotted border-slate-400`). Tapping the term turns it electric cobalt and slides open a compact definition drawer without ever opening a new browser tab.
+   Technical terms within lesson prose have a subtle dotted underline (`border-b border-dotted border-slate-400`). Tapping the term turns it terracotta and slides open a compact definition drawer without ever opening a new browser tab.
 
 ---
 
@@ -151,61 +157,6 @@ Every interactive touch target (buttons, choice options, tag pills, drawer toggl
 
 ---
 
-## 9. Tailwind CSS Configuration Snippet
+## 9. Tailwind CSS Configuration
 
-To be merged into `tailwind.config.ts`:
-
-```typescript
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        brand: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          500: "#3b82f6",
-          600: "#2563eb", // Primary Electric Cobalt
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
-        },
-        editorial: {
-          canvas: "#f8fafc",
-          surface: "#ffffff",
-          muted: "#f1f5f9",
-          ink: "#0f172a",
-          secondary: "#334155",
-          border: "#e2e8f0",
-        },
-        feedback: {
-          correctBg: "#ecfdf5",
-          correctBorder: "#059669",
-          correctText: "#065f46",
-          incorrectBg: "#fffbeb",
-          incorrectBorder: "#d97706",
-          incorrectText: "#92400e",
-          infoBg: "#f0f9ff",
-          infoBorder: "#0284c7",
-          infoText: "#075985",
-        },
-      },
-      minHeight: {
-        tap: "44px",
-      },
-      minWidth: {
-        tap: "44px",
-      },
-    },
-  },
-  plugins: [],
-};
-
-export default config;
-```
+The palette, font family and tap-size tokens are defined in `tailwind.config.ts`, which is the source of truth (a copy here would drift). The headline font is loaded in `app/layout.tsx` with `next/font` and exposed as the `--font-display` variable.
