@@ -119,7 +119,7 @@ export default function MatchPairsWidget({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {/* Left Column */}
         <div className="space-y-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block px-1">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 block px-1">
             Status Code / Concept:
           </span>
           <div className="space-y-2">
@@ -155,7 +155,7 @@ export default function MatchPairsWidget({
 
         {/* Right Column */}
         <div className="space-y-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block px-1">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 block px-1">
             Outcome / Meaning:
           </span>
           <div className="space-y-2">

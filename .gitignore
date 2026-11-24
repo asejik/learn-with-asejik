@@ -42,3 +42,7 @@ Thumbs.db
 
 # Screen recordings: large binaries, keep out of the repository.
 /docs/videos/
+
+# Playwright
+/test-results/
+/playwright-report/

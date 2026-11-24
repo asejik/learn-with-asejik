@@ -40,7 +40,7 @@ export function TagFilterBar({
                 ? "bg-white text-brand-700 shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
             }`}
-            aria-label="View all courses in grid"
+            aria-label="Default view: all courses in a grid"
           >
             <LayoutGrid className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Default</span>
@@ -54,7 +54,7 @@ export function TagFilterBar({
                 ? "bg-white text-brand-700 shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
             }`}
-            aria-label="Sort courses alphabetically"
+            aria-label="A to Z: sort courses alphabetically"
           >
             <ArrowDownAZ className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">A to Z</span>
@@ -68,7 +68,7 @@ export function TagFilterBar({
                 ? "bg-white text-brand-700 shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
             }`}
-            aria-label="Group courses by topic"
+            aria-label="Grouped: group courses by topic"
           >
             <Layers className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Grouped</span>

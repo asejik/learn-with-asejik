@@ -97,6 +97,7 @@ export function CourseCard({ course, progressPercent = 0 }: CourseCardProps) {
               }`}
               style={{ width: `${progressPercent}%` }}
               role="progressbar"
+              aria-label="Course progress"
               aria-valuenow={progressPercent}
               aria-valuemin={0}
               aria-valuemax={100}

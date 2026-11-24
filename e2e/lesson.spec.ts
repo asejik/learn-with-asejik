@@ -1,0 +1,96 @@
+import { test, expect, type Page } from "@playwright/test";
+import { TITLES, answer, continueFromFeedback, feedback, openLesson } from "./lessonSteps";
+
+const heading = (page: Page) => page.getByRole("heading", { level: 1 });
+
+test.describe("lesson player", () => {
+  test("completes the lesson and shows the sign-up form", async ({ page }) => {
+    await openLesson(page);
+    for (let i = 0; i < TITLES.length; i++) {
+      await expect(heading(page)).toHaveText(TITLES[i]);
+      await answer(page, i);
+      if (i > 0) await continueFromFeedback(page);
+    }
+    await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+  });
+
+  test("Continue is hidden until the learner answers, and a wrong answer shows amber feedback", async ({ page }) => {
+    await openLesson(page);
+    await answer(page, 0);
+    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(page.getByRole("button", { name: /^Continue/ })).toHaveCount(0);
+    await answer(page, 1, false);
+    await expect(feedback(page).getByRole("heading", { name: "Not quite right" })).toBeVisible();
+    await expect(feedback(page)).not.toContainText("Correct");
+  });
+
+  test("a wrong answer comes back once and the lesson still finishes", async ({ page }) => {
+    await openLesson(page);
+    await answer(page, 0);
+    await answer(page, 1, false);
+    await continueFromFeedback(page);
+    for (let i = 2; i <= 4; i++) {
+      await expect(heading(page)).toHaveText(TITLES[i]);
+      await answer(page, i);
+      await continueFromFeedback(page);
+    }
+    // Three screens later the same question returns as a retry
+    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(page.getByText("Active Recall Retry")).toBeVisible();
+    await answer(page, 1);
+    await continueFromFeedback(page);
+    await expect(heading(page)).toHaveText(TITLES[5]);
+    await answer(page, 5);
+    await continueFromFeedback(page);
+    await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+  });
+
+  test("a reload resumes at the same screen", async ({ page }) => {
+    await openLesson(page);
+    await answer(page, 0);
+    await answer(page, 1);
+    await continueFromFeedback(page);
+    await expect(heading(page)).toHaveText(TITLES[2]);
+    await page.reload();
+    await expect(heading(page)).toHaveText(TITLES[2]);
+  });
+
+  test("feedback panel: right-hand on desktop, bottom on phone", async ({ page, viewport }) => {
+    await openLesson(page);
+    await answer(page, 0);
+    await answer(page, 1);
+    const box = (await feedback(page).boundingBox())!;
+    if (viewport!.width >= 1024) {
+      expect(box.x + box.width).toBeCloseTo(viewport!.width, 0);
+      expect(box.height).toBeGreaterThanOrEqual(viewport!.height - 1);
+    } else {
+      expect(box.width).toBeCloseTo(viewport!.width, 0);
+      expect(box.y + box.height).toBeGreaterThan(viewport!.height * 0.5);
+    }
+  });
+
+  test("every screen: no sideways scroll, tap targets at least 44px, no console errors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+    page.on("pageerror", (e) => errors.push(e.message));
+    await openLesson(page);
+    for (let i = 0; i < TITLES.length; i++) {
+      const sideways = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+      expect(sideways, `sideways scroll on screen ${i + 1}`).toBe(false);
+      // Answer buttons and nav controls. Inline glossary words (title="Define: ...") are
+      // left out until the owner decides (register P15-26: they are about 26px tall).
+      const small = await page.evaluate(() =>
+        Array.from(document.querySelectorAll("main button:not([disabled]):not([title^='Define:']), nav a, nav button"))
+          .map((el) => {
+            const r = el.getBoundingClientRect();
+            return { text: (el.textContent || el.getAttribute("aria-label") || "").trim().slice(0, 30), h: r.height, w: r.width };
+          })
+          .filter((b) => b.h < 44 || b.w < 44)
+      );
+      expect(small, `small tap targets on screen ${i + 1}`).toEqual([]);
+      await answer(page, i);
+      if (i > 0) await continueFromFeedback(page);
+    }
+    expect(errors).toEqual([]);
+  });
+});
