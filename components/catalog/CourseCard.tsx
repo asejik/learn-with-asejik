@@ -49,7 +49,7 @@ export function CourseCard({ course, progressPercent = 0 }: CourseCardProps) {
 
         {/* Course Title */}
         <h2 className="text-lg font-bold text-slate-900 leading-snug group-hover:text-brand-600 transition-colors">
-          <Link href={destinationHref} className="focus:outline-none focus:underline">
+          <Link href={destinationHref} className="block py-3 -my-3 focus:outline-none focus:underline">
             {course.title}
           </Link>
         </h2>

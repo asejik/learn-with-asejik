@@ -53,7 +53,7 @@ export default function ReadingWidget({
                     <button
                       type="button"
                       onClick={() => onOpenGlossary(matchedGlossary.term)}
-                      className="border-b-2 border-dotted border-slate-400 font-semibold text-brand-700 hover:text-brand-900 hover:border-brand-600 transition focus:outline-none focus:ring-1 focus:ring-brand-500 rounded-xs"
+                      className="relative after:absolute after:-inset-x-3 after:-inset-y-3 border-b-2 border-dotted border-slate-400 font-semibold text-brand-700 hover:text-brand-900 hover:border-brand-600 transition focus:outline-none focus:ring-1 focus:ring-brand-500 rounded-xs"
                       title={`Define: ${matchedGlossary.term}`}
                     >
                       {word}
