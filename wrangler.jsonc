@@ -12,6 +12,9 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
+  // Needed by `wrangler preview`, which Cloudflare runs for non-production
+  // branches (PR preview builds). Empty: assets and settings come from above.
+  "previews": {},
   // Don't send Wrangler usage metrics from developer machines or CI.
   "send_metrics": false,
   "dev": {
