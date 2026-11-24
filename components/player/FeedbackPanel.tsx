@@ -30,7 +30,7 @@ export function FeedbackPanel({
 
   return (
     <div
-      className={`w-full border-t p-4 sm:p-5 transition-all duration-200 animate-in slide-in-from-bottom ${
+      className={`w-full border-t p-4 sm:p-5 transition-all duration-200 animate-in slide-in-from-bottom lg:fixed lg:inset-y-0 lg:right-0 lg:z-40 lg:w-96 lg:border-t-0 lg:border-l-4 lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto ${
         isCorrect
           ? "bg-emerald-50 border-emerald-500 text-emerald-950"
           : isIncorrect
