@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { StorageWarning } from "./StorageWarning";
+import { siteConfig } from "@/lib/config";
 import { saveLessonState, getLessonState, saveUserProfile, getUserProfile } from "@/lib/db";
 import { PrivacyDrawer } from "./PrivacyDrawer";
 import type { LessonRef } from "@/lib/courseProgress";
@@ -207,7 +208,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
           </div>
           {ratingSaved && (
             <p className="text-[11px] text-emerald-700 font-semibold animate-fadeIn">
-              Thank you! Your feedback helps tune future lesson pacing.
+              Thank you! Your rating is saved on this phone.
             </p>
           )}
         </div>
@@ -218,14 +219,14 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
             <div className="flex items-center gap-2 text-brand-700">
               <Sparkles className="w-4 h-4" />
               <span className="text-xs font-extrabold uppercase tracking-wider">
-                Value-First Onboarding
+                Pilot signup
               </span>
             </div>
             <h2 className="text-base sm:text-lg font-bold text-slate-900">
-              Save Your Progress & Get New Lessons
+              Join the pilot
             </h2>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Link your device progress to an account to preserve completions and receive newly published chapters.
+              Join the pilot so Asejik can email you about new lessons and ask for your feedback.
             </p>
             <p id="pilot-age-notice" className="text-xs font-semibold text-slate-700">
               Pilot signup is for learners aged 18 and over.
@@ -236,9 +237,9 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
             <div className="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-200 flex items-start gap-2.5">
               <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
               <div className="space-y-0.5 text-xs text-emerald-900">
-                <p className="font-bold">Progress successfully linked!</p>
+                <p className="font-bold">You have joined the pilot.</p>
                 <p className="text-[11px] text-emerald-800">
-                  Welcome to the pilot roster. Your credentials are protected under our NDPA policy.
+                  Asejik will email you about new lessons. To leave, email {siteConfig.contactEmail}.
                 </p>
               </div>
             </div>
@@ -256,12 +257,16 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
 
               {/* Full Name Input */}
               <div className="space-y-1">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                <label
+                  htmlFor="pilot-full-name"
+                  className="text-[11px] font-bold uppercase tracking-wider text-slate-600"
+                >
                   Full Name
                 </label>
                 <div className="relative">
                   <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
+                    id="pilot-full-name"
                     type="text"
                     required
                     value={fullName}
@@ -274,12 +279,16 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
 
               {/* Email Input */}
               <div className="space-y-1">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                <label
+                  htmlFor="pilot-email"
+                  className="text-[11px] font-bold uppercase tracking-wider text-slate-600"
+                >
                   Email Address
                 </label>
                 <div className="relative">
                   <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
+                    id="pilot-email"
                     type="email"
                     required
                     value={email}
@@ -323,7 +332,7 @@ export function LessonCompletionView({ course, lesson, nextLesson, storageFailed
                   htmlFor="pilot-ndpa-consent"
                   className="flex-1 min-h-tap py-1 text-[11px] text-slate-600 leading-snug cursor-pointer select-none"
                 >
-                  I consent to Asejik storing my name and email to save my progress and contact me for pilot feedback under the Nigeria Data Protection Act (NDPA 2023).
+                  I agree that Asejik may store my name and email to email me about new lessons and ask for my feedback. Your name and email are stored with Google, which may be outside Nigeria. You can withdraw any time by emailing {siteConfig.contactEmail}.
                 </label>
               </div>
 

@@ -51,7 +51,7 @@ export function ClearDataModal({ isOpen, onClose, onConfirm }: ClearDataModalPro
         </div>
 
         <p className="text-xs text-slate-600 leading-relaxed">
-          This will wipe all locally stored lesson progress, completed checkmarks, and queued active-recall retry states from your device. Your data remains strictly on your device and is not saved to any external server.
+          This will wipe all locally stored lesson progress, completed checkmarks, and queued active-recall retry states from your device. This only removes data on this phone. If you joined the pilot, your name and email stay on the pilot list until you ask for them to be deleted.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-2 pt-2">
