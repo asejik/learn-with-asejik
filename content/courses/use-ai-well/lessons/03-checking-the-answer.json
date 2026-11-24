@@ -1,0 +1,185 @@
+{
+  "slug": "03-checking-the-answer",
+  "title": "Checking the Answer",
+  "chapterId": "ch2",
+  "keyTerms": ["Verify", "Source", "Hallucination"],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "Trust, Then Verify",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "Chatbots can sound sure while being wrong, so anything that matters needs a second check."
+      },
+      "glossary": [
+        {
+          "term": "Verify",
+          "definition": "To confirm that something is true by checking it against a reliable, separate source."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "Made-up story: Kemi asks a chatbot for a statistic for her school presentation. It gives a precise number and the name of a report. She puts both on her slide. Later she finds that the report does not exist.",
+          "The chatbot did not lie on purpose. It wrote text that looked like a real fact. Names, numbers, dates, quotes and web links are the things it gets wrong most easily, because they must be exactly right.",
+          "The habit is simple: use the answer as a starting point, and check the parts that matter before you rely on them or share them."
+        ]
+      }
+    },
+    {
+      "id": "screen-2-diagram",
+      "title": "A Four-Step Check",
+      "widgetType": "diagramExplorer",
+      "aiTutor": {
+        "explain": "Tap each step. You do not need all four every time, but the more it matters, the more you do."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Tap each step of the check:",
+        "diagramSvg": "<svg viewBox='0 0 380 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-md mx-auto my-2'><rect x='5' y='30' width='85' height='60' rx='10' fill='#e0f2fe' stroke='#0284c7' stroke-width='2'/><text x='47' y='65' font-size='13' text-anchor='middle' fill='#0369a1' font-weight='bold'>1. Spot</text><rect x='100' y='30' width='85' height='60' rx='10' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='142' y='65' font-size='13' text-anchor='middle' fill='#92400e' font-weight='bold'>2. Ask</text><rect x='195' y='30' width='85' height='60' rx='10' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='237' y='65' font-size='13' text-anchor='middle' fill='#15803d' font-weight='bold'>3. Cross</text><rect x='290' y='30' width='85' height='60' rx='10' fill='#fee2e2' stroke='#dc2626' stroke-width='2'/><text x='332' y='65' font-size='13' text-anchor='middle' fill='#991b1b' font-weight='bold'>4. Decide</text></svg>",
+        "nodes": [
+          {
+            "id": "node-spot",
+            "label": "1. Spot",
+            "title": "Spot the risky parts",
+            "definition": "Mark the exact facts: names, numbers, dates, quotes, links and any advice with real consequences. These are the parts to check.",
+            "bonusFact": "General explanations are usually safer than precise facts."
+          },
+          {
+            "id": "node-ask",
+            "label": "2. Ask",
+            "title": "Ask it to show its basis",
+            "definition": "Ask \"How sure are you?\" or \"What source is this from?\". The answer is a clue, not proof, because it can invent sources too.",
+            "bonusFact": "A source you cannot find yourself is a warning sign."
+          },
+          {
+            "id": "node-cross",
+            "label": "3. Cross-check",
+            "title": "Cross-check elsewhere",
+            "definition": "Look the fact up in a separate, reliable place: an official website, a trusted news outlet, a textbook, or an expert. Two independent sources that agree are better than one.",
+            "bonusFact": "Do not use the same chatbot to confirm its own answer."
+          },
+          {
+            "id": "node-decide",
+            "label": "4. Decide",
+            "title": "Decide what to use",
+            "definition": "Keep what you confirmed, fix what is wrong, and leave out anything you could not check. For health, law or money, also ask a qualified person.",
+            "bonusFact": "Leaving out an unchecked fact is better than sharing a wrong one."
+          }
+        ],
+        "completionMessage": "You have the four steps: spot, ask, cross-check, decide.",
+        "completionBonusFact": "The more a mistake would cost, the more steps you should take."
+      }
+    },
+    {
+      "id": "screen-3-choice",
+      "title": "Which Part Needs Checking?",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Look for the exact, checkable fact."
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "A chatbot writes a paragraph about a famous event. Which part should you check first?",
+        "isMultiSelect": false,
+        "options": [
+          { "id": "opt-1", "text": "The tone of the writing." },
+          { "id": "opt-2", "text": "The dates, names and numbers." },
+          { "id": "opt-3", "text": "The number of paragraphs." }
+        ],
+        "correctOptionIds": ["opt-2"],
+        "explanation": "Exact facts are where a polished-looking answer is most often wrong, and where a mistake does the most damage.",
+        "bonusFact": "A quick search for one key name or number often reveals whether the whole answer is solid."
+      }
+    },
+    {
+      "id": "screen-4-swipe",
+      "title": "Check or Trust?",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Decide whether each statement is true or false."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Is each statement true or false?",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "A source or web link given by a chatbot is real because it looks proper.",
+            "isTrue": false,
+            "explanation": "Chatbots can invent sources and links. Open the link, or search for the source yourself."
+          },
+          {
+            "id": "c2",
+            "statement": "Asking the same chatbot \"Are you sure?\" is a full check.",
+            "isTrue": false,
+            "explanation": "It may repeat or change its answer without checking anything. Use a separate source."
+          },
+          {
+            "id": "c3",
+            "statement": "For health, law or money decisions, a chatbot answer should be checked with a qualified person.",
+            "isTrue": true,
+            "explanation": "A wrong answer here can cost you a lot, so it is worth a second, expert opinion."
+          },
+          {
+            "id": "c4",
+            "statement": "If two independent trusted sources agree with the answer, you can feel more confident.",
+            "isTrue": true,
+            "explanation": "Independent agreement is the best everyday check you have."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-5-match",
+      "title": "Match the Check",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Match each claim to a good way to check it."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Match each claim to a good way to check it:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "A statistic with a percentage",
+            "right": "Find it on the official source's own site"
+          },
+          {
+            "id": "p2",
+            "left": "A quote from a famous person",
+            "right": "Search for the quote in a trusted book or site"
+          },
+          {
+            "id": "p3",
+            "left": "A web link it gave you",
+            "right": "Open it and see if the page exists"
+          },
+          {
+            "id": "p4",
+            "left": "Advice about a medicine",
+            "right": "Ask a pharmacist or a doctor"
+          }
+        ],
+        "explanation": "Each check uses a separate, reliable source rather than the chatbot itself."
+      }
+    },
+    {
+      "id": "screen-6-cloze",
+      "title": "The Habit",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "review": "Finish the habit sentence."
+      },
+      "glossary": [],
+      "widgetData": {
+        "prompt": "Complete the habit:",
+        "template": "Use the chatbot answer as a starting point, and {blank} anything important before you share it.",
+        "options": ["verify", "forward", "memorise", "ignore"],
+        "correctAnswer": "verify",
+        "explanation": "Verifying is the step that turns a quick draft into something you can stand behind.",
+        "bonusFact": "Saying \"I checked this\" is more convincing than \"the AI said so\"."
+      }
+    }
+  ]
+}
