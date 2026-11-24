@@ -205,18 +205,8 @@ export const MatchPairsWidgetDataSchema = z.strictObject({
   noDuplicates(d.pairs.map((p) => p.right), "right item", ctx, ["pairs"]);
 });
 
-// Widget Discriminated Union
-export const WidgetTypeEnum = z.enum([
-  "reading",
-  "cloze",
-  "choice",
-  "swipeDeck",
-  "diagramExplorer",
-  "matchPairs",
-]);
-
 // One screen shape per widget type, so widgetData must match widgetType
-function screenOf<T extends z.infer<typeof WidgetTypeEnum>, D extends z.ZodType>(
+function screenOf<T extends string, D extends z.ZodType>(
   widgetType: T,
   widgetData: D
 ) {
@@ -305,7 +295,7 @@ export type Course = z.infer<typeof CourseSchema>;
 export type Chapter = z.infer<typeof ChapterSchema>;
 export type Lesson = z.infer<typeof LessonSchema>;
 export type Screen = z.infer<typeof ScreenSchema>;
-export type WidgetType = z.infer<typeof WidgetTypeEnum>;
+export type WidgetType = Screen["widgetType"];
 
 export type ReadingWidgetData = z.infer<typeof ReadingWidgetDataSchema>;
 export type ClozeWidgetData = z.infer<typeof ClozeWidgetDataSchema>;

@@ -4,7 +4,7 @@
 > **Standard**: P05 UI Design Direction  
 > **Core Archetype**: High-Contrast Technical Editorial (Brilliant.org & ByteByteGo Standard)  
 > **Primary Viewport Target**: 375px Android mobile on metered data  
-> **Interactive Payload Ceiling**: < 200 KB per lesson  
+> **Interactive Payload Ceiling**: < 200 KB per lesson (optional tap-to-load runtimes, e.g. a code runner, are extra and cached after first use)  
 
 ---
 

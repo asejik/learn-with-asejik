@@ -32,7 +32,7 @@ Build a fast, mobile-first, low-data interactive learning platform that supports
 
 ## Low-data and mobile constraints
 - Target users are often on mid-range Android phones and metered mobile data in Nigeria.
-- Keep a single interactive lesson payload under 200 KB (excluding optional media).
+- Keep a single interactive lesson payload under 200 KB (excluding optional media and optional heavy runtimes such as an in-browser code runner). A runtime loads only after the learner taps to use it, tells the learner its download size first, and is cached for offline use after that.
 - Use text and inline SVGs for diagrams. Do not require video for core instruction.
 - Any optional audio clip (Opus) or short video clip (WebM, under 60 seconds) must load only after the learner taps play. Never preload or autoplay media.
 - All interactive tap targets must be at least 44x44px and usable with one thumb on a 375px screen.
