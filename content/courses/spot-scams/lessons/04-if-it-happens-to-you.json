@@ -1,0 +1,190 @@
+{
+  "slug": "04-if-it-happens-to-you",
+  "title": "If It Happens to You",
+  "chapterId": "ch2",
+  "keyTerms": ["Evidence", "Recovery scam", "Report"],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "It Can Happen to Anyone",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "Smart, careful people get scammed. What matters next is acting quickly and calmly, and not being tricked a second time."
+      },
+      "glossary": [
+        {
+          "term": "Recovery scam",
+          "definition": "A second scam aimed at someone who was already scammed. A stranger offers to get your money back, for a fee."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "Scammers are professionals. They do this every day, and they know exactly which feelings to press. Being caught out says nothing bad about your intelligence.",
+          "Shame is the scammer's friend. People who stay quiet lose more time, and others get caught by the same trick. Speaking up early is the best thing you can do for yourself and for others.",
+          "Next, you will learn what to do in the first hour, and the second scam to watch out for: the one that promises to get your money back."
+        ]
+      }
+    },
+    {
+      "id": "screen-2-diagram",
+      "title": "The First Hour",
+      "widgetType": "diagramExplorer",
+      "aiTutor": {
+        "explain": "Tap each step. The order matters, because money is easier to stop the sooner you act."
+      },
+      "glossary": [
+        {
+          "term": "Evidence",
+          "definition": "Anything that shows what happened: screenshots, messages, call times, account numbers and receipts."
+        }
+      ],
+      "widgetData": {
+        "instruction": "Tap every step to see what to do and why:",
+        "diagramSvg": "<svg viewBox='0 0 380 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-md mx-auto my-2'><rect x='5' y='30' width='85' height='60' rx='10' fill='#fee2e2' stroke='#dc2626' stroke-width='2'/><text x='47' y='65' font-size='13' text-anchor='middle' fill='#991b1b' font-weight='bold'>1. Stop</text><rect x='100' y='30' width='85' height='60' rx='10' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='142' y='65' font-size='13' text-anchor='middle' fill='#92400e' font-weight='bold'>2. Call</text><rect x='195' y='30' width='85' height='60' rx='10' fill='#e0f2fe' stroke='#0284c7' stroke-width='2'/><text x='237' y='65' font-size='13' text-anchor='middle' fill='#0369a1' font-weight='bold'>3. Save</text><rect x='290' y='30' width='85' height='60' rx='10' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='332' y='65' font-size='13' text-anchor='middle' fill='#15803d' font-weight='bold'>4. Report</text></svg>",
+        "nodes": [
+          {
+            "id": "node-stop",
+            "label": "1. Stop",
+            "title": "Stop all contact and payments",
+            "definition": "Do not reply, do not pay anything more, and do not click further links. Every extra payment is lost money.",
+            "bonusFact": "Scammers often ask for \"one more small payment\" to release the first."
+          },
+          {
+            "id": "node-call",
+            "label": "2. Call",
+            "title": "Call your bank or provider",
+            "definition": "Use the number on your card or in its official app, never one from the message. Tell them what happened, and ask them to protect your account and change your PIN or password.",
+            "bonusFact": "The sooner a bank hears about it, the more it can try to do."
+          },
+          {
+            "id": "node-save",
+            "label": "3. Save",
+            "title": "Save the evidence",
+            "definition": "Take screenshots of the messages, the sender's number or profile, and any account details. Write down the times and amounts. Do not delete anything.",
+            "bonusFact": "Good evidence helps your bank and the authorities follow what happened."
+          },
+          {
+            "id": "node-report",
+            "label": "4. Report",
+            "title": "Report it and warn others",
+            "definition": "Report to the police or the proper authority in your area, and to the platform where it happened. Tell family and friends so the same trick does not catch them.",
+            "bonusFact": "Reports help others get protected, even when your own money cannot be returned."
+          }
+        ],
+        "completionMessage": "You now know the four steps for the first hour: stop, call, save, report.",
+        "completionBonusFact": "Save these four words on your phone so you do not have to think when you are upset."
+      }
+    },
+    {
+      "id": "screen-3-choice",
+      "title": "The Second Scam",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Someone who knows you were scammed and offers a quick fix is a warning sign, not a rescuer."
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "Days after you lose money, a stranger messages: \"I can get your money back. Pay a 10,000 naira fee first.\" What should you do?",
+        "isMultiSelect": false,
+        "options": [
+          { "id": "opt-1", "text": "Pay the fee, because it is small compared with what you lost." },
+          { "id": "opt-2", "text": "Do not pay. It is probably a recovery scam, so report the message." },
+          { "id": "opt-3", "text": "Send them your bank details so they can start." }
+        ],
+        "correctOptionIds": ["opt-2"],
+        "explanation": "Scammers look for people who were already scammed. An unknown person who asks for a fee to recover your money is another advance fee trick.",
+        "bonusFact": "Genuine help comes from your bank and the authorities, and you contact them, not the other way round."
+      }
+    },
+    {
+      "id": "screen-4-swipe",
+      "title": "Good Move or Bad Move?",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Decide whether each statement is true or false."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Is each statement true or false?",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "Telling your bank quickly gives it the best chance to help.",
+            "isTrue": true,
+            "explanation": "Time matters. The earlier a bank knows, the more options it may have."
+          },
+          {
+            "id": "c2",
+            "statement": "You should delete the scam messages so you can forget about it.",
+            "isTrue": false,
+            "explanation": "Those messages are evidence. Keep them, and save copies before blocking the sender."
+          },
+          {
+            "id": "c3",
+            "statement": "Being scammed means you were careless or foolish.",
+            "isTrue": false,
+            "explanation": "Scams are built by professionals to work on careful people too. Shame only makes it harder to act quickly."
+          },
+          {
+            "id": "c4",
+            "statement": "Warning your friends and family about the trick can protect them.",
+            "isTrue": true,
+            "explanation": "Scammers reuse the same story. One warning can stop the next person."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-5-match",
+      "title": "Match the Action to Its Reason",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Match each action to the reason behind it."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Match each action to why you do it:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "Stop paying and replying",
+            "right": "Extra payments are lost too"
+          },
+          {
+            "id": "p2",
+            "left": "Call the number on your card",
+            "right": "You reach the real bank"
+          },
+          {
+            "id": "p3",
+            "left": "Screenshot the messages",
+            "right": "It is evidence for others to use"
+          },
+          {
+            "id": "p4",
+            "left": "Tell friends and family",
+            "right": "It stops the same trick again"
+          }
+        ],
+        "explanation": "Each action either stops further loss, gets real help, or protects other people."
+      }
+    },
+    {
+      "id": "screen-6-cloze",
+      "title": "Course Wrap-Up",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "review": "One last check. Fill in the blank to finish the course."
+      },
+      "glossary": [],
+      "widgetData": {
+        "prompt": "Complete the final rule:",
+        "template": "When money or secrets are asked for, slow down, check another way, and {blank} before you act.",
+        "options": ["think", "hurry", "forward it", "pay"],
+        "correctAnswer": "think",
+        "explanation": "Urgency, fear, greed and trust all work best when you do not stop to think. Checking another way gives you the time.",
+        "bonusFact": "Sharing what you learned here with one person is the best way to make it stick."
+      }
+    }
+  ]
+}

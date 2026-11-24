@@ -1,0 +1,185 @@
+{
+  "slug": "01-the-scammers-playbook",
+  "title": "The Scammer's Playbook",
+  "chapterId": "ch1",
+  "keyTerms": ["Scam", "Urgency", "Fear", "Greed", "Trust"],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "They Don't Hack Your Phone",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "Most scammers do not break into anything. They get you to hand over the key yourself. This lesson shows the four feelings they use."
+      },
+      "glossary": [
+        {
+          "term": "Scam",
+          "definition": "A trick that gets you to give away money or private details willingly, because you believe a lie."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "Here is a made-up story. Ada gets a text: \"Your bank account will be blocked in 30 minutes. Tap here to fix it.\" Her heart jumps. She taps, types her details, and a minute later her money is gone.",
+          "Nobody hacked Ada's phone. Ada was rushed and scared, and she gave the scammer exactly what he wanted. That is how most scams work. The weak point is a feeling, not a machine.",
+          "Good news: scammers use the same few feelings again and again. Once you can name them, you can spot them. That is what this course is for."
+        ]
+      }
+    },
+    {
+      "id": "screen-2-diagram",
+      "title": "The Four Levers",
+      "widgetType": "diagramExplorer",
+      "aiTutor": {
+        "explain": "Tap each lever. Notice that a single message often pulls two or three of them at once."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Tap every lever to see how scammers use it:",
+        "diagramSvg": "<svg viewBox='0 0 380 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-md mx-auto my-2'><rect x='5' y='25' width='85' height='70' rx='10' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='47' y='65' font-size='14' text-anchor='middle' fill='#92400e' font-weight='bold'>Urgency</text><rect x='100' y='25' width='85' height='70' rx='10' fill='#fee2e2' stroke='#dc2626' stroke-width='2'/><text x='142' y='65' font-size='14' text-anchor='middle' fill='#991b1b' font-weight='bold'>Fear</text><rect x='195' y='25' width='85' height='70' rx='10' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='237' y='65' font-size='14' text-anchor='middle' fill='#15803d' font-weight='bold'>Greed</text><rect x='290' y='25' width='85' height='70' rx='10' fill='#e0f2fe' stroke='#0284c7' stroke-width='2'/><text x='332' y='65' font-size='14' text-anchor='middle' fill='#0369a1' font-weight='bold'>Trust</text></svg>",
+        "nodes": [
+          {
+            "id": "node-urgency",
+            "label": "Urgency",
+            "title": "Urgency: \"Act now!\"",
+            "definition": "A deadline stops you from thinking. \"Within 30 minutes\", \"last chance\", \"today only\". Real problems rarely need an answer in minutes.",
+            "bonusFact": "Rushing you is the scammer's main tool, because a calm person asks questions."
+          },
+          {
+            "id": "node-fear",
+            "label": "Fear",
+            "title": "Fear: \"Something bad will happen\"",
+            "definition": "Threats of a blocked account, a lost job, arrest or a family emergency make you act before you check.",
+            "bonusFact": "Frightened people tend to follow instructions, which is exactly what the scammer needs."
+          },
+          {
+            "id": "node-greed",
+            "label": "Greed",
+            "title": "Greed: \"Easy money!\"",
+            "definition": "A prize, a free gift or big returns with no risk. You want it to be true, so you stop looking for the catch.",
+            "bonusFact": "Wanting something good is normal. Scammers aim at that wish."
+          },
+          {
+            "id": "node-trust",
+            "label": "Trust",
+            "title": "Trust: \"I am someone you know\"",
+            "definition": "The sender pretends to be your bank, a relative, an employer or a friend, so your guard goes down.",
+            "bonusFact": "A name, a logo or a familiar voice can all be copied, so they prove nothing on their own."
+          }
+        ],
+        "completionMessage": "You have met all four levers: urgency, fear, greed and trust.",
+        "completionBonusFact": "Most scam messages pull at least two of these levers at the same time."
+      }
+    },
+    {
+      "id": "screen-3-choice",
+      "title": "Which Lever Is This?",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Read the message again. Which feeling is it trying to make you have, right away?"
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "A message says: \"You won 500,000 naira in our mobile draw! Send 5,000 naira today to unlock your prize.\" Which lever is it pulling most?",
+        "isMultiSelect": false,
+        "options": [
+          { "id": "opt-1", "text": "Fear: it threatens you with something bad." },
+          { "id": "opt-2", "text": "Greed: it offers a prize you did not earn, and a deadline." },
+          { "id": "opt-3", "text": "Trust: it comes from someone you know." }
+        ],
+        "correctOptionIds": ["opt-2"],
+        "explanation": "A prize for a draw you never entered is the bait, and \"today\" adds a deadline. A real prize never asks you to pay first.",
+        "bonusFact": "Asking you to pay a fee to receive money is one of the oldest scam patterns."
+      }
+    },
+    {
+      "id": "screen-4-swipe",
+      "title": "Real Problem or Pressure Trick?",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Decide whether each statement is true or false. Think about how a real company or a real friend behaves."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Is each statement true or false?",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "A genuine problem with your account can almost always wait ten minutes while you check it properly.",
+            "isTrue": true,
+            "explanation": "Real organisations give you time and several ways to confirm. Checking first costs you nothing."
+          },
+          {
+            "id": "c2",
+            "statement": "If a message uses your correct name, it must be real.",
+            "isTrue": false,
+            "explanation": "Names are easy to find or buy. A message that knows your name can still be a scam."
+          },
+          {
+            "id": "c3",
+            "statement": "A message that makes you feel scared or excited is a reason to slow down.",
+            "isTrue": true,
+            "explanation": "Strong feelings are the lever. Pausing takes the power out of it."
+          },
+          {
+            "id": "c4",
+            "statement": "A real prize can ask you to pay a small fee before you receive it.",
+            "isTrue": false,
+            "explanation": "Paying first to get money is the trap. The \"fee\" is what the scammer is after."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-5-match",
+      "title": "Match the Message to the Lever",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Match each made-up message to the lever it pulls most. Look for the feeling it wants from you."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Match each message to the lever it uses most:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "\"Reply in 10 minutes or lose this offer\"",
+            "right": "Urgency"
+          },
+          {
+            "id": "p2",
+            "left": "\"Your account will be closed and reported\"",
+            "right": "Fear"
+          },
+          {
+            "id": "p3",
+            "left": "\"Double your money by Friday, guaranteed\"",
+            "right": "Greed"
+          },
+          {
+            "id": "p4",
+            "left": "\"Hi, it is me, I changed my number\"",
+            "right": "Trust"
+          }
+        ],
+        "explanation": "A deadline is urgency, a threat is fear, a big sure win is greed, and a familiar voice or number is trust."
+      }
+    },
+    {
+      "id": "screen-6-cloze",
+      "title": "Your Best Defence",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "review": "One habit beats all four levers. Fill in the blank with it."
+      },
+      "glossary": [],
+      "widgetData": {
+        "prompt": "Complete the sentence:",
+        "template": "When a message rushes or scares you, the safest first move is to {blank} before you act.",
+        "options": ["pause", "reply", "pay", "forward it"],
+        "correctAnswer": "pause",
+        "explanation": "Pausing breaks the lever. It gives you time to check using a number or app you already trust.",
+        "bonusFact": "Telling a friend or family member about a strange message is a quick way to see it clearly."
+      }
+    }
+  ]
+}

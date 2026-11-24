@@ -1,0 +1,189 @@
+{
+  "slug": "02-fake-alerts-and-otps",
+  "title": "Fake Alerts, OTPs and Phishing",
+  "chapterId": "ch1",
+  "keyTerms": ["OTP", "Phishing", "Fake alert", "Spoofing"],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "The Call From \"Your Bank\"",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "This lesson covers the scams that reach you by call, text or chat, and the one code you must never share."
+      },
+      "glossary": [
+        {
+          "term": "OTP",
+          "definition": "One-Time Password: a short code sent to your phone to confirm it is really you. Anyone who has it can act as you."
+        },
+        {
+          "term": "Phishing",
+          "definition": "A message made to look like it comes from a trusted sender, to make you click a link or hand over details."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "Made-up story: Emeka's phone rings. \"This is your bank's security team. Someone is trying to take money from your account. We will stop it, but we just sent you a code. Read it to me now.\"",
+          "The code is an OTP, a one-time password. Its only job is to prove that you are approving something. When Emeka reads it out, he is approving the thief's transfer himself.",
+          "Remember this rule: an OTP, a PIN or a password is for your eyes only. Nobody who is really helping you needs it, not a bank, not a company, not the police."
+        ]
+      }
+    },
+    {
+      "id": "screen-2-choice",
+      "title": "What Would You Do?",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Think about who started the call, and what the caller wants you to read out."
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "Someone calls saying they are from your bank and asks you to read out the code just sent to your phone. What is the best move?",
+        "isMultiSelect": false,
+        "options": [
+          { "id": "opt-1", "text": "Read out the code quickly, because they are protecting your money." },
+          { "id": "opt-2", "text": "Hang up. Then call your bank on the number on your card or in its official app." },
+          { "id": "opt-3", "text": "Ask them to prove who they are, then read it out if they sound sure." }
+        ],
+        "correctOptionIds": ["opt-2"],
+        "explanation": "The code approves an action, so it must never be read out. Calling back on a number you already trust lets you reach the real bank.",
+        "bonusFact": "Scammers can make a call look like it comes from a trusted number, so the number on your screen proves nothing."
+      }
+    },
+    {
+      "id": "screen-3-diagram",
+      "title": "Anatomy of a Phishing Message",
+      "widgetType": "diagramExplorer",
+      "aiTutor": {
+        "explain": "Tap each part of the message. A scam message usually has all four."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Tap every part of this fake message to see the warning sign:",
+        "diagramSvg": "<svg viewBox='0 0 380 150' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-md mx-auto my-2'><rect x='10' y='8' width='360' height='134' rx='12' fill='#f1f5f9' stroke='#64748b' stroke-width='2'/><rect x='24' y='20' width='160' height='28' rx='6' fill='#e0f2fe' stroke='#0284c7' stroke-width='2'/><text x='104' y='39' font-size='12' text-anchor='middle' fill='#0369a1' font-weight='bold'>1. Sender</text><rect x='196' y='20' width='160' height='28' rx='6' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='276' y='39' font-size='12' text-anchor='middle' fill='#92400e' font-weight='bold'>2. Deadline</text><rect x='24' y='58' width='160' height='28' rx='6' fill='#fee2e2' stroke='#dc2626' stroke-width='2'/><text x='104' y='77' font-size='12' text-anchor='middle' fill='#991b1b' font-weight='bold'>3. Link</text><rect x='196' y='58' width='160' height='28' rx='6' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='276' y='77' font-size='12' text-anchor='middle' fill='#15803d' font-weight='bold'>4. The ask</text></svg>",
+        "nodes": [
+          {
+            "id": "node-sender",
+            "label": "1. Sender",
+            "title": "The sender looks right but is not",
+            "definition": "The name may match your bank, but the number or address behind it is different, or is a plain personal number or a free email address. Display names are easy to fake.",
+            "bonusFact": "Faking how a sender looks is called spoofing."
+          },
+          {
+            "id": "node-deadline",
+            "label": "2. Deadline",
+            "title": "A deadline to rush you",
+            "definition": "\"Your account will be blocked in one hour\". The deadline is the urgency lever from lesson 1.",
+            "bonusFact": "Real banks do not freeze your account over a text that expires in minutes."
+          },
+          {
+            "id": "node-link",
+            "label": "3. Link",
+            "title": "A link to a fake page",
+            "definition": "The link leads to a copy of a real login page. Whatever you type goes straight to the scammer. A short or odd-looking address is a red flag.",
+            "bonusFact": "Open your bank's own app or type its address yourself, instead of tapping a link in a message."
+          },
+          {
+            "id": "node-ask",
+            "label": "4. The ask",
+            "title": "A request for secrets",
+            "definition": "Your PIN, OTP, password, card number or ID numbers such as your BVN. A real organisation can see what it needs without asking you to type or read out your secrets.",
+            "bonusFact": "If a message asks for a secret, treat it as a scam until you have checked another way."
+          }
+        ],
+        "completionMessage": "You have inspected all four parts of a phishing message.",
+        "completionBonusFact": "Check the sender, the deadline, the link and the ask. Two or more warning signs is enough to stop."
+      }
+    },
+    {
+      "id": "screen-4-swipe",
+      "title": "Alert or Trap?",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Decide whether each statement is true or false. Think about what proves that money has really arrived."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Is each statement true or false?",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "A text that says money has arrived is proof that it arrived.",
+            "isTrue": false,
+            "explanation": "Fake credit alerts are used against sellers. Check your balance in your own bank app before you hand over goods."
+          },
+          {
+            "id": "c2",
+            "statement": "You should never share your OTP, PIN or password with anyone who contacts you.",
+            "isTrue": true,
+            "explanation": "These secrets exist so that only you can approve things. Sharing them hands your account to someone else."
+          },
+          {
+            "id": "c3",
+            "statement": "A link is safe if the message looks professional and has a logo.",
+            "isTrue": false,
+            "explanation": "Logos and polished wording are easy to copy. Judge the sender, the link and the ask instead."
+          },
+          {
+            "id": "c4",
+            "statement": "If someone you know sends an odd message asking for money, call them on their usual number to check.",
+            "isTrue": true,
+            "explanation": "Accounts can be taken over, and numbers can be copied. A call to the real person settles it."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-5-match",
+      "title": "Match the Warning Sign",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Match each situation to the safer response."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Match each situation to the safest response:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "A text with a link says your account is blocked",
+            "right": "Open your bank's own app instead"
+          },
+          {
+            "id": "p2",
+            "left": "A caller asks you to read out a code",
+            "right": "Hang up and call the bank yourself"
+          },
+          {
+            "id": "p3",
+            "left": "A buyer shows you a credit alert text",
+            "right": "Check your balance in your app"
+          },
+          {
+            "id": "p4",
+            "left": "A friend's chat asks you urgently for money",
+            "right": "Phone your friend on their usual number"
+          }
+        ],
+        "explanation": "In each case you stop using the channel the scammer gave you, and check through one you chose yourself."
+      }
+    },
+    {
+      "id": "screen-6-cloze",
+      "title": "The Golden Rule",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "review": "One rule covers the whole lesson. Fill in the blank."
+      },
+      "glossary": [],
+      "widgetData": {
+        "prompt": "Complete the rule:",
+        "template": "Your OTP, PIN and password are for your eyes only, so {blank} should ever be told them.",
+        "options": ["nobody", "only the bank", "only family", "only support staff"],
+        "correctAnswer": "nobody",
+        "explanation": "Anyone who really helps you can do it without your secrets. Anyone who asks for them is a risk.",
+        "bonusFact": "Changing your PIN or password right away limits the damage if you ever shared one by mistake."
+      }
+    }
+  ]
+}
