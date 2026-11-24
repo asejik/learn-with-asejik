@@ -4,9 +4,14 @@ import { getAllCourses } from "./content";
 
 describe("buildRedirects", () => {
   it("sends each real course address to its first lesson", () => {
-    expect(buildRedirects(getAllCourses())).toBe(
-      "/courses/how-apis-work /courses/how-apis-work/01-what-is-an-api 307\n"
-    );
+    const courses = getAllCourses();
+    const lines = buildRedirects(courses).split("\n").filter(Boolean);
+    // One line per course, so adding a course does not break this test
+    expect(lines).toHaveLength(courses.length);
+    for (const course of courses) {
+      const first = course.chapters[0].lessons[0].slug;
+      expect(lines).toContain(`/courses/${course.slug} /courses/${course.slug}/${first} 307`);
+    }
   });
 
   it("sends a course with no lessons to the catalog", () => {

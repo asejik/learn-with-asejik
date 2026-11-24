@@ -1,0 +1,27 @@
+{
+  "slug": "spot-scams",
+  "title": "Spot Scams Before They Spot You",
+  "summary": "Learn the tricks behind fake alerts, OTP calls and too-good offers, and what to do if you are targeted. Short and interactive.",
+  "mode": "course",
+  "estimatedMinutes": 28,
+  "approxKbSize": 36,
+  "canonicalTags": ["online safety", "fraud prevention", "digital literacy"],
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "Recognise the Tricks",
+      "lessons": [
+        { "slug": "01-the-scammers-playbook", "title": "The Scammer's Playbook" },
+        { "slug": "02-fake-alerts-and-otps", "title": "Fake Alerts, OTPs and Phishing" },
+        { "slug": "03-too-good-to-be-true", "title": "Investment, Loan and Job Scams" }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "Respond",
+      "lessons": [
+        { "slug": "04-if-it-happens-to-you", "title": "If It Happens to You" }
+      ]
+    }
+  ]
+}
