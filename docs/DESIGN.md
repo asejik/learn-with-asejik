@@ -110,7 +110,8 @@ Every interactive touch target (buttons, choice options, tag pills, drawer toggl
 - **Borders**: Sharp, crisp 1px borders (`border border-slate-200`) define surfaces rather than diffuse colorful shadows.
 - **Radii**:
   - `rounded-lg` (`8px`): Small badges, code chips, tag buttons.
-  - `rounded-xl` (`12px`): Primary action buttons, interactive choice tiles.
+  - `rounded-full`: Primary and secondary action buttons (pills), nav call-to-action.
+  - `rounded-xl` (`12px`): Interactive choice tiles and text inputs.
   - `rounded-2xl` (`16px`): Catalog cards, lesson content containers, bottom sheets.
   - `rounded-full`: Stepper indicator dots, avatar badges.
 - **Shadows**:

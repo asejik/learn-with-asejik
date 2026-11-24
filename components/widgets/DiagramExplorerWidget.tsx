@@ -147,13 +147,13 @@ export default function DiagramExplorerWidget({
             <button
               type="button"
               onClick={handleCompleteManual}
-              className="w-full min-h-tap px-4 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition active:scale-98 cursor-pointer"
+              className="w-full min-h-tap px-4 py-3.5 rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition active:scale-98 cursor-pointer"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Continue with Inspection Complete</span>
             </button>
           ) : (
-            <div className="w-full min-h-tap p-3 rounded-xl bg-slate-100 border border-slate-200 text-center flex items-center justify-center gap-2 text-xs font-semibold text-slate-700">
+            <div className="w-full min-h-tap p-3 rounded-full bg-slate-100 border border-slate-200 text-center flex items-center justify-center gap-2 text-xs font-semibold text-slate-700">
               <span>
                 Tap the remaining {data.nodes.length - visitedNodeIds.length}{" "}
                 step(s) above to unlock Continue.

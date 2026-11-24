@@ -76,7 +76,7 @@ export function SlideOverDrawer({
           <button
             type="button"
             onClick={onClose}
-            className="w-full min-h-tap px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition"
+            className="w-full min-h-tap px-4 py-2.5 rounded-full bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition"
           >
             {footerLabel}
           </button>

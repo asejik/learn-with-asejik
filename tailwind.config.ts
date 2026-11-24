@@ -28,6 +28,8 @@ const config: Config = {
         brand: {
           50: "#fbebdd",
           100: "#f6d5bd",
+          200: "#efbf9c",
+          300: "#e3a074",
           500: "#c65f2b",
           600: "#a94a1c", // Terracotta: primary actions
           700: "#8f3c14",

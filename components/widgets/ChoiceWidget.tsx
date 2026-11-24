@@ -114,7 +114,7 @@ export default function ChoiceWidget({
             type="button"
             disabled={selectedIds.length === 0}
             onClick={handleSubmit}
-            className={`w-full min-h-tap px-4 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition active:scale-98 ${
+            className={`w-full min-h-tap px-4 py-3.5 rounded-full font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition active:scale-98 ${
               selectedIds.length > 0
                 ? "bg-brand-600 hover:bg-brand-700 text-white shadow-sm cursor-pointer"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
