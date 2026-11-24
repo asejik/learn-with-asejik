@@ -25,7 +25,7 @@ export function TagFilterBar({
     <div className="space-y-3 mb-6">
       {/* Top row: Filter title & View mode switcher */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-500 uppercase tracking-[0.12em]">
           <Filter className="w-3.5 h-3.5" />
           <span>Filter Topics ({selectedTags.length > 0 ? selectedTags.length : "All"})</span>
         </div>

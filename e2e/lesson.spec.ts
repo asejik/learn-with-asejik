@@ -12,7 +12,8 @@ test("catalog: buttons and links are at least 44px", async ({ page }) => {
         const r = el.getBoundingClientRect();
         return { text: (el.textContent || el.getAttribute("aria-label") || "").trim().slice(0, 30), h: r.height, w: r.width };
       })
-      .filter((b) => b.h < 44 || b.w < 44)
+      // Links hidden at this width (display: none) are not tap targets
+      .filter((b) => (b.h > 0 || b.w > 0) && (b.h < 44 || b.w < 44))
   );
   expect(small).toEqual([]);
 });
