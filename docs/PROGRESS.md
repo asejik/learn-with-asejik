@@ -248,3 +248,10 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - 4 lessons (a chatbot is a fast guesser; asking well with context, goal, format; checking answers; using AI safely), existing widgets only, no product, version or price named so it ages slowly. About 31 KB of lesson files; invented stories and examples.
   - Checks: content validation, build, type check, lint, 130 unit tests and 24 browser tests pass. Not looked at on screen (same widgets as the scams course, whose lesson 1 was viewed at 375px).
   - FACT-CHECK for the owner (UNVERIFIED by me): the statements that chatbots may miss recent events unless they can search, and that typed text may be stored or used depending on the tool; both are worded as "may" and "depending".
+- [x] **Redesign PR A: warm palette, headline font, DESIGN.md** (2026-11-25, branch `design/tokens-and-fonts`; owner approved the mock and direction)
+  - `tailwind.config.ts` maps `white`, `slate-*` and `brand-*` to the warm cream, ink and terracotta palette, so every existing class re-themes with no component edits. `docs/DESIGN.md` is rewritten for the new direction (sections 1 to 3, a pointer in 9); contrast ratios in it were computed, not guessed (brand-600 on paper 4.99:1, cream on brand-600 5.34:1, muted text 5.49:1).
+  - Fonts: Fraunces 700 (upright and italic) for headlines, loaded with `next/font` (about 41 KB, self-hosted by the build). The Inter font file (48 KB) is removed: body text now uses the system font, so total font weight went down by about 7 KB, which also answers finding P16-E01. Decision for the owner to confirm: system font for body instead of Inter (the mock showed Inter).
+  - Manifest and browser theme colour set to the paper colour.
+  - Checks: type check, lint, 130 unit tests, build, 24 browser tests (axe included) pass. Not looked at on screen yet: PR B (home page) carries the visual check.
+  - UNVERIFIED: SVG label-fit estimates were measured for Inter; system fonts are about as wide, but a lesson diagram label could sit tighter on some phones.
+  - Known: until PR B uses the headline font, its files are preloaded but unused (about 41 KB once).

@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/config";
 import { PWARegister } from "@/components/pwa/PWARegister";
 
-const inter = Inter({ subsets: ["latin"] });
+// Headline font only: one weight, upright and italic, so the cost stays small
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+});
 
 export const viewport: Viewport = {
-  themeColor: "#2563eb",
+  themeColor: "#f6efe3",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -34,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen antialiased flex flex-col`}>
+      <body className={`${fraunces.variable} min-h-screen antialiased flex flex-col`}>
         {children}
         <PWARegister />
       </body>

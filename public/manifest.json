@@ -4,8 +4,8 @@
   "description": "Fast, mobile-first, low-data interactive learning platform.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#2563eb",
+  "background_color": "#f6efe3",
+  "theme_color": "#f6efe3",
   "orientation": "portrait-primary",
   "icons": [
     {
