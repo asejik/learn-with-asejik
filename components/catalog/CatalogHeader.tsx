@@ -1,34 +1,54 @@
-import { siteConfig } from "@/lib/config";
-import { Sparkles, Zap, ShieldCheck } from "lucide-react";
+interface CatalogHeaderProps {
+  courseCount: number;
+  lessonCount: number;
+}
 
-export function CatalogHeader() {
+const LABEL = "font-mono text-[11px] sm:text-xs uppercase tracking-[0.12em]";
+
+/** The home page hero: what the site is, and two real numbers computed from the content. */
+export function CatalogHeader({ courseCount, lessonCount }: CatalogHeaderProps) {
+  const stats = [
+    { value: courseCount, label: "Courses" },
+    { value: lessonCount, label: "Lessons" },
+    { value: 0, label: "Accounts needed" },
+  ];
   return (
-    <header className="border-b border-slate-200 pb-8 mb-8">
-      {/* Brand & Micro Badge */}
-      <div className="flex flex-wrap items-center gap-2 mb-3">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold tracking-wide uppercase">
-          <Sparkles className="w-3.5 h-3.5 text-brand-600" />
-          <span>{siteConfig.name}</span>
-        </div>
-
-        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">
-          <Zap className="w-3 h-3 text-amber-500" />
-          <span>Low-Data &bull; &lt;200 KB / lesson</span>
-        </div>
-
-        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">
-          <ShieldCheck className="w-3 h-3 text-emerald-600" />
-          <span>Offline Ready</span>
+    <section className="pt-10 pb-10 sm:pt-16 sm:pb-14 flex flex-col lg:flex-row lg:items-end gap-10 lg:gap-12">
+      <div className="flex-1 min-w-0">
+        <p className={`${LABEL} text-slate-500 mb-4 sm:mb-5`}>Interactive courses</p>
+        <h1 className="font-display text-[40px] sm:text-6xl leading-[1.04] tracking-tight text-slate-900">
+          Learn by doing, <em className="italic text-brand-500">one screen at a time.</em>
+        </h1>
+        <p className="mt-5 sm:mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-slate-700">
+          Master practical skills through in-depth modules and interactive checks. Each lesson takes 10 to 15 minutes and stays current as tools change.
+        </p>
+        <div className="mt-7 sm:mt-8 flex flex-wrap gap-3">
+          <a
+            href="#courses"
+            className="min-h-[52px] px-7 inline-flex items-center rounded-full bg-brand-600 text-white text-base font-semibold hover:bg-brand-700 active:bg-brand-800 transition"
+          >
+            Browse courses
+          </a>
+          <a
+            href="#how"
+            className="min-h-[52px] px-7 inline-flex items-center rounded-full border-[1.5px] border-slate-900 text-slate-900 text-base font-semibold hover:bg-white transition"
+          >
+            How it works
+          </a>
         </div>
       </div>
 
-      {/* Main Title & Editorial Description */}
-      <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
-        Interactive Technical Tutorials
-      </h1>
-      <p className="mt-2 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
-        Master modern web architecture, systems, and protocols through focused active recall checks. Designed for fast mobile learning without heavy video downloads.
-      </p>
-    </header>
+      <dl className="grid grid-cols-3 lg:grid-cols-1 gap-3 lg:w-56 shrink-0">
+        {stats.map((s) => (
+          // Term first in the markup (what a list of definitions needs), shown below its value
+          <div key={s.label} className="border border-slate-200 bg-white rounded-md px-4 py-3.5 flex flex-col-reverse">
+            <dt className={`${LABEL} mt-1.5 text-slate-500`}>{s.label}</dt>
+            <dd className="font-display italic text-3xl sm:text-4xl leading-none text-slate-900">
+              {s.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }
