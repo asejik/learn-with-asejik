@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { StorageWarning } from "./StorageWarning";
 import { saveLessonState, getLessonState, saveUserProfile, getUserProfile } from "@/lib/db";
 import { PrivacyDrawer } from "./PrivacyDrawer";
 import type { LessonRef } from "@/lib/courseProgress";
@@ -26,11 +27,13 @@ interface LessonCompletionViewProps {
   lesson: Lesson;
   /** The lesson that follows this one, or null on the last lesson */
   nextLesson: LessonRef | null;
+  /** The phone's storage refused the save, so this progress may be lost */
+  storageFailed: boolean;
   /** The privacy notice, rendered on the server and shown in a drawer */
   privacyNotice: ReactNode;
 }
 
-export function LessonCompletionView({ course, lesson, nextLesson, privacyNotice }: LessonCompletionViewProps) {
+export function LessonCompletionView({ course, lesson, nextLesson, storageFailed, privacyNotice }: LessonCompletionViewProps) {
   // Content Rating State
   const [rating, setRating] = useState<"thumbs-up" | "thumbs-down" | null>(null);
   const [ratingSaved, setRatingSaved] = useState(false);
@@ -133,6 +136,12 @@ export function LessonCompletionView({ course, lesson, nextLesson, privacyNotice
         <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
           <CheckCircle2 className="w-8 h-8" />
         </div>
+
+        {storageFailed && (
+          <div className="text-left">
+            <StorageWarning />
+          </div>
+        )}
 
         <div className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">

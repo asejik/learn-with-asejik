@@ -29,6 +29,8 @@ test.describe("lesson player", () => {
     // One-lesson tutorial: nothing follows, and the catalog shows it complete
     await expect(page.getByText(/Tutorial Completed/)).toBeVisible();
     await expect(page.getByRole("link", { name: /Next lesson/ })).toHaveCount(0);
+    // Storage works here, so no warning
+    await expect(page.getByText(/could not be saved on this phone/)).toHaveCount(0);
     await page.goto("/");
     await expect(page.getByText("100%")).toBeVisible();
   });
@@ -111,6 +113,24 @@ test.describe("lesson player", () => {
       if (i > 0) await continueFromFeedback(page);
     }
     expect(errors).toEqual([]);
+  });
+
+  test("tells the learner when this phone cannot save progress", async ({ page }) => {
+    // A phone whose storage is blocked or full has no usable IndexedDB
+    await page.addInitScript(() => {
+      delete (window as { indexedDB?: unknown }).indexedDB;
+    });
+    const warning = page.getByRole("alert").filter({ hasText: "could not be saved on this phone" });
+    await openLesson(page);
+    await answer(page, 0);
+    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(warning).toBeVisible(); // shown while learning, as soon as a save fails
+    for (let i = 1; i < TITLES.length; i++) {
+      await answer(page, i);
+      await continueFromFeedback(page);
+    }
+    await expect(page.getByRole("heading", { name: /Save Your Progress/ })).toBeVisible();
+    await expect(warning).toBeVisible(); // and again on the completion screen
   });
 
   test("glossary words have a hit area of at least 44 x 44px", async ({ page }) => {
