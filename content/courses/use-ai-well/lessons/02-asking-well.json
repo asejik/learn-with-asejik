@@ -1,0 +1,178 @@
+{
+  "slug": "02-asking-well",
+  "title": "Asking Well: Better Questions, Better Answers",
+  "chapterId": "ch1",
+  "keyTerms": ["Prompt", "Context", "Goal", "Format"],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "The Question Is the Steering Wheel",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "The words you type are called a prompt. A clear prompt gets a more useful answer than a vague one."
+      },
+      "glossary": [
+        {
+          "term": "Prompt",
+          "definition": "The message you type to an AI chatbot to tell it what you want."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "A chatbot cannot read your mind. If you type \"write me a message\", it must guess who it is for, what it should say and how long it should be. A guess is rarely what you needed.",
+          "Imagine asking a taxi driver \"take me somewhere\". You would get somewhere, but not where you wanted. Telling the driver the place, the route you prefer and your time limit gets you there.",
+          "The same is true here. Three things make most prompts better: context, goal and format."
+        ]
+      }
+    },
+    {
+      "id": "screen-2-diagram",
+      "title": "Context, Goal, Format",
+      "widgetType": "diagramExplorer",
+      "aiTutor": {
+        "explain": "Tap each part. A good prompt can be one short paragraph with all three."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Tap each part of a good prompt:",
+        "diagramSvg": "<svg viewBox='0 0 380 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-md mx-auto my-2'><rect x='10' y='30' width='100' height='60' rx='10' fill='#e0f2fe' stroke='#0284c7' stroke-width='2'/><text x='60' y='65' font-size='13' text-anchor='middle' fill='#0369a1' font-weight='bold'>Context</text><rect x='140' y='30' width='100' height='60' rx='10' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='190' y='65' font-size='13' text-anchor='middle' fill='#92400e' font-weight='bold'>Goal</text><rect x='270' y='30' width='100' height='60' rx='10' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='320' y='65' font-size='13' text-anchor='middle' fill='#15803d' font-weight='bold'>Format</text></svg>",
+        "nodes": [
+          {
+            "id": "node-context",
+            "label": "Context",
+            "title": "Context: who and why",
+            "definition": "Say who you are, who the answer is for, and what the situation is. Example: \"I run a small tailoring shop and want to reply to a customer whose order is late.\"",
+            "bonusFact": "Never put private details in context that you would not want stored. The safety lesson covers this."
+          },
+          {
+            "id": "node-goal",
+            "label": "Goal",
+            "title": "Goal: what you want",
+            "definition": "State the job clearly. \"Write a polite apology and offer a new delivery day\" is a goal. \"Help me with a message\" is not.",
+            "bonusFact": "One clear goal per prompt usually works better than three tangled ones."
+          },
+          {
+            "id": "node-format",
+            "label": "Format",
+            "title": "Format: how it should look",
+            "definition": "Say the length, tone and shape you want. For example: \"Under 80 words, friendly, in plain English, as a text message.\"",
+            "bonusFact": "If the first answer is not right, say what to change. Follow-up messages are normal."
+          }
+        ],
+        "completionMessage": "You now have the three parts: context, goal and format.",
+        "completionBonusFact": "Treat the first reply as a draft and improve it with follow-up messages."
+      }
+    },
+    {
+      "id": "screen-3-choice",
+      "title": "Pick the Stronger Prompt",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Look for the prompt with the most context, a clear goal and a stated format."
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "Which prompt is most likely to get a useful answer?",
+        "isMultiSelect": false,
+        "options": [
+          { "id": "opt-1", "text": "\"Write something about my business.\"" },
+          { "id": "opt-2", "text": "\"I sell phone accessories at a market stall. Write 3 short, friendly WhatsApp status lines about a weekend discount, under 20 words each.\"" },
+          { "id": "opt-3", "text": "\"Business ideas please, thanks.\"" }
+        ],
+        "correctOptionIds": ["opt-2"],
+        "explanation": "It tells the tool who you are, what you want and what shape the answer should take. The others leave too much to guesswork.",
+        "bonusFact": "Longer is not always better. The best prompt is the one that says what matters and nothing extra."
+      }
+    },
+    {
+      "id": "screen-4-swipe",
+      "title": "Prompt Habits",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Decide whether each statement is true or false."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Is each statement true or false?",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "If the first answer is not right, you can reply and ask it to change something.",
+            "isTrue": true,
+            "explanation": "Conversation is how you steer the result. Say what to shorten, change or explain."
+          },
+          {
+            "id": "c2",
+            "statement": "You must use special secret words for the chatbot to work well.",
+            "isTrue": false,
+            "explanation": "Plain, clear language works best. There are no magic words."
+          },
+          {
+            "id": "c3",
+            "statement": "Telling the chatbot who the answer is for helps it pick the right tone and level.",
+            "isTrue": true,
+            "explanation": "An answer for a child, a customer or an expert should sound different. Saying who it is for helps."
+          },
+          {
+            "id": "c4",
+            "statement": "You should share your passwords and ID numbers so it can personalise the answer.",
+            "isTrue": false,
+            "explanation": "Personalising never needs secrets. Keep private codes and ID numbers out of every prompt."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-5-match",
+      "title": "Fix the Weak Prompt",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Match each weak prompt to the part that is missing."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Match each weak prompt to what it is missing:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "\"Write an email\"",
+            "right": "Goal: what the email must do"
+          },
+          {
+            "id": "p2",
+            "left": "\"Explain inflation\"",
+            "right": "Context: who it is for"
+          },
+          {
+            "id": "p3",
+            "left": "\"Give me a business plan\"",
+            "right": "Format: length and shape"
+          },
+          {
+            "id": "p4",
+            "left": "\"Help with my CV\"",
+            "right": "Context: the job and your skills"
+          }
+        ],
+        "explanation": "Most weak prompts lack context, a goal or a format. Adding the missing part makes the reply far more useful."
+      }
+    },
+    {
+      "id": "screen-6-cloze",
+      "title": "One Quick Rule",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "review": "Finish the rule about what to do when an answer is not right."
+      },
+      "glossary": [],
+      "widgetData": {
+        "prompt": "Complete the rule:",
+        "template": "When an answer is not right, don't give up: tell the chatbot what to {blank}.",
+        "options": ["change", "forget", "delete", "guess"],
+        "correctAnswer": "change",
+        "explanation": "Specific feedback such as \"shorter\" or \"simpler words\" gives it something to work with.",
+        "bonusFact": "Asking for two or three options at once is a good way to compare approaches."
+      }
+    }
+  ]
+}

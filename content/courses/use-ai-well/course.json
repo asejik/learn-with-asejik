@@ -1,0 +1,27 @@
+{
+  "slug": "use-ai-well",
+  "title": "Use AI Tools Well",
+  "summary": "Learn what AI chatbots can and cannot do, how to ask better questions, check answers and keep your private details safe.",
+  "mode": "course",
+  "estimatedMinutes": 26,
+  "approxKbSize": 31,
+  "canonicalTags": ["artificial intelligence", "digital literacy", "online safety"],
+  "chapters": [
+    {
+      "id": "ch1",
+      "title": "Get Useful Answers",
+      "lessons": [
+        { "slug": "01-what-a-chatbot-is", "title": "What an AI Chatbot Is, and Is Not" },
+        { "slug": "02-asking-well", "title": "Asking Well: Better Questions, Better Answers" }
+      ]
+    },
+    {
+      "id": "ch2",
+      "title": "Stay Safe and Accurate",
+      "lessons": [
+        { "slug": "03-checking-the-answer", "title": "Checking the Answer" },
+        { "slug": "04-using-ai-safely", "title": "Using AI Safely" }
+      ]
+    }
+  ]
+}

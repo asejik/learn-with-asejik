@@ -1,0 +1,144 @@
+{
+  "slug": "01-what-a-chatbot-is",
+  "title": "What an AI Chatbot Is, and Is Not",
+  "chapterId": "ch1",
+  "keyTerms": ["AI chatbot", "Prediction", "Hallucination"],
+  "screens": [
+    {
+      "id": "screen-1-reading",
+      "title": "A Very Fast Guesser",
+      "widgetType": "reading",
+      "aiTutor": {
+        "recap": "An AI chatbot writes the most likely next words. It is useful, but it is not a person and not a search of facts."
+      },
+      "glossary": [
+        {
+          "term": "AI chatbot",
+          "definition": "A program you chat with in plain language. It was trained on huge amounts of text, and it writes replies word by word."
+        },
+        {
+          "term": "Hallucination",
+          "definition": "When an AI states something false or made-up in a confident, believable way."
+        }
+      ],
+      "widgetData": {
+        "paragraphs": [
+          "Think of the way your phone suggests the next word while you type. An AI chatbot does something like that, but on a much larger scale. It looks at your question and writes the words that are most likely to come next.",
+          "That makes it very good at drafting, explaining, summarising and brainstorming. It also means it does not \"know\" things the way a person does, and it does not check facts as it writes.",
+          "So it can sound completely sure while being wrong. People call this a hallucination. The skill in this course is to use the tool for what it does well, and to check the rest."
+        ]
+      }
+    },
+    {
+      "id": "screen-2-choice",
+      "title": "Sure Does Not Mean Right",
+      "widgetType": "choice",
+      "aiTutor": {
+        "explain": "Think about how the chatbot decides what to write, and whether it checks anything."
+      },
+      "glossary": [],
+      "widgetData": {
+        "question": "A chatbot gives a long, confident answer. What does the confident tone tell you about whether it is correct?",
+        "isMultiSelect": false,
+        "options": [
+          { "id": "opt-1", "text": "Nothing. It writes in a confident style even when it is wrong." },
+          { "id": "opt-2", "text": "It must be correct, because it sounds so sure." },
+          { "id": "opt-3", "text": "It is correct if the answer is long enough." }
+        ],
+        "correctOptionIds": ["opt-1"],
+        "explanation": "The tool is built to write fluent, believable text. Fluent text can still contain wrong facts, so tone and length are not proof.",
+        "bonusFact": "A wrong answer and a right answer can look equally polished."
+      }
+    },
+    {
+      "id": "screen-3-swipe",
+      "title": "Good At, Bad At",
+      "widgetType": "swipeDeck",
+      "aiTutor": {
+        "explain": "Decide whether each statement is true or false."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Is each statement true or false?",
+        "cards": [
+          {
+            "id": "c1",
+            "statement": "A chatbot is a good helper for drafting a message, summarising a text or listing ideas.",
+            "isTrue": true,
+            "explanation": "These are tasks about language, where a rough first version helps and you can easily judge the result."
+          },
+          {
+            "id": "c2",
+            "statement": "A chatbot always looks up the latest facts before it answers.",
+            "isTrue": false,
+            "explanation": "Many chatbots work from what they learned earlier, and may miss recent events unless the tool says it can search."
+          },
+          {
+            "id": "c3",
+            "statement": "A chatbot can make up names, numbers and sources that do not exist.",
+            "isTrue": true,
+            "explanation": "It writes what sounds likely, so it can invent details that look real."
+          },
+          {
+            "id": "c4",
+            "statement": "A chatbot understands you the way a close friend does.",
+            "isTrue": false,
+            "explanation": "It works with patterns in text. It does not know you or your situation unless you tell it."
+          }
+        ]
+      }
+    },
+    {
+      "id": "screen-4-match",
+      "title": "Match the Task to the Right Level of Trust",
+      "widgetType": "matchPairs",
+      "aiTutor": {
+        "review": "Match each task to how much checking it needs."
+      },
+      "glossary": [],
+      "widgetData": {
+        "instruction": "Match each task to how much checking it needs:",
+        "pairs": [
+          {
+            "id": "p1",
+            "left": "Brainstorm names for a small shop",
+            "right": "Light check: your own taste decides"
+          },
+          {
+            "id": "p2",
+            "left": "Explain a topic in simple words",
+            "right": "Medium check: compare with a trusted source"
+          },
+          {
+            "id": "p3",
+            "left": "State a date, a number or a quote",
+            "right": "Strong check: confirm it elsewhere"
+          },
+          {
+            "id": "p4",
+            "left": "Advice on health, law or money",
+            "right": "Ask a qualified person too"
+          }
+        ],
+        "explanation": "The more a wrong answer could cost you, the more you should check it somewhere else."
+      }
+    },
+    {
+      "id": "screen-5-cloze",
+      "title": "Your Role",
+      "widgetType": "cloze",
+      "aiTutor": {
+        "review": "Finish the sentence about your role when you use a chatbot."
+      },
+      "glossary": [],
+      "widgetData": {
+        "prompt": "Complete the statement:",
+        "template": "A chatbot is a helper, and you are still the one who must {blank} the answer.",
+        "options": ["check", "copy", "ignore", "hide"],
+        "correctAnswer": "check",
+        "explanation": "The tool can draft quickly, but it does not take responsibility. Judging the result is your job.",
+        "bonusFact": "The next lessons show how to ask better questions and how to check what comes back."
+      }
+    }
+  ]
+}
