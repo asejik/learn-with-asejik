@@ -165,13 +165,16 @@ describe("handlePilotSignup", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock.mock.calls[0][0]).toBe(WEBHOOK);
     const sent = JSON.parse((fetchMock.mock.calls[0][1] as RequestInit).body as string);
+    // The consent time is the server's, not the browser's (which said 2026-11-21)
     expect(sent).toEqual({
       fullName: NAME,
       email: EMAIL,
-      consentedAt: "2026-11-21T12:00:00.000Z",
+      consentedAt: expect.any(String),
       ageConfirmed: true,
       source: "learn-with-asejik-pilot",
     });
+    expect(sent.consentedAt).not.toBe("2026-11-21T12:00:00.000Z");
+    expect(Math.abs(Date.now() - new Date(sent.consentedAt).getTime())).toBeLessThan(5000);
     expect(loggedText(logSpies)).not.toContain(EMAIL);
     expect(loggedText(logSpies)).not.toContain(NAME);
   });
@@ -240,18 +243,81 @@ describe("handlePilotSignup", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("gives its own message when the consent timestamp is missing", async () => {
+  it("does not need a consent time from the browser", async () => {
     webhook = WEBHOOK;
-    const fetchMock = vi.fn();
-    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(rosterReply({ ok: true })));
 
     const res = await post(
       signupRequest({ fullName: NAME, email: EMAIL, consent: true, ageConfirmed: true })
     );
-    const body = await res.json();
 
-    expect(res.status).toBe(400);
-    expect(body.error).toBe("Consent timestamp is required.");
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(res.status).toBe(200);
+  });
+
+  describe("request checks", () => {
+    let fetchMock: ReturnType<typeof vi.fn>;
+    const valid = { fullName: NAME, email: EMAIL, consent: true, ageConfirmed: true };
+
+    beforeEach(() => {
+      webhook = WEBHOOK;
+      fetchMock = vi.fn().mockResolvedValue(rosterReply({ ok: true }));
+      vi.stubGlobal("fetch", fetchMock);
+    });
+
+    function request(init: { headers?: Record<string, string>; body?: string }) {
+      return new Request("https://learn.example.test/api/pilot-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...init.headers },
+        body: init.body ?? JSON.stringify(valid),
+      });
+    }
+
+    it("refuses a body that is not JSON content with 415", async () => {
+      const res = await post(request({ headers: { "Content-Type": "text/plain" } }));
+      expect(res.status).toBe(415);
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it("refuses requests from another site with 403, and accepts the same site", async () => {
+      const blocked: Record<string, string>[] = [
+        { Origin: "https://evil.example" },
+        { "Sec-Fetch-Site": "cross-site" },
+        { "Sec-Fetch-Site": "same-site" },
+      ];
+      for (const headers of blocked) {
+        const res = await post(request({ headers }));
+        expect(res.status, JSON.stringify(headers)).toBe(403);
+      }
+      expect(fetchMock).not.toHaveBeenCalled();
+
+      const ok = await post(
+        request({ headers: { Origin: "https://learn.example.test", "Sec-Fetch-Site": "same-origin" } })
+      );
+      expect(ok.status).toBe(200);
+    });
+
+    it("refuses an oversized body with 413, declared or not", async () => {
+      const big = JSON.stringify({ ...valid, fullName: "x".repeat(5000) });
+      const declared = await post(request({ body: big, headers: { "Content-Length": String(big.length) } }));
+      expect(declared.status).toBe(413);
+      const undeclared = await post(request({ body: big }));
+      expect(undeclared.status).toBe(413);
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it("answers malformed JSON with 400, not 500", async () => {
+      const res = await post(request({ body: "{bad" }));
+      expect(res.status).toBe(400);
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it("logs only the error name for an unexpected failure", async () => {
+      const req = request({});
+      req.text = () => Promise.reject(new TypeError("secret detail " + EMAIL));
+      const res = await post(req);
+      expect(res.status).toBe(500);
+      expect(loggedText(logSpies)).not.toContain(EMAIL);
+      expect(loggedText(logSpies)).toContain("TypeError");
+    });
   });
 });
