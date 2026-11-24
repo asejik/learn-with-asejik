@@ -11,7 +11,7 @@ Items marked **UNTESTED** have not been tried on the live site yet; try each onc
 | Build and hosting | Cloudflare Workers Builds, Worker `learn-with-asejik` | owner Cloudflare (2FA on) | builds `out/` and serves it as static files |
 | Signup endpoint | the same Worker, `/api/*` only | same | secret `PILOT_SIGNUP_WEBHOOK_URL` lives in the Cloudflare dashboard only |
 | Pilot roster | Google Sheet + Apps Script web app | owner Google account | the only store of learner personal data |
-| Domain | `asejik.com`, subdomain `learn.asejik.com` | owner registrar and Cloudflare DNS (2FA on) | |
+| Domain | `asejik.com`, subdomain `learn.asejik.com` | owner registrar and Cloudflare DNS (2FA on) | renews 18 September 2027 (set a reminder for 18 August 2027) |
 | Mail to privacy@asejik.com | ImprovMX forwards to the owner's inbox | ImprovMX account | |
 | Logs | Cloudflare Workers Logs (on) | same Cloudflare | holds request metadata, not names or emails |
 | Uptime monitor | UptimeRobot (to be set up, see section 5) | owner UptimeRobot | |
