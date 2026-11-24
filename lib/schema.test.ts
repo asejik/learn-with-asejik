@@ -122,3 +122,69 @@ describe("content schema", () => {
     expect(parsed.screens[0].glossary).toEqual([]);
   });
 });
+
+// Each case breaks one rule in an otherwise valid lesson and names the message it must give.
+// get/set walk a dotted path such as "widgetData.options.0.id" through parsed JSON.
+function get(root: unknown, path: string): unknown {
+  return path.split(".").filter(Boolean).reduce<unknown>((node, key) => (node as Record<string, unknown>)[key], root);
+}
+
+function set(root: unknown, path: string, value: unknown) {
+  const keys = path.split(".");
+  const last = keys.pop() as string;
+  (get(root, keys.join(".") || ".") as Record<string, unknown>)[last] = value;
+}
+
+function lessonIssues(widgetType: string, edit: (screen: unknown) => void) {
+  const copy = structuredClone(lesson);
+  edit(copy.screens.find((s: { widgetType: string }) => s.widgetType === widgetType));
+  return issueMessages(LessonSchema.safeParse(copy)).join(" | ");
+}
+
+describe("strict content rules", () => {
+  const cases: Array<[string, string, (s: unknown) => void, string]> = [
+    ["an unknown field on a screen", "cloze", (s) => set(s, "explaination", "typo"), "Unrecognized key"],
+    ["an unknown field in widget data", "cloze", (s) => set(s, "widgetData.bonusFct", "typo"), "Unrecognized key"],
+    ["widget data of another type", "cloze", (s) => set(s, "widgetData", { paragraphs: ["x"] }), "Unrecognized key"],
+    ["an unknown widget type", "cloze", (s) => set(s, "widgetType", "videoPlayer"), "Invalid discriminator value"],
+    ["a cloze without a blank", "cloze", (s) => set(s, "widgetData.template", "No gap here."), "exactly one {blank}"],
+    ["a cloze answer that is not an option", "cloze", (s) => set(s, "widgetData.correctAnswer", "zzz"), "not one of the options"],
+    ["a repeated cloze option", "cloze", (s) => set(s, "widgetData.options.1", get(s, "widgetData.options.0")), "Duplicate option"],
+    ["a correct id that is not an option", "choice", (s) => set(s, "widgetData.correctOptionIds", ["nope"]), "is not one of the options"],
+    ["a repeated option id", "choice", (s) => set(s, "widgetData.options.1.id", get(s, "widgetData.options.0.id")), "Duplicate option id"],
+    ["two answers on a single-select question", "choice", (s) =>
+      set(s, "widgetData.correctOptionIds", [get(s, "widgetData.options.0.id"), get(s, "widgetData.options.1.id")]), "exactly one correct"],
+    ["a repeated card id", "swipeDeck", (s) => set(s, "widgetData.cards.1.id", get(s, "widgetData.cards.0.id")), "Duplicate card id"],
+    ["a repeated node id", "diagramExplorer", (s) => set(s, "widgetData.nodes.1.id", get(s, "widgetData.nodes.0.id")), "Duplicate node id"],
+    ["a repeated left item", "matchPairs", (s) => set(s, "widgetData.pairs.1.left", get(s, "widgetData.pairs.0.left")), "Duplicate left item"],
+    ["a repeated right item", "matchPairs", (s) => set(s, "widgetData.pairs.1.right", get(s, "widgetData.pairs.0.right")), "Duplicate right item"],
+    ["a repeated glossary term", "reading", (s) =>
+      set(s, "glossary", [{ term: "A", definition: "x" }, { term: "a", definition: "y" }]), "Duplicate glossary term"],
+  ];
+
+  it.each(cases)("rejects %s", (_name, type, edit, message) => {
+    expect(lessonIssues(type, edit)).toContain(message);
+  });
+
+  it("rejects an unknown field on a lesson, a course and a chapter", () => {
+    expect(issueMessages(LessonSchema.safeParse({ ...lesson, extra: 1 })).join()).toContain("Unrecognized key");
+    expect(issueMessages(CourseSchema.safeParse({ ...course, extra: 1 })).join()).toContain("Unrecognized key");
+    const chapters = structuredClone(course.chapters);
+    chapters[0].extra = 1;
+    expect(issueMessages(CourseSchema.safeParse({ ...course, chapters })).join()).toContain("Unrecognized key");
+  });
+
+  it("rejects slugs that are not URL-safe", () => {
+    for (const slug of ["Has Space", "UPPER", "-lead", "trail-", "a--b", "a/b"]) {
+      expect(CourseSchema.safeParse({ ...course, slug }).success, slug).toBe(false);
+      expect(LessonSchema.safeParse({ ...lesson, slug }).success, slug).toBe(false);
+    }
+  });
+
+  it("rejects repeated chapter ids and lesson slugs in a course", () => {
+    const chapter = course.chapters[0];
+    const messages = issueMessages(CourseSchema.safeParse({ ...course, chapters: [chapter, chapter] })).join(" | ");
+    expect(messages).toContain("Duplicate chapter id");
+    expect(messages).toContain("Duplicate lesson slug");
+  });
+});
