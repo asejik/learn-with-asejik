@@ -2,7 +2,13 @@
   "slug": "01-the-scammers-playbook",
   "title": "The Scammer's Playbook",
   "chapterId": "ch1",
-  "keyTerms": ["Scam", "Urgency", "Fear", "Greed", "Trust"],
+  "keyTerms": [
+    "Scam",
+    "Urgency",
+    "Fear",
+    "Greed",
+    "Trust"
+  ],
   "intro": "Meet the four feelings scammers press again and again: urgency, fear, greed and false trust. You will practise naming them in real-looking messages.",
   "recap": [
     "Most scams work on a feeling, not a machine. Scammers press urgency, fear, greed and trust.",
@@ -16,12 +22,21 @@
       "title": "They Don't Hack Your Phone",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "Most scammers do not break into anything. They get you to hand over the key yourself. This lesson shows the four feelings they use."
+        "recap": "Most scammers do not break into your phone or your bank. They get you to hand over the key yourself, by making you feel something strongly enough to act before you think. This lesson names the four feelings they rely on, so you can spot them in any message.",
+        "example": "Ada's text said her account would be blocked in 30 minutes. She did not stop to ask who sent it. She typed her details into a page that looked real, and the scammer never touched her phone.",
+        "watchOut": "It is easy to think only careless people fall for this. Scammers design their messages to work on careful people too, so being rushed is not a sign that you are foolish.",
+        "tryThis": "Think of the last message that made your heart jump. Which feeling was it using?"
       },
       "glossary": [
         {
           "term": "Scam",
-          "definition": "A trick that gets you to give away money or private details willingly, because you believe a lie."
+          "definition": "A trick that gets you to give away money or private details willingly, because you believe a lie. The word covers calls, texts, emails, social media messages and face-to-face tricks.",
+          "example": "A text saying you won a prize, but you must send a fee first, is a scam."
+        },
+        {
+          "term": "Hacked",
+          "definition": "Broken into by technical means, for example when software gets past a password. Most scams skip this step and simply ask you for what they need.",
+          "example": "Hacking: someone guesses a weak password. A scam: someone phones and asks you to read out your code."
         }
       ],
       "widgetData": {
@@ -37,7 +52,10 @@
       "title": "The Four Levers",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each lever. Notice that a single message often pulls two or three of them at once."
+        "explain": "Tap each lever and notice how it feels. Real scam messages rarely use only one. A threat with a deadline pulls fear and urgency together, which is why such messages work so well.",
+        "example": "\"Your account will be closed today unless you confirm your PIN.\" This one line uses fear (a closed account), urgency (today) and trust (it pretends to be your bank).",
+        "watchOut": "A message does not need to look suspicious to be a scam. Good scams are polite, well spelled and look official.",
+        "tryThis": "Take a message you received this week and tick which of the four levers it uses."
       },
       "glossary": [],
       "widgetData": {
@@ -49,32 +67,32 @@
             "label": "Urgency",
             "title": "Urgency: \"Act now!\"",
             "definition": "A deadline stops you from thinking. \"Within 30 minutes\", \"last chance\", \"today only\". Real problems rarely need an answer in minutes.",
-            "bonusFact": "Rushing you is the scammer's main tool, because a calm person asks questions."
+            "bonusFact": "Rushing you is the scammer's main tool, because a calm person asks questions. Whenever a deadline appears, treat it as a reason to slow down, not to speed up."
           },
           {
             "id": "node-fear",
             "label": "Fear",
             "title": "Fear: \"Something bad will happen\"",
             "definition": "Threats of a blocked account, a lost job, arrest or a family emergency make you act before you check.",
-            "bonusFact": "Frightened people tend to follow instructions, which is exactly what the scammer needs."
+            "bonusFact": "Frightened people tend to follow instructions, which is exactly what the scammer needs. If a message scares you, contact the real organisation yourself, using details you already trust."
           },
           {
             "id": "node-greed",
             "label": "Greed",
             "title": "Greed: \"Easy money!\"",
             "definition": "A prize, a free gift or big returns with no risk. You want it to be true, so you stop looking for the catch.",
-            "bonusFact": "Wanting something good is normal. Scammers aim at that wish."
+            "bonusFact": "Wanting something good is normal, and scammers aim at that wish. A useful question to ask: why would a stranger give me this for free?"
           },
           {
             "id": "node-trust",
             "label": "Trust",
             "title": "Trust: \"I am someone you know\"",
             "definition": "The sender pretends to be your bank, a relative, an employer or a friend, so your guard goes down.",
-            "bonusFact": "A name, a logo or a familiar voice can all be copied, so they prove nothing on their own."
+            "bonusFact": "A name, a logo or a familiar voice can all be copied, so they prove nothing on their own. Confirm through a second route, such as calling the person on a number you already have."
           }
         ],
         "completionMessage": "You have met all four levers: urgency, fear, greed and trust.",
-        "completionBonusFact": "Most scam messages pull at least two of these levers at the same time."
+        "completionBonusFact": "Most scam messages pull at least two of these levers at the same time. Counting the levers in a message is a quick way to judge how risky it is."
       }
     },
     {
@@ -82,20 +100,32 @@
       "title": "Which Lever Is This?",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Read the message again. Which feeling is it trying to make you have, right away?"
+        "explain": "Read the message again and ask two questions: what does it want me to feel, and what does it want me to do? Here it dangles a prize, which is the feeling, and asks for money today, which is the action.",
+        "watchOut": "Do not be distracted by how large the prize is. The size of the offer is part of the bait."
       },
       "glossary": [],
       "widgetData": {
         "question": "A message says: \"You won 500,000 naira in our mobile draw! Send 5,000 naira today to unlock your prize.\" Which lever is it pulling most?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "Fear: it threatens you with something bad." },
-          { "id": "opt-2", "text": "Greed: it offers a prize you did not earn, and a deadline." },
-          { "id": "opt-3", "text": "Trust: it comes from someone you know." }
+          {
+            "id": "opt-1",
+            "text": "Fear: it threatens you with something bad."
+          },
+          {
+            "id": "opt-2",
+            "text": "Greed: it offers a prize you did not earn, and a deadline."
+          },
+          {
+            "id": "opt-3",
+            "text": "Trust: it comes from someone you know."
+          }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "A prize for a draw you never entered is the bait, and \"today\" adds a deadline. A real prize never asks you to pay first.",
-        "bonusFact": "Asking you to pay a fee to receive money is one of the oldest scam patterns."
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "A prize for a draw you never entered is the bait, and \"today\" adds a deadline. A real prize never asks you to pay first. If you had truly won, the organiser would not need your money to hand over theirs.",
+        "bonusFact": "Asking you to pay a fee to receive money is one of the oldest scam patterns. If you are tempted, search for the exact wording of the message online. Others have often posted about the same trick."
       }
     },
     {
@@ -103,7 +133,8 @@
       "title": "Real Problem or Pressure Trick?",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false. Think about how a real company or a real friend behaves."
+        "explain": "Decide whether each statement is true or false. Think about how a real company or a real friend behaves: they are patient, they let you check, and they never ask you to pay to receive something.",
+        "tryThis": "For each card, picture a real bank clerk or a real friend. Would they say or do this?"
       },
       "glossary": [],
       "widgetData": {
@@ -145,7 +176,8 @@
       "title": "Match the Message to the Lever",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each made-up message to the lever it pulls most. Look for the feeling it wants from you."
+        "review": "Match each made-up message to the lever it pulls most. Look at the feeling the message wants from you, not only at its words.",
+        "watchOut": "Some messages mix levers. Choose the one that pushes hardest. A deadline wants you to hurry, a threat wants you scared, a sure win wants you hopeful, and a familiar voice wants you relaxed."
       },
       "glossary": [],
       "widgetData": {
@@ -180,16 +212,22 @@
       "title": "Your Best Defence",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "One habit beats all four levers. Fill in the blank with it."
+        "review": "One habit beats all four levers. Fill in the blank with it. It works because every lever depends on you acting fast.",
+        "tryThis": "Next time a message rushes you, put your phone down for ten minutes and then decide."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the sentence:",
         "template": "When a message rushes or scares you, the safest first move is to {blank} before you act.",
-        "options": ["pause", "reply", "pay", "forward it"],
+        "options": [
+          "pause",
+          "reply",
+          "pay",
+          "forward it"
+        ],
         "correctAnswer": "pause",
-        "explanation": "Pausing breaks the lever. It gives you time to check using a number or app you already trust.",
-        "bonusFact": "Telling a friend or family member about a strange message is a quick way to see it clearly."
+        "explanation": "Pausing breaks the lever. It gives you time to check using a number or app you already trust, and a scammer's plan depends on you having no time.",
+        "bonusFact": "Telling a friend or family member about a strange message is a quick way to see it clearly. A second pair of eyes is not rushed by the same feeling."
       }
     }
   ]

@@ -40,6 +40,7 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
   const [activeGlossaryTerm, setActiveGlossaryTerm] = useState<{
     term: string;
     definition: string;
+    example?: string;
   } | null>(null);
 
   // Helper to open glossary term
@@ -240,6 +241,7 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
           onClose={() => setActiveGlossaryTerm(null)}
           term={activeGlossaryTerm.term}
           definition={activeGlossaryTerm.definition}
+          example={activeGlossaryTerm.example}
         />
       )}
     </div>
