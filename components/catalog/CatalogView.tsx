@@ -10,8 +10,15 @@ import { CourseCard } from "./CourseCard";
 import { ClearDataModal } from "./ClearDataModal";
 import { Check, ShieldCheck, Trash2, SearchX } from "lucide-react";
 import { siteConfig } from "@/lib/config";
-import { getAllCourseProgress, clearAllLocalData } from "@/lib/db";
-import { coursePercent, resumeLesson } from "@/lib/courseProgress";
+import { getAllCourseProgress, getAllLessonStates, clearAllLocalData } from "@/lib/db";
+import {
+  coursePercent,
+  hasStartedCourse,
+  partialLessons,
+  resumeLesson,
+  type PartialLesson,
+  type SavedLessonPosition,
+} from "@/lib/courseProgress";
 
 interface CatalogViewProps {
   initialCourses: Course[];
@@ -25,6 +32,8 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
   const [progressMap, setProgressMap] = useState<Record<string, number>>({});
   // Lessons finished per course, from which the real course percentage is worked out
   const [completedMap, setCompletedMap] = useState<Record<string, string[]>>({});
+  // Lessons opened but not finished, so a started course shows progress
+  const [partialMap, setPartialMap] = useState<Record<string, Record<string, PartialLesson>>>({});
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
   // Failure-path safe client progress hydration (IndexedDB + localStorage)
@@ -58,6 +67,23 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
       })
       .catch(() => {
         if (isMounted) setProgressMap({});
+      });
+
+    getAllLessonStates()
+      .then((states) => {
+        if (!isMounted) return;
+        const byCourse: Record<string, SavedLessonPosition[]> = {};
+        states.forEach((st) => {
+          (byCourse[st.courseSlug] ??= []).push(st);
+        });
+        const out: Record<string, Record<string, PartialLesson>> = {};
+        Object.entries(byCourse).forEach(([slug, list]) => {
+          out[slug] = partialLessons(list);
+        });
+        setPartialMap(out);
+      })
+      .catch(() => {
+        if (isMounted) setPartialMap({});
       });
 
     return () => {
@@ -145,7 +171,9 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
   // Saved lessons give the real percentage; the localStorage copy is the fallback
   function percentFor(course: Course): number {
     const completed = completedMap[course.slug];
-    return completed ? coursePercent(course, completed) : progressMap[course.slug] || 0;
+    const partial = partialMap[course.slug];
+    if (completed || partial) return coursePercent(course, completed ?? [], partial);
+    return progressMap[course.slug] || 0;
   }
 
   // Handle clear data action (purges IndexedDB & localStorage)
@@ -153,6 +181,7 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
     await clearAllLocalData();
     setProgressMap({});
     setCompletedMap({});
+    setPartialMap({});
   }
 
   const card = (course: Course) => (
@@ -161,7 +190,8 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
       course={course}
       label={labels[course.slug]}
       progressPercent={percentFor(course)}
-      resumeLessonSlug={resumeLesson(course, completedMap[course.slug] ?? [])?.slug}
+      started={hasStartedCourse(course, completedMap[course.slug] ?? [], partialMap[course.slug])}
+      resumeLessonSlug={resumeLesson(course, completedMap[course.slug] ?? [], partialMap[course.slug])?.slug}
     />
   );
   const LABEL = "font-mono text-xs uppercase tracking-[0.12em]";

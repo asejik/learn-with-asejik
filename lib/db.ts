@@ -237,6 +237,18 @@ export async function getLessonState(
   return inMemoryFallback.lessonState.get(key) || null;
 }
 
+export async function getAllLessonStates(): Promise<LessonStateRecord[]> {
+  try {
+    const db = await getDb();
+    if (db) {
+      return await db.getAll("lesson_state");
+    }
+  } catch {
+    // Fallback
+  }
+  return Array.from(inMemoryFallback.lessonState.values());
+}
+
 // 4. Clear All Local Data (Privacy Self-Service)
 export async function clearAllLocalData(): Promise<boolean> {
   try {

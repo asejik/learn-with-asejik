@@ -7,6 +7,8 @@ interface CourseCardProps {
   /** Index label such as C.01 (courses) or T.01 (tutorials) */
   label: string;
   progressPercent?: number;
+  /** True once any lesson is opened, even before the bar moves */
+  started?: boolean;
   /** Lesson the button opens: the first one not finished yet */
   resumeLessonSlug?: string;
 }
@@ -14,9 +16,9 @@ interface CourseCardProps {
 const META = "font-mono text-[11px] sm:text-xs uppercase tracking-[0.12em]";
 
 /** One numbered row of the course list. */
-export function CourseCard({ course, label, progressPercent = 0, resumeLessonSlug }: CourseCardProps) {
+export function CourseCard({ course, label, progressPercent = 0, started = false, resumeLessonSlug }: CourseCardProps) {
   const isCompleted = progressPercent >= 100;
-  const isStarted = progressPercent > 0 && !isCompleted;
+  const isStarted = (progressPercent > 0 || started) && !isCompleted;
   const noun = course.mode === "course" ? "course" : "tutorial";
   const lessonCount = course.chapters.reduce((n, c) => n + c.lessons.length, 0);
 

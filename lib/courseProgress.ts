@@ -10,15 +10,67 @@ export function courseLessons(course: Course): LessonRef[] {
   return course.chapters.flatMap((chapter) => chapter.lessons);
 }
 
+/** A lesson the learner has opened but not finished. */
+export interface PartialLesson {
+  /** How far through it they are, 0 to 0.95 */
+  fraction: number;
+  /** When the position was last saved (ms since epoch) */
+  savedAt: number;
+}
+
+/** Saved lesson state, as far as progress needs it. */
+export interface SavedLessonPosition {
+  lessonSlug: string;
+  currentScreenIndex?: number;
+  sequence?: string[];
+  positionSavedAt?: number;
+  completedAt?: number;
+}
+
 /**
- * Share of the course's lessons that are done, 0-100. Only slugs that are
- * still in the course count, so a removed lesson cannot push it past 100.
+ * Lessons that were opened but not finished, keyed by lesson slug. A lesson
+ * finished before its last saved position counts as a retake in progress.
  */
-export function coursePercent(course: Course, completedSlugs: string[]): number {
+export function partialLessons(states: SavedLessonPosition[]): Record<string, PartialLesson> {
+  const out: Record<string, PartialLesson> = {};
+  for (const s of states) {
+    if (typeof s.positionSavedAt !== "number") continue;
+    if (typeof s.completedAt === "number" && s.positionSavedAt <= s.completedAt) continue;
+    const total = s.sequence?.length ?? 0;
+    const index = s.currentScreenIndex ?? 0;
+    const fraction = total > 0 ? Math.min(0.95, Math.max(0, index / total)) : 0;
+    out[s.lessonSlug] = { fraction, savedAt: s.positionSavedAt };
+  }
+  return out;
+}
+
+/**
+ * Share of the course done, 0-100. Finished lessons count fully, a lesson in
+ * progress counts by how far through it the learner is (never as finished).
+ * Only slugs still in the course count, so a removed lesson cannot push it
+ * past 100.
+ */
+export function coursePercent(
+  course: Course,
+  completedSlugs: string[],
+  partial: Record<string, PartialLesson> = {}
+): number {
   const lessons = courseLessons(course);
   if (lessons.length === 0) return 0;
-  const done = lessons.filter((lesson) => completedSlugs.includes(lesson.slug)).length;
-  return Math.round((done / lessons.length) * 100);
+  const score = lessons.reduce((sum, lesson) => {
+    if (completedSlugs.includes(lesson.slug)) return sum + 1;
+    return sum + (partial[lesson.slug]?.fraction ?? 0);
+  }, 0);
+  return Math.min(100, Math.round((score / lessons.length) * 100));
+}
+
+/** True when the learner has finished or opened any lesson of the course. */
+export function hasStartedCourse(
+  course: Course,
+  completedSlugs: string[],
+  partial: Record<string, PartialLesson> = {}
+): boolean {
+  return courseLessons(course).some((l) => completedSlugs.includes(l.slug) || l.slug in partial);
 }
 
 /** The lesson after `slug`, or null on the last lesson (or an unknown slug). */
@@ -28,8 +80,18 @@ export function nextLesson(course: Course, slug: string): LessonRef | null {
   return index >= 0 ? lessons[index + 1] ?? null : null;
 }
 
-/** Where a learner should land: the first unfinished lesson, else the first lesson. */
-export function resumeLesson(course: Course, completedSlugs: string[]): LessonRef | null {
+/**
+ * Where a learner should land: the unfinished lesson they were last in, else
+ * the first unfinished lesson, else the first lesson.
+ */
+export function resumeLesson(
+  course: Course,
+  completedSlugs: string[],
+  partial: Record<string, PartialLesson> = {}
+): LessonRef | null {
   const lessons = courseLessons(course);
-  return lessons.find((lesson) => !completedSlugs.includes(lesson.slug)) ?? lessons[0] ?? null;
+  const open = lessons
+    .filter((l) => !completedSlugs.includes(l.slug) && l.slug in partial)
+    .sort((a, b) => partial[b.slug].savedAt - partial[a.slug].savedAt);
+  return open[0] ?? lessons.find((l) => !completedSlugs.includes(l.slug)) ?? lessons[0] ?? null;
 }
