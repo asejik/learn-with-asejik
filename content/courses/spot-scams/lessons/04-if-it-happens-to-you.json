@@ -2,7 +2,11 @@
   "slug": "04-if-it-happens-to-you",
   "title": "If It Happens to You",
   "chapterId": "ch2",
-  "keyTerms": ["Evidence", "Recovery scam", "Report"],
+  "keyTerms": [
+    "Evidence",
+    "Recovery scam",
+    "Report"
+  ],
   "intro": "Learn what to do in the first hour after a scam, why speaking up early matters, and how to spot the second scam that promises to get your money back.",
   "recap": [
     "Stop all contact and payments straight away.",
@@ -17,12 +21,16 @@
       "title": "It Can Happen to Anyone",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "Smart, careful people get scammed. What matters next is acting quickly and calmly, and not being tricked a second time."
+        "recap": "Smart, careful people get scammed. What matters next is acting quickly and calmly, and not being tricked a second time. The first hours are the most useful ones.",
+        "example": "Ngozi sends 50,000 naira to a fake seller and feels sick. She tells her bank within the hour and saves the chat. Because she acts quickly, the bank has more it can try, and the evidence helps them follow the payment.",
+        "watchOut": "Embarrassment makes people wait, hoping they were wrong. Waiting only helps the scammer. A quick call that turns out to be unnecessary costs you nothing.",
+        "tryThis": "Decide now who you would tell first if this happened to you, so you do not have to think when you are upset."
       },
       "glossary": [
         {
-          "term": "Recovery scam",
-          "definition": "A second scam aimed at someone who was already scammed. A stranger offers to get your money back, for a fee."
+          "term": "Shame",
+          "definition": "The feeling of embarrassment or foolishness after something goes wrong. Scammers rely on it, because it keeps victims quiet and slow.",
+          "example": "\"I am too embarrassed to tell my bank\" is the thought a scammer hopes you have."
         }
       ],
       "widgetData": {
@@ -38,7 +46,10 @@
       "title": "The First Hour",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each step. The order matters, because money is easier to stop the sooner you act."
+        "explain": "Tap each step. The order matters, because money is easier to stop the sooner you act. Stop, call, save, report: each step protects the next one.",
+        "example": "You paid a fake seller and they now ask for a small extra fee. You stop replying, call your bank from the number on your card, screenshot the chat and the transfer, then report the seller's profile to the platform.",
+        "watchOut": "Do not delete the chat or block the number before saving copies. Your bank and the authorities may need that evidence.",
+        "tryThis": "Write the four words on a note in your phone: stop, call, save, report."
       },
       "glossary": [
         {
@@ -55,7 +66,7 @@
             "label": "1. Stop",
             "title": "Stop all contact and payments",
             "definition": "Do not reply, do not pay anything more, and do not click further links. Every extra payment is lost money.",
-            "bonusFact": "Scammers often ask for \"one more small payment\" to release the first."
+            "bonusFact": "Scammers often ask for \"one more small payment\" to release the first one. Every extra payment makes the loss bigger, so the safest answer is no."
           },
           {
             "id": "node-call",
@@ -80,7 +91,7 @@
           }
         ],
         "completionMessage": "You now know the four steps for the first hour: stop, call, save, report.",
-        "completionBonusFact": "Save these four words on your phone so you do not have to think when you are upset."
+        "completionBonusFact": "Save these four words on your phone so you do not have to think when you are upset. Acting in order, even imperfectly, is far better than waiting."
       }
     },
     {
@@ -88,20 +99,32 @@
       "title": "The Second Scam",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Someone who knows you were scammed and offers a quick fix is a warning sign, not a rescuer."
+        "explain": "Someone who knows you were scammed and offers a quick fix is a warning sign, not a rescuer. Ask how they could know, and why they want money before they have done anything.",
+        "watchOut": "Recovery scammers can look professional, with websites and fake case numbers. They always ask for money or details before they help."
       },
       "glossary": [],
       "widgetData": {
         "question": "Days after you lose money, a stranger messages: \"I can get your money back. Pay a 10,000 naira fee first.\" What should you do?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "Pay the fee, because it is small compared with what you lost." },
-          { "id": "opt-2", "text": "Do not pay. It is probably a recovery scam, so report the message." },
-          { "id": "opt-3", "text": "Send them your bank details so they can start." }
+          {
+            "id": "opt-1",
+            "text": "Pay the fee, because it is small compared with what you lost."
+          },
+          {
+            "id": "opt-2",
+            "text": "Do not pay. It is probably a recovery scam, so report the message."
+          },
+          {
+            "id": "opt-3",
+            "text": "Send them your bank details so they can start."
+          }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "Scammers look for people who were already scammed. An unknown person who asks for a fee to recover your money is another advance fee trick.",
-        "bonusFact": "Genuine help comes from your bank and the authorities, and you contact them, not the other way round."
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "Scammers look for people who were already scammed, because they are worried and hopeful. An unknown person who asks for a fee to recover your money is running another advance fee trick.",
+        "bonusFact": "Genuine help comes from your bank and the authorities, and you contact them, not the other way round. If anyone contacts you first, treat it as a risk."
       }
     },
     {
@@ -109,7 +132,8 @@
       "title": "Good Move or Bad Move?",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false."
+        "explain": "Decide whether each statement is true or false. Think about what helps you and others, and what only helps the scammer.",
+        "tryThis": "For each card, ask: does this make it easier or harder for the scammer to get away with it?"
       },
       "glossary": [],
       "widgetData": {
@@ -151,7 +175,8 @@
       "title": "Match the Action to Its Reason",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each action to the reason behind it."
+        "review": "Match each action to the reason behind it. Each action either stops further loss, gets real help, or protects other people, and knowing the reason makes the steps easy to remember.",
+        "watchOut": "Do not skip steps because the amount was small. The same trick may be used on you again, or on someone you know."
       },
       "glossary": [],
       "widgetData": {
@@ -186,16 +211,22 @@
       "title": "Course Wrap-Up",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "One last check. Fill in the blank to finish the course."
+        "review": "One last check. This sentence sums up the whole course: whatever the trick, the defence is to slow down and check another way.",
+        "tryThis": "Pick one lesson from this course and teach it to a friend or relative this week."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the final rule:",
         "template": "When money or secrets are asked for, slow down, check another way, and {blank} before you act.",
-        "options": ["think", "hurry", "forward it", "pay"],
+        "options": [
+          "think",
+          "hurry",
+          "forward it",
+          "pay"
+        ],
         "correctAnswer": "think",
-        "explanation": "Urgency, fear, greed and trust all work best when you do not stop to think. Checking another way gives you the time.",
-        "bonusFact": "Sharing what you learned here with one person is the best way to make it stick."
+        "explanation": "Urgency, fear, greed and trust all work best when you do not stop to think. Checking another way gives you the time, and the time takes the scammer's power away.",
+        "bonusFact": "Sharing what you learned here with one person is the best way to make it stick, and it may protect someone you care about."
       }
     }
   ]

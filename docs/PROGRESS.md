@@ -306,3 +306,8 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Same approved style as the Spot Scams sample: longer tutor hints with worked examples, "Watch out" and "Try this", richer bonus insights and explanations, and tappable glossary words in the readings (Chatbot, Hallucination, Brainstorming, Prompt, Context, Goal, Format, Statistic, Quote, Stored, Honesty, Judgement, each with an example). The old multi-word terms that never matched (such as "AI chatbot") were replaced by single words that do.
   - Content only. VERIFIED: content validation, 137 unit tests; browser tests run by CI.
   - Owner to review: all new text; the made-up examples (a statistic, a law, a school essay) are labelled as examples and should be read for tone.
+- [x] **Deeper hints: Spot Scams lessons 2 to 4** (2026-11-26, branch `content/deeper-hints-scams`)
+  - Owner approved the depth of the sample lesson ("I love it"). Same style applied to the other three Spot Scams lessons: longer tutor hints on all 6 screens of each, worked examples, "Watch out" and "Try this" where they matter, longer bonus insights and explanations, and tappable glossary words in the readings (OTP, PIN, Bait, Scheme, Shame, each with an example).
+  - Content only; no code or schema change. VERIFIED: content validation, 137 unit tests. The browser tests were not re-run (they use the APIs tutorial, which this PR does not touch); CI runs them.
+  - Known gap: glossary terms of more than one word (for example "Advance fee", "Recovery scam", "Pyramid scheme") never match a word in the text, so they stay untappable. Not changed here; worth a small matcher fix later.
+  - Owner to review: all new text, for the fact-check.
