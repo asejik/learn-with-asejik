@@ -330,3 +330,12 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - New test `lib/glossaryContent.test.ts`: every glossary term in the real lessons must sit on a reading screen and appear in its text, so a dead term fails the build from now on.
   - VERIFIED: type check, lint, build, 166 unit tests, 28 browser tests (incl. the 44px glossary hit-area test) at 375px and 1280px.
   - UNVERIFIED: the look of a multi-word term wrapping across two lines on a phone (no current lesson has one).
+- [x] **Lessons list: go back to a lesson you have finished** (2026-11-26, branch `feat/lessons-list`)
+  - Owner report: you could only go back to the start of the lesson you are on, not to an earlier lesson. Plan approved, with one rule from the owner: do not allow opening a lesson not reached yet.
+  - New "Lessons" button (list icon, 44px) in the lesson's top bar, and a "Lessons" text button on the opening, recap and course-finish cards. It opens a slide-over listing the course by chapter. Status per lesson: You are here, Finished, In progress, Up next, or Locked until you finish the lesson before. Finished lessons and the next unfinished one are links; later lessons are shown but cannot be opened. A finished lesson opens from its first card, so it can be reviewed. Hidden for one-lesson tutorials. If saved progress cannot be read, only the first lesson and the current one open (fails closed).
+  - Logic in `lib/courseProgress.ts` (`lessonRows`, 4 new unit tests); drawer in `components/player/LessonsDrawer.tsx`.
+  - Known limit: this locks the list only. A lesson address typed or bookmarked still opens, because the site is static and has no server check; the existing course card and "Resume" buttons are unchanged.
+  - Not added to the completion screen (rating and signup), which already has "Next lesson" and "Return to Course Catalog".
+  - VERIFIED: type check, lint, build, 170 unit tests, 29 browser tests at 375px and 1280px (new: lessons list opens a finished lesson, locks later ones; seeded progress). VERIFIED in the built-in browser at 375px: top bar fits all five controls, list shows statuses, no sideways scroll.
+  - UNVERIFIED: 1280px appearance; screen-reader reading of the list; a full real run through lesson 1 then back from lesson 3 (the browser test seeds progress instead).
+  - Test note: the new test seeds saved progress and first waits for the app to open its storage, after an earlier run failed when the test created storage first.

@@ -3,6 +3,7 @@ import {
   courseLessons,
   coursePercent,
   hasStartedCourse,
+  lessonRows,
   nextLesson,
   partialLessons,
   resumeLesson,
@@ -83,6 +84,31 @@ describe("courseProgress", () => {
       expect(resumeLesson(course, ["a"], partial)?.slug).toBe("b");
       const both = { ...partial, c: { fraction: 0.2, savedAt: 300 } };
       expect(resumeLesson(course, ["a"], both)?.slug).toBe("c");
+    });
+  });
+
+  describe("lesson list", () => {
+    const flat = (done: string[], partial = {}, current = "a") =>
+      lessonRows(course, done, partial, current).flatMap((c) => c.lessons.map((l) => [l.slug, l.status, l.canOpen]));
+
+    it("opens only the first lesson on a fresh start", () => {
+      expect(flat([])).toEqual([["a", "in-progress", true], ["b", "locked", false], ["c", "locked", false]]);
+    });
+
+    it("opens finished lessons and the next one, and keeps later ones locked", () => {
+      expect(flat(["a"], {}, "b")).toEqual([["a", "done", true], ["b", "in-progress", true], ["c", "locked", false]]);
+      expect(flat(["a", "b"], {}, "a")).toEqual([["a", "done", true], ["b", "done", true], ["c", "next", true]]);
+    });
+
+    it("a finished course has every lesson open", () => {
+      expect(flat(["a", "b", "c"]).every(([, , open]) => open)).toBe(true);
+    });
+
+    it("marks a lesson that is partly done, and groups by chapter", () => {
+      const rows = lessonRows(course, ["a"], { b: { fraction: 0.4, savedAt: 1 } }, "a");
+      expect(rows.map((c) => c.chapterId)).toEqual(["ch1", "ch2"]);
+      expect(rows[0].lessons[1].status).toBe("in-progress");
+      expect(rows[0].lessons[0].isCurrent).toBe(true);
     });
   });
 });

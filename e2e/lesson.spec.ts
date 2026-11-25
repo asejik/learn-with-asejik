@@ -87,6 +87,50 @@ test.describe("lesson player", () => {
     await expect(page.getByRole("button", { name: "Start lesson" })).toHaveCount(0);
   });
 
+  test("the lessons list opens finished lessons and keeps later ones locked", async ({ page }) => {
+    // Lesson 1 finished, so lessons 1 and 2 can be opened and 3 and 4 stay locked
+    await page.goto("/courses/spot-scams/02-fake-alerts-and-otps");
+    await expect(page.getByRole("button", { name: "Start lesson" })).toBeVisible(); // the app has opened its storage
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve, reject) => {
+          const open = indexedDB.open("asejik_learning_db", 1);
+          open.onerror = () => reject(open.error);
+          // Same stores as lib/db.ts, in case the app has not created them yet
+          open.onupgradeneeded = () => {
+            const d = open.result;
+            if (!d.objectStoreNames.contains("user_profile")) d.createObjectStore("user_profile");
+            if (!d.objectStoreNames.contains("course_progress")) d.createObjectStore("course_progress", { keyPath: "courseSlug" });
+            if (!d.objectStoreNames.contains("lesson_state")) d.createObjectStore("lesson_state", { keyPath: "key" });
+          };
+          open.onsuccess = () => {
+            const db = open.result;
+            const tx = db.transaction("course_progress", "readwrite");
+            tx.objectStore("course_progress").put({
+              courseSlug: "spot-scams",
+              completedLessonSlugs: ["01-the-scammers-playbook"],
+              activeLessonSlug: "01-the-scammers-playbook",
+              lastActiveAt: Date.now(),
+              percentage: 25,
+            });
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+          };
+        })
+    );
+    await page.getByRole("button", { name: "Open the list of lessons" }).click();
+    const list = page.getByRole("dialog", { name: "Lessons" });
+    await expect(list.getByText("You are here")).toBeVisible();
+    await expect(list.getByRole("link", { name: /The Scammer's Playbook/ })).toBeVisible();
+    // Lessons 3 and 4 are not reached yet: shown, but not links
+    await expect(list.getByRole("link", { name: /Investment, Loan and Job Scams/ })).toHaveCount(0);
+    await expect(list.getByText(/Locked until you finish/)).toHaveCount(2);
+    // Going back to lesson 1 opens it from its first card
+    await list.getByRole("link", { name: /The Scammer's Playbook/ }).click();
+    await expect(page).toHaveURL(/01-the-scammers-playbook/);
+    await expect(heading(page)).toHaveText("Spot Scams Before They Spot You");
+  });
+
   test("a reload resumes at the same screen", async ({ page }) => {
     await openLesson(page);
     await answer(page, 0);

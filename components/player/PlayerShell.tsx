@@ -7,6 +7,7 @@ import { FeedbackPanel } from "./FeedbackPanel";
 import { AITutorDrawer } from "./AITutorDrawer";
 import { GlossaryDrawer } from "./GlossaryDrawer";
 import { LessonCompletionView } from "./LessonCompletionView";
+import { LessonsDrawer } from "./LessonsDrawer";
 import { CourseFinishCard, LessonIntroCard, LessonRecapCard, type RelatedCourse } from "./BookendCards";
 import { StorageWarning } from "./StorageWarning";
 import { usePlayerMachine } from "./usePlayerMachine";
@@ -36,6 +37,7 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
   const [finishSeen, setFinishSeen] = useState(false);
 
   // Drawer states
+  const [isLessonsOpen, setIsLessonsOpen] = useState(false);
   const [isAITutorOpen, setIsAITutorOpen] = useState(false);
   const [activeGlossaryTerm, setActiveGlossaryTerm] = useState<{
     term: string;
@@ -64,6 +66,18 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
     machine.nextScreen();
   }
 
+  // The list of lessons, for a course with more than one lesson
+  const hasSeveralLessons = courseLessons(course).length > 1;
+  const openLessons = hasSeveralLessons ? () => setIsLessonsOpen(true) : undefined;
+  const lessonsDrawer = hasSeveralLessons ? (
+    <LessonsDrawer
+      isOpen={isLessonsOpen}
+      onClose={() => setIsLessonsOpen(false)}
+      course={course}
+      currentSlug={lesson.slug}
+    />
+  ) : null;
+
   // Wait for saved progress before showing a screen, so screen 1 doesn't flash
   if (machine.isRestoring) {
     return (
@@ -86,17 +100,26 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
   }
 
   if (machine.isLessonComplete && !recapSeen) {
-    return <LessonRecapCard lesson={lesson} onContinue={() => setRecapSeen(true)} />;
+    return (
+      <>
+        <LessonRecapCard lesson={lesson} onContinue={() => setRecapSeen(true)} onOpenLessons={openLessons} />
+        {lessonsDrawer}
+      </>
+    );
   }
 
   const isLastLesson = nextLesson(course, lesson.slug) === null;
   if (machine.isLessonComplete && isLastLesson && !finishSeen) {
     return (
-      <CourseFinishCard
-        course={course}
-        related={relatedCourse}
-        onContinue={() => setFinishSeen(true)}
-      />
+      <>
+        <CourseFinishCard
+          course={course}
+          related={relatedCourse}
+          onContinue={() => setFinishSeen(true)}
+          onOpenLessons={openLessons}
+        />
+        {lessonsDrawer}
+      </>
     );
   }
 
@@ -116,12 +139,16 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
   // The first lesson of a course also opens with the course overview
   if (!introSeen && machine.currentIndex === 0 && !machine.isReviewing) {
     return (
-      <LessonIntroCard
-        course={course}
-        lesson={lesson}
-        isFirstLesson={courseLessons(course)[0]?.slug === lesson.slug}
-        onStart={() => setIntroSeen(true)}
-      />
+      <>
+        <LessonIntroCard
+          course={course}
+          lesson={lesson}
+          isFirstLesson={courseLessons(course)[0]?.slug === lesson.slug}
+          onStart={() => setIntroSeen(true)}
+          onOpenLessons={openLessons}
+        />
+        {lessonsDrawer}
+      </>
     );
   }
 
@@ -144,6 +171,7 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
         onBack={machine.viewIndex > 0 ? machine.previousScreen : undefined}
         aiTutorLabel={machine.aiTutorLabel}
         onOpenAITutor={() => setIsAITutorOpen(true)}
+        onOpenLessons={openLessons}
         courseSlug={course.slug}
       />
 
@@ -233,6 +261,8 @@ export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: Pl
         }
         lessonTitle={lesson.title}
       />
+
+      {lessonsDrawer}
 
       {/* 5. Inline Glossary Drawer */}
       {activeGlossaryTerm && (
