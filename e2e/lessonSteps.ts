@@ -34,8 +34,14 @@ export async function answer(page: Page, index: number, correct = true) {
       await page.getByRole("button", { name: "Check Answer" }).click();
       break;
     case 3:
-      for (const isTrue of [true, false, true]) {
+      // Each card gets its own feedback; the button moves to the next card
+      const deck = [true, false, true];
+      for (let i = 0; i < deck.length; i++) {
+        const isTrue = deck[i];
         await page.getByRole("button", { name: isTrue ? "True / Yes" : "False / No" }).click();
+        await expect(feedback(page)).toBeVisible();
+        if (i < 2) await feedback(page).getByRole("button", { name: "Next card" }).click();
+        else await feedback(page).getByRole("button", { name: "See results" }).click();
       }
       break;
     case 4:

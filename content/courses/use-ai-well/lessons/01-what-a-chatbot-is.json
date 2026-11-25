@@ -65,25 +65,29 @@
             "id": "c1",
             "statement": "A chatbot is a good helper for drafting a message, summarising a text or listing ideas.",
             "isTrue": true,
-            "explanation": "These are tasks about language, where a rough first version helps and you can easily judge the result."
+            "explanation": "These are tasks about language, where a rough first version helps and you can easily judge the result.",
+            "bonusFact": "Treat the result as a first draft that you edit, not a finished piece."
           },
           {
             "id": "c2",
             "statement": "A chatbot always looks up the latest facts before it answers.",
             "isTrue": false,
-            "explanation": "Many chatbots work from what they learned earlier, and may miss recent events unless the tool says it can search."
+            "explanation": "Many chatbots work from what they learned earlier, and may miss recent events unless the tool says it can search.",
+            "bonusFact": "If your question depends on today's news or prices, check a current source."
           },
           {
             "id": "c3",
             "statement": "A chatbot can make up names, numbers and sources that do not exist.",
             "isTrue": true,
-            "explanation": "It writes what sounds likely, so it can invent details that look real."
+            "explanation": "It writes what sounds likely, so it can invent details that look real.",
+            "bonusFact": "Names, numbers and web links need extra care, because they must be exactly right."
           },
           {
             "id": "c4",
             "statement": "A chatbot understands you the way a close friend does.",
             "isTrue": false,
-            "explanation": "It works with patterns in text. It does not know you or your situation unless you tell it."
+            "explanation": "It works with patterns in text. It does not know you or your situation unless you tell it.",
+            "bonusFact": "Tell it what you need and who it is for, but leave out private details."
           }
         ]
       }

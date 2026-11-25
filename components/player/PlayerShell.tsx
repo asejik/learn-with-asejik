@@ -44,6 +44,13 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
 
   // Handle continue transition to advance to next screen
   function handleContinue() {
+    // One step inside a screen (a card in a deck): run its own handler
+    const stepContinue = machine.feedbackState.onContinue;
+    if (stepContinue) {
+      machine.clearFeedback();
+      stepContinue();
+      return;
+    }
     machine.nextScreen();
   }
 
@@ -139,6 +146,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
             onOpenGlossary={handleOpenGlossary}
             onSubmitAnswer={machine.submitAnswer}
             onExplored={machine.showInfo}
+            onCardFeedback={machine.showCardFeedback}
             isAnswered={isAnswered}
             onContinue={handleContinue}
           />
@@ -153,6 +161,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
         retryAfterScreens={machine.feedbackState.retryAfterScreens}
         onContinue={handleContinue}
         isLastScreen={isLastScreen}
+        continueLabel={machine.feedbackState.continueLabel}
       />
 
       {/* 4. AI Tutor Slide-Over Drawer */}

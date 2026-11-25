@@ -104,25 +104,29 @@
             "id": "c1",
             "statement": "A real employer asks you to pay a \"training\" or \"uniform\" fee before you start work.",
             "isTrue": false,
-            "explanation": "Employers pay you. Being asked to pay first is the advance fee pattern."
+            "explanation": "Employers pay you. Being asked to pay first is the advance fee pattern.",
+            "bonusFact": "Search the company's name with the word \"scam\", and ask someone you trust before you pay anything."
           },
           {
             "id": "c2",
             "statement": "A loan app that wants access to your contacts and photos is worth checking carefully before you install it.",
             "isTrue": true,
-            "explanation": "Some loan apps misuse contacts to shame or pressure borrowers. Read what permissions it asks for and why, and look at its reviews and who runs it."
+            "explanation": "Some loan apps misuse contacts to shame or pressure borrowers. Read what permissions it asks for and why, and look at its reviews and who runs it.",
+            "bonusFact": "Before you install an app, check who made it and what it asks permission to use."
           },
           {
             "id": "c3",
             "statement": "A \"loan approved\" message that asks for a fee before sending the money is a good sign.",
             "isTrue": false,
-            "explanation": "A fee before the money is the trap. A real lender states every charge clearly before you agree, and does not ask you to send money first."
+            "explanation": "A fee before the money is the trap. A real lender states every charge clearly before you agree, and does not ask you to send money first.",
+            "bonusFact": "Ask for the full cost of the loan in writing before you agree to anything."
           },
           {
             "id": "c4",
             "statement": "Screenshots of other people's payouts prove an investment is real.",
             "isTrue": false,
-            "explanation": "Screenshots are easy to fake or to take from a few early members. They prove nothing about the next person."
+            "explanation": "Screenshots are easy to fake or to take from a few early members. They prove nothing about the next person.",
+            "bonusFact": "Check the company with the official regulator yourself, not through a link the promoter sent."
           }
         ]
       }

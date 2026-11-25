@@ -106,25 +106,29 @@
             "id": "c1",
             "statement": "A source or web link given by a chatbot is real because it looks proper.",
             "isTrue": false,
-            "explanation": "Chatbots can invent sources and links. Open the link, or search for the source yourself."
+            "explanation": "Chatbots can invent sources and links. Open the link, or search for the source yourself.",
+            "bonusFact": "Search for the source's name yourself. If you cannot find it, do not use it."
           },
           {
             "id": "c2",
             "statement": "Asking the same chatbot \"Are you sure?\" is a full check.",
             "isTrue": false,
-            "explanation": "It may repeat or change its answer without checking anything. Use a separate source."
+            "explanation": "It may repeat or change its answer without checking anything. Use a separate source.",
+            "bonusFact": "Use a different, reliable place for the check, not the chatbot that wrote the answer."
           },
           {
             "id": "c3",
             "statement": "For health, law or money decisions, a chatbot answer should be checked with a qualified person.",
             "isTrue": true,
-            "explanation": "A wrong answer here can cost you a lot, so it is worth a second, expert opinion."
+            "explanation": "A wrong answer here can cost you a lot, so it is worth a second, expert opinion.",
+            "bonusFact": "A pharmacist, doctor, lawyer or adviser can confirm what a chatbot may only have guessed."
           },
           {
             "id": "c4",
             "statement": "If two independent trusted sources agree with the answer, you can feel more confident.",
             "isTrue": true,
-            "explanation": "Independent agreement is the best everyday check you have."
+            "explanation": "Independent agreement is the best everyday check you have.",
+            "bonusFact": "Two sources that found their facts separately and agree are much stronger than one."
           }
         ]
       }

@@ -166,6 +166,11 @@ describe("strict content rules", () => {
     expect(lessonIssues(type, edit)).toContain(message);
   });
 
+  it("rejects a swipe card with no bonus tip (shown with Spot on)", () => {
+    expect(lessonIssues("swipeDeck", (s) => set(s, "widgetData.cards.0.bonusFact", undefined))).not.toBe("");
+    expect(lessonIssues("swipeDeck", (s) => set(s, "widgetData.cards.0.bonusFact", ""))).not.toBe("");
+  });
+
   it("rejects an unknown field on a lesson, a course and a chapter", () => {
     expect(issueMessages(LessonSchema.safeParse({ ...lesson, extra: 1 })).join()).toContain("Unrecognized key");
     expect(issueMessages(CourseSchema.safeParse({ ...course, extra: 1 })).join()).toContain("Unrecognized key");

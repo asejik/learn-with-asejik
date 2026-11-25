@@ -271,3 +271,13 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Now the home page also reads saved lesson positions (`getAllLessonStates`). An opened, unfinished lesson makes the card say "In progress" with a Resume button, and counts in the bar by how far through it the learner is (never as finished). Resume opens the unfinished lesson saved last.
   - VERIFIED: type check, lint, build, 135 unit tests (5 new). VERIFIED in the built-in browser (wrangler dev): opened lesson 1, moved one screen, home card showed "In progress", 4%, "Resume course".
   - UNVERIFIED: 375px layout of the changed card (text only changed, no layout change); the 24 browser tests were not re-run for this PR.
+- [x] **Swipe cards: feedback after every card, and a card-by-card result** (2026-11-26, branch `feat/swipe-card-feedback`)
+  - Owner request: each interactive card shows right or wrong straight away, "Spot on" with a bonus tip or "Not quite" with the explanation, and the end shows how each card went.
+  - After each card the normal feedback panel opens (green `CheckCircle2` / amber `AlertTriangle`, bottom sheet on a phone, right-hand on desktop) with a "Next card" button, "See results" on the last card. The card itself shows a Spot on / Not quite tag and border. At the end every card is listed with its verdict, what the learner said, the explanation, and the bonus tip for the ones they got right. The old end summary that only listed misses is gone.
+  - Removed an unsourced claim ("flashcards improve memory retention by over 40%") that was hard-coded as the bonus fact of every deck.
+  - Content: every swipe card now has a `bonusFact` (35 cards in 9 lessons, written new). The schema now requires it, so a future card without one fails the build (new unit test).
+  - The screen still counts as wrong if any card was wrong, and the existing retry (the whole deck returns three screens later) is unchanged. The per-card panel does not queue a retry or save anything.
+  - Test helper `e2e/lessonSteps.ts` now taps through each card's feedback.
+  - VERIFIED: type check, lint, build (content validation passes), 136 unit tests, 24 browser tests at 375px and 1280px; built-in browser at 375px with one wrong and three right cards (panel text, results list, no sideways scroll).
+  - UNVERIFIED: 1280px appearance of the results list; reading order with a screen reader.
+  - Owner to review: the 35 bonus tips are new text; fact-check them with the course edits.

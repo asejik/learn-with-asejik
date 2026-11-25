@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { Check, X, Layers, HelpCircle } from "lucide-react";
-import { BaseWidgetProps } from "./types";
+import { Check, X, Layers, HelpCircle, CheckCircle2, AlertTriangle } from "lucide-react";
+import { BaseWidgetProps, CardFeedbackHandler } from "./types";
 import { z } from "zod";
 import { SwipeDeckWidgetDataSchema } from "@/lib/schema";
 
@@ -10,18 +10,23 @@ type SwipeDeckData = z.infer<typeof SwipeDeckWidgetDataSchema>;
 
 interface CardResult {
   cardId: string;
+  statement: string;
   userAnswer: boolean;
   isCorrect: boolean;
   explanation: string;
+  bonusFact: string;
 }
 
 export default function SwipeDeckWidget({
   data,
   onSubmitAnswer,
+  onCardFeedback,
   isAnswered,
-}: BaseWidgetProps<SwipeDeckData>) {
+}: BaseWidgetProps<SwipeDeckData> & { onCardFeedback: CardFeedbackHandler }) {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [answers, setAnswers] = useState<CardResult[]>([]);
+  // The card just answered, kept on show while its feedback is open
+  const [lastResult, setLastResult] = useState<CardResult | null>(null);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -31,45 +36,48 @@ export default function SwipeDeckWidget({
   // How many unanswered cards to show peeking out behind the active one
   const cardsBehind = Math.min(2, Math.max(0, totalCards - currentCardIndex - 1));
 
+  // Moves on from a card's feedback: the next card, or the results
+  const advance = (all: CardResult[]) => {
+    setLastResult(null);
+    setDragOffset(0);
+    if (currentCardIndex + 1 < totalCards) {
+      setCurrentCardIndex((prev) => prev + 1);
+      return;
+    }
+    // Last card done: show every card's result and finish the screen
+    setCurrentCardIndex(totalCards);
+    const right = all.filter((a) => a.isCorrect).length;
+    onSubmitAnswer({
+      isCorrect: right === totalCards,
+      explanation:
+        right === totalCards
+          ? `Excellent! You got all ${totalCards} cards right.`
+          : `You got ${right} of ${totalCards} cards right. Each card's result is shown above.`,
+    });
+  };
+
   const handleAnswer = (choice: boolean) => {
     if (isAnswered || !currentCard) return;
 
-    const isMatch = choice === currentCard.isTrue;
-    const newAnswers = [
-      ...answers,
-      {
-        cardId: currentCard.id,
-        userAnswer: choice,
-        isCorrect: isMatch,
-        explanation: currentCard.explanation,
-      },
-    ];
-    setAnswers(newAnswers);
+    const result: CardResult = {
+      cardId: currentCard.id,
+      statement: currentCard.statement,
+      userAnswer: choice,
+      isCorrect: choice === currentCard.isTrue,
+      explanation: currentCard.explanation,
+      bonusFact: currentCard.bonusFact,
+    };
+    const all = [...answers, result];
+    setAnswers(all);
+    setLastResult(result);
 
-    if (currentCardIndex + 1 < totalCards) {
-      setCurrentCardIndex((prev) => prev + 1);
-      setDragOffset(0);
-    } else {
-      // Completed all cards in the deck!
-      const allCorrect = newAnswers.every((a) => a.isCorrect);
-      const incorrectStatements = newAnswers.filter((a) => !a.isCorrect);
-
-      let summaryExplanation = "";
-      if (allCorrect) {
-        summaryExplanation = `Excellent! You correctly identified all ${totalCards} statements.`;
-      } else {
-        summaryExplanation = `You missed ${incorrectStatements.length} statement(s): ${incorrectStatements
-          .map((a) => a.explanation)
-          .join(" ")}`;
-      }
-
-      onSubmitAnswer({
-        isCorrect: allCorrect,
-        explanation: summaryExplanation,
-        bonusFact:
-          "Active recall flashcard decks improve long-term memory retention by over 40% compared to passive rereading.",
-      });
-    }
+    onCardFeedback({
+      isCorrect: result.isCorrect,
+      explanation: result.explanation,
+      bonusFact: result.bonusFact,
+      continueLabel: currentCardIndex + 1 < totalCards ? "Next card" : "See results",
+      onContinue: () => advance(all),
+    });
   };
 
   // Touch Swipe Handlers (for mobile phone ergonomics)
@@ -172,7 +180,11 @@ export default function SwipeDeckWidget({
               zIndex: 20,
             }}
             className={`relative p-6 sm:p-8 bg-white rounded-2xl border-2 transition-shadow shadow-md flex flex-col justify-between min-h-[190px] sm:min-h-[210px] ${
-              dragOffset > 30
+              lastResult
+                ? lastResult.isCorrect
+                  ? "border-emerald-500 ring-2 ring-emerald-200"
+                  : "border-amber-500 ring-2 ring-amber-200"
+                : dragOffset > 30
                 ? "border-emerald-500 ring-2 ring-emerald-200"
                 : dragOffset < -30
                 ? "border-amber-500 ring-2 ring-amber-200"
@@ -204,9 +216,24 @@ export default function SwipeDeckWidget({
               </p>
             </div>
 
-            <p className="text-[11px] text-slate-600 text-center font-medium mt-4">
-              Swipe right for True • Swipe left for False
-            </p>
+            {lastResult ? (
+              <p
+                className={`mt-4 inline-flex items-center justify-center gap-1.5 text-xs font-extrabold ${
+                  lastResult.isCorrect ? "text-emerald-800" : "text-amber-800"
+                }`}
+              >
+                {lastResult.isCorrect ? (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+                ) : (
+                  <AlertTriangle className="w-4 h-4 text-amber-600" aria-hidden="true" />
+                )}
+                {lastResult.isCorrect ? "Spot on" : "Not quite"}
+              </p>
+            ) : (
+              <p className="text-[11px] text-slate-600 text-center font-medium mt-4">
+                Swipe right for True • Swipe left for False
+              </p>
+            )}
           </div>
           </div>
 
@@ -234,13 +261,44 @@ export default function SwipeDeckWidget({
           )}
         </div>
       ) : (
-        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-2">
-          <p className="text-sm font-bold text-slate-800">
-            Card Deck Evaluated!
-          </p>
-          <p className="text-xs text-slate-500">
-            Check the feedback panel below to review your answers.
-          </p>
+        <div className="space-y-3">
+          <p className="text-sm font-bold text-slate-800">Your results, card by card</p>
+          <ol className="space-y-3">
+            {answers.map((a) => (
+              <li
+                key={a.cardId}
+                className={`rounded-xl border p-3.5 space-y-1.5 ${
+                  a.isCorrect ? "bg-emerald-50 border-emerald-300" : "bg-amber-50 border-amber-300"
+                }`}
+              >
+                <p
+                  className={`inline-flex items-center gap-1.5 text-xs font-extrabold ${
+                    a.isCorrect ? "text-emerald-800" : "text-amber-800"
+                  }`}
+                >
+                  {a.isCorrect ? (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+                  ) : (
+                    <AlertTriangle className="w-4 h-4 text-amber-600" aria-hidden="true" />
+                  )}
+                  {a.isCorrect ? "Spot on" : "Not quite"}
+                </p>
+                <p className="text-sm font-semibold text-slate-900 leading-snug">
+                  &ldquo;{a.statement}&rdquo;
+                </p>
+                <p className="text-xs leading-relaxed text-slate-700">
+                  You said {a.userAnswer ? "True" : "False"}.{" "}
+                  {a.explanation}
+                </p>
+                {a.isCorrect && (
+                  <p className="text-xs leading-normal rounded-lg bg-emerald-100/70 border border-emerald-200 text-emerald-900 p-2">
+                    <span className="font-bold">Bonus Insight: </span>
+                    {a.bonusFact}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ol>
         </div>
       )}
     </div>

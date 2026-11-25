@@ -11,6 +11,8 @@ interface FeedbackPanelProps {
   retryAfterScreens?: number | null;
   onContinue: () => void;
   isLastScreen: boolean;
+  /** Button text for a step inside a screen, e.g. "Next card" */
+  continueLabel?: string;
 }
 
 export function FeedbackPanel({
@@ -20,6 +22,7 @@ export function FeedbackPanel({
   retryAfterScreens = null,
   onContinue,
   isLastScreen,
+  continueLabel,
 }: FeedbackPanelProps) {
   if (!status) return null;
 
@@ -122,7 +125,7 @@ export function FeedbackPanel({
                 : "bg-brand-600 hover:bg-brand-700 text-white"
             }`}
           >
-            <span>{isLastScreen ? "Complete Lesson" : "Continue"}</span>
+            <span>{continueLabel ?? (isLastScreen ? "Complete Lesson" : "Continue")}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

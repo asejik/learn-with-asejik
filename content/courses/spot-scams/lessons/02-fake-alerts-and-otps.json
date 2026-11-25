@@ -110,25 +110,29 @@
             "id": "c1",
             "statement": "A text that says money has arrived is proof that it arrived.",
             "isTrue": false,
-            "explanation": "Fake credit alerts are used against sellers. Check your balance in your own bank app before you hand over goods."
+            "explanation": "Fake credit alerts are used against sellers. Check your balance in your own bank app before you hand over goods.",
+            "bonusFact": "Wait for the balance in your own bank app, not the text, before you release goods."
           },
           {
             "id": "c2",
             "statement": "You should never share your OTP, PIN or password with anyone who contacts you.",
             "isTrue": true,
-            "explanation": "These secrets exist so that only you can approve things. Sharing them hands your account to someone else."
+            "explanation": "These secrets exist so that only you can approve things. Sharing them hands your account to someone else.",
+            "bonusFact": "Your bank does not need your OTP from you. If someone asks for it, it is not your bank."
           },
           {
             "id": "c3",
             "statement": "A link is safe if the message looks professional and has a logo.",
             "isTrue": false,
-            "explanation": "Logos and polished wording are easy to copy. Judge the sender, the link and the ask instead."
+            "explanation": "Logos and polished wording are easy to copy. Judge the sender, the link and the ask instead.",
+            "bonusFact": "Open the official app, or type the website address yourself, instead of tapping the link."
           },
           {
             "id": "c4",
             "statement": "If someone you know sends an odd message asking for money, call them on their usual number to check.",
             "isTrue": true,
-            "explanation": "Accounts can be taken over, and numbers can be copied. A call to the real person settles it."
+            "explanation": "Accounts can be taken over, and numbers can be copied. A call to the real person settles it.",
+            "bonusFact": "Agree a family code word for money requests, so you can quickly tell the real person."
           }
         ]
       }

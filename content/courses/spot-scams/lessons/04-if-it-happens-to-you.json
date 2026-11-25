@@ -111,25 +111,29 @@
             "id": "c1",
             "statement": "Telling your bank quickly gives it the best chance to help.",
             "isTrue": true,
-            "explanation": "Time matters. The earlier a bank knows, the more options it may have."
+            "explanation": "Time matters. The earlier a bank knows, the more options it may have.",
+            "bonusFact": "Call the number on the back of your card or on the bank's official site, not one from a message."
           },
           {
             "id": "c2",
             "statement": "You should delete the scam messages so you can forget about it.",
             "isTrue": false,
-            "explanation": "Those messages are evidence. Keep them, and save copies before blocking the sender."
+            "explanation": "Those messages are evidence. Keep them, and save copies before blocking the sender.",
+            "bonusFact": "Take screenshots of the messages, numbers and payment details, and keep them somewhere safe."
           },
           {
             "id": "c3",
             "statement": "Being scammed means you were careless or foolish.",
             "isTrue": false,
-            "explanation": "Scams are built by professionals to work on careful people too. Shame only makes it harder to act quickly."
+            "explanation": "Scams are built by professionals to work on careful people too. Shame only makes it harder to act quickly.",
+            "bonusFact": "Telling someone you trust early is a strong first step, not a sign of weakness."
           },
           {
             "id": "c4",
             "statement": "Warning your friends and family about the trick can protect them.",
             "isTrue": true,
-            "explanation": "Scammers reuse the same story. One warning can stop the next person."
+            "explanation": "Scammers reuse the same story. One warning can stop the next person.",
+            "bonusFact": "Even a short message about what happened makes the same trick harder to reuse."
           }
         ]
       }
