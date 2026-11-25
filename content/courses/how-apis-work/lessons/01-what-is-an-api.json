@@ -61,12 +61,7 @@
         "explain": "Think about what an API actually delivers. It does not hand over internal database passwords or raw source code. It provides an agreed contract: what you may ask for, what you must send, and what you will get back.",
         "watchOut": "A contract can be changed by the service that owns it. Apps that rely on an API sometimes need to update when the rules change."
       },
-      "glossary": [
-        {
-          "term": "Payload",
-          "definition": "The actual data cargo being transmitted in a network request or response (usually formatted in compact JSON)."
-        }
-      ],
+      "glossary": [],
       "widgetData": {
         "prompt": "Complete the statement describing the fundamental role of an API:",
         "template": "An API acts as a standardized {blank} that allows two applications to exchange data without exposing their internal databases.",
@@ -210,13 +205,7 @@
         "example": "You open a page that has been removed and see 404. The server worked fine; it simply has nothing at that address.",
         "watchOut": "401 and 404 can look alike on screen, but they mean different things. 401 means you are not allowed in, 404 means there is nothing there to open."
       },
-      "glossary": [
-        {
-          "term": "Status",
-          "definition": "A three-digit number a server sends back with every response to say how the request went.",
-          "example": "200 means all is well. 404 means not found. 500 means the server failed."
-        }
-      ],
+      "glossary": [],
       "widgetData": {
         "instruction": "Match each HTTP status code with its meaning:",
         "pairs": [

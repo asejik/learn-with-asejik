@@ -5,6 +5,7 @@ import { Volume2, VolumeX, ArrowRight } from "lucide-react";
 import { BaseWidgetProps } from "./types";
 import { z } from "zod";
 import { ReadingWidgetDataSchema } from "@/lib/schema";
+import { splitByGlossary } from "@/lib/glossaryMatch";
 
 type ReadingData = z.infer<typeof ReadingWidgetDataSchema>;
 
@@ -41,32 +42,21 @@ export default function ReadingWidget({
             key={idx}
             className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal"
           >
-            {p.split(" ").map((word, wIdx) => {
-              const cleanWord = word.replace(/[^a-zA-Z]/g, "");
-              const matchedGlossary = glossary.find(
-                (g) => {
-                  const term = g.term.toLowerCase();
-                  const w = cleanWord.toLowerCase();
-                  return w === term || w === `${term}s`;
-                }
-              );
-
-              if (matchedGlossary && onOpenGlossary) {
-                return (
-                  <React.Fragment key={wIdx}>
-                    <button
-                      type="button"
-                      onClick={() => onOpenGlossary(matchedGlossary.term)}
-                      className="relative after:absolute after:-inset-x-3 after:-inset-y-3 border-b-2 border-dotted border-slate-400 font-semibold text-brand-700 hover:text-brand-900 hover:border-brand-600 transition focus:outline-none focus:ring-1 focus:ring-brand-500 rounded-xs"
-                      title={`Define: ${matchedGlossary.term}`}
-                    >
-                      {word}
-                    </button>{" "}
-                  </React.Fragment>
-                );
-              }
-              return word + " ";
-            })}
+            {splitByGlossary(p, glossary.map((g) => g.term)).map((part, partIdx) =>
+              part.term && onOpenGlossary ? (
+                <button
+                  key={partIdx}
+                  type="button"
+                  onClick={() => onOpenGlossary(part.term as string)}
+                  className="relative after:absolute after:-inset-x-3 after:-inset-y-3 border-b-2 border-dotted border-slate-400 font-semibold text-brand-700 hover:text-brand-900 hover:border-brand-600 transition focus:outline-none focus:ring-1 focus:ring-brand-500 rounded-xs"
+                  title={`Define: ${part.term}`}
+                >
+                  {part.text}
+                </button>
+              ) : (
+                <React.Fragment key={partIdx}>{part.text}</React.Fragment>
+              )
+            )}
           </p>
         ))}
       </div>
