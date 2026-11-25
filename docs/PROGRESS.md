@@ -281,3 +281,10 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - VERIFIED: type check, lint, build (content validation passes), 136 unit tests, 24 browser tests at 375px and 1280px; built-in browser at 375px with one wrong and three right cards (panel text, results list, no sideways scroll).
   - UNVERIFIED: 1280px appearance of the results list; reading order with a screen reader.
   - Owner to review: the 35 bonus tips are new text; fact-check them with the course edits.
+- [x] **Back button and review mode in the lesson player** (2026-11-26, branch `feat/player-back-review`)
+  - Owner request: students can go back and review a previous card.
+  - A back arrow in the top bar (44px, hidden on the first screen) shows the screen before the one on show. A blue "Looking back" bar says answers there are practice and are not scored, with "Back to where you were". Continue while looking back walks forward until the learner reaches their real place.
+  - Looking back never changes the saved place, the retry queue or the lesson result (`reviewIndex` in `usePlayerMachine`; `submitAnswer` shows feedback only). A reload still resumes at the real place.
+  - Known limit: if the learner goes back from a screen they had already answered, that screen starts fresh when they return (their real place is unchanged; a wrong answer there is not queued twice).
+  - VERIFIED: type check, lint, build, 135 unit tests; 26 browser tests pass at 375px and 1280px (new test: back, practice answer, return, no Back on screen 1). VERIFIED in the built-in browser at 375px: Back shows the bar, no sideways scroll.
+  - UNVERIFIED: the look at 1280px (the browser test covers behaviour, not appearance); screen-reader reading of the new bar.

@@ -31,6 +31,11 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  // Set while the learner looks back at an earlier screen. The saved place and
+  // the retry queue always follow currentIndex, never this.
+  const [reviewIndex, setReviewIndex] = useState<number | null>(null);
+  const isReviewing = reviewIndex !== null;
+  const viewIndex = reviewIndex ?? currentIndex;
   const [feedbackState, setFeedbackState] = useState<FeedbackState>({
     status: null,
   });
@@ -116,7 +121,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
   }, [isRestoring, isLessonComplete, courseSlug, lesson.slug, currentIndex, sequence, retryQueue]);
 
   // Current screen object
-  const currentScreenId = sequence[currentIndex] || sequence[0];
+  const currentScreenId = sequence[viewIndex] || sequence[0];
   const currentScreen = screenMap.get(currentScreenId) || lesson.screens[0];
 
   // Dynamic AI Tutor label based on context
@@ -147,6 +152,18 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
       // Ungate continue button upon answer submission
       setIsGated(false);
 
+      // Looking back is practice: show the feedback, but queue no retry
+      if (isReviewing) {
+        setFeedbackState({
+          status: isCorrect ? "correct" : "incorrect",
+          explanation:
+            explanation || (isCorrect ? undefined : "Take a moment to review this concept, then continue."),
+          bonusFact,
+          retryAfterScreens: null,
+        });
+        return;
+      }
+
       if (isCorrect) {
         setFeedbackState({
           status: "correct",
@@ -175,7 +192,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
         });
       }
     },
-    [currentIndex, currentScreen.id, sequence]
+    [currentIndex, currentScreen.id, sequence, isReviewing]
   );
 
   // Feedback for one card of a deck. The screen is not finished, so there is
@@ -217,8 +234,36 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
     []
   );
 
+  // Move the view to a screen and reset its feedback and gate
+  const showScreenAt = useCallback(
+    (index: number) => {
+      setFeedbackState({ status: null });
+      setIsGated(screenMap.get(sequence[index])?.widgetType !== "reading");
+    },
+    [screenMap, sequence]
+  );
+
+  // Look at the screen before the one on show (practice only, nothing is scored)
+  const previousScreen = useCallback(() => {
+    if (viewIndex <= 0) return;
+    setReviewIndex(viewIndex - 1);
+    showScreenAt(viewIndex - 1);
+  }, [viewIndex, showScreenAt]);
+
+  // Leave review and return to the screen the learner had reached
+  const backToCurrent = useCallback(() => {
+    setReviewIndex(null);
+    showScreenAt(currentIndex);
+  }, [currentIndex, showScreenAt]);
+
   // Advance to next screen
   const nextScreen = useCallback(() => {
+    if (reviewIndex !== null) {
+      const next = reviewIndex + 1;
+      setReviewIndex(next >= currentIndex ? null : next);
+      showScreenAt(Math.min(next, currentIndex));
+      return;
+    }
     const nextIdx = currentIndex + 1;
 
     if (nextIdx < sequence.length) {
@@ -261,10 +306,23 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
           console.warn("Could not save the course progress copy", error);
         });
     }
-  }, [currentIndex, sequence, screenMap, courseSlug, lesson.slug, retryQueue, totalLessons]);
+  }, [
+    reviewIndex,
+    showScreenAt,
+    currentIndex,
+    sequence,
+    screenMap,
+    courseSlug,
+    lesson.slug,
+    retryQueue,
+    totalLessons,
+  ]);
 
   return {
     currentIndex,
+    /** The screen on show: the learner's place, or an earlier one in review */
+    viewIndex,
+    isReviewing,
     totalScreens: sequence.length,
     currentScreen,
     aiTutorLabel,
@@ -272,7 +330,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
     feedbackState,
     retryQueue,
     /** The current screen is a retry of an earlier wrong answer */
-    isRetry: isRetryAttempt(sequence, currentIndex),
+    isRetry: isRetryAttempt(sequence, viewIndex),
     isLessonComplete,
     storageFailed,
     isRestoring,
@@ -282,5 +340,7 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
     showCardFeedback,
     clearFeedback,
     nextScreen,
+    previousScreen,
+    backToCurrent,
   };
 }

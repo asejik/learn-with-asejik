@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { X, Sparkles } from "lucide-react";
+import { X, Sparkles, ArrowLeft } from "lucide-react";
 
 interface PlayerNavBarProps {
   totalScreens: number;
   currentIndex: number;
   aiTutorLabel: "Recap" | "Explain" | "Review";
   onOpenAITutor: () => void;
+  /** Show the previous screen; omitted on the first screen */
+  onBack?: () => void;
   courseSlug: string;
 }
 
@@ -16,6 +18,7 @@ export function PlayerNavBar({
   currentIndex,
   aiTutorLabel,
   onOpenAITutor,
+  onBack,
 }: PlayerNavBarProps) {
   return (
     <nav
@@ -30,6 +33,17 @@ export function PlayerNavBar({
       >
         <X className="w-5 h-5" />
       </Link>
+
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="min-h-tap min-w-tap -ml-2 flex items-center justify-center text-slate-500 hover:text-slate-900 transition rounded-xl hover:bg-slate-100"
+          aria-label="Go back to the previous screen"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+      )}
 
       {/* Segmented Progress Rail */}
       <div className="flex-1 flex items-center gap-1.5 px-1" role="progressbar" aria-label="Lesson progress" aria-valuenow={currentIndex + 1} aria-valuemin={1} aria-valuemax={totalScreens}>
