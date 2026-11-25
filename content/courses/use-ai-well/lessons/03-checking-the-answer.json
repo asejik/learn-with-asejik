@@ -2,7 +2,11 @@
   "slug": "03-checking-the-answer",
   "title": "Checking the Answer",
   "chapterId": "ch2",
-  "keyTerms": ["Verify", "Source", "Hallucination"],
+  "keyTerms": [
+    "Verify",
+    "Source",
+    "Hallucination"
+  ],
   "intro": "Learn a four-step habit for checking an AI answer: spot, ask, cross-check and decide, and when to ask a qualified person.",
   "recap": [
     "Names, numbers, dates, quotes and links are the parts most likely to be wrong.",
@@ -16,12 +20,21 @@
       "title": "Trust, Then Verify",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "Chatbots can sound sure while being wrong, so anything that matters needs a second check."
+        "recap": "Chatbots can sound sure while being wrong, so anything that matters needs a second check. The checking is not about distrusting the tool; it is about not passing on a mistake.",
+        "example": "Kemi puts the chatbot's statistic and the report's name on her slide. A classmate searches for the report and cannot find it. She has to correct the slide in front of everyone.",
+        "watchOut": "A source with a real-sounding title, a year and an author can still be invented. Looking real is not the same as being real.",
+        "tryThis": "The next time a chatbot gives you a number or a name, spend one minute searching for it somewhere else."
       },
       "glossary": [
         {
-          "term": "Verify",
-          "definition": "To confirm that something is true by checking it against a reliable, separate source."
+          "term": "Statistic",
+          "definition": "A number that describes something, such as a percentage or a count. Chatbots can invent statistics that look precise.",
+          "example": "\"73% of students prefer online lessons\" is a statistic. It needs a real source before you use it."
+        },
+        {
+          "term": "Quote",
+          "definition": "Words someone is said to have written or spoken. Chatbots sometimes give a quote that the person never said.",
+          "example": "A famous line attributed to a well-known leader may actually come from someone else, or from nobody."
         }
       ],
       "widgetData": {
@@ -37,7 +50,10 @@
       "title": "A Four-Step Check",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each step. You do not need all four every time, but the more it matters, the more you do."
+        "explain": "Tap each step. You do not need all four every time, but the more it matters, the more of them you do. The steps run in a loop you can repeat for anything important.",
+        "example": "A chatbot says a new law starts in March. You spot the date, ask where it is from, look it up on an official government site, and keep only what the official page confirms.",
+        "watchOut": "Asking the chatbot \"Are you sure?\" does not count as a check. It may repeat the same error with new confidence.",
+        "tryThis": "Choose one fact from a recent chatbot answer and take it through the four steps."
       },
       "glossary": [],
       "widgetData": {
@@ -74,7 +90,7 @@
           }
         ],
         "completionMessage": "You have the four steps: spot, ask, cross-check, decide.",
-        "completionBonusFact": "The more a mistake would cost, the more steps you should take."
+        "completionBonusFact": "The more a mistake would cost, the more steps you should take. A casual fact needs a glance; a medicine dose needs a pharmacist."
       }
     },
     {
@@ -82,20 +98,32 @@
       "title": "Which Part Needs Checking?",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Look for the exact, checkable fact."
+        "explain": "Look for the exact, checkable fact. Tone and layout cannot be wrong in a way that hurts you, but a date, a name or a number can be.",
+        "watchOut": "Do not check the parts that are easy to check. Check the parts that would do the most damage if they were wrong."
       },
       "glossary": [],
       "widgetData": {
         "question": "A chatbot writes a paragraph about a famous event. Which part should you check first?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "The tone of the writing." },
-          { "id": "opt-2", "text": "The dates, names and numbers." },
-          { "id": "opt-3", "text": "The number of paragraphs." }
+          {
+            "id": "opt-1",
+            "text": "The tone of the writing."
+          },
+          {
+            "id": "opt-2",
+            "text": "The dates, names and numbers."
+          },
+          {
+            "id": "opt-3",
+            "text": "The number of paragraphs."
+          }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "Exact facts are where a polished-looking answer is most often wrong, and where a mistake does the most damage.",
-        "bonusFact": "A quick search for one key name or number often reveals whether the whole answer is solid."
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "Exact facts are where a polished-looking answer is most often wrong, and where a mistake does the most damage when you pass it on.",
+        "bonusFact": "A quick search for one key name or number often reveals whether the whole answer is solid. If the main fact fails, treat the rest with care."
       }
     },
     {
@@ -103,7 +131,8 @@
       "title": "Check or Trust?",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false."
+        "explain": "Decide whether each statement is true or false. Think about who or what is a separate, reliable source, and which sources only repeat the chatbot's answer.",
+        "tryThis": "For each card, name one place you could check the claim yourself."
       },
       "glossary": [],
       "widgetData": {
@@ -145,7 +174,9 @@
       "title": "Match the Check",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each claim to a good way to check it."
+        "review": "Match each claim to a good way to check it. The best check is a separate, reliable source, such as an official website, a pharmacist or a trusted book.",
+        "example": "A quote attributed to a famous person: search for the exact words together with the person's name, and see if a trusted site or book gives the same source.",
+        "watchOut": "Do not use a link the chatbot gave you as your only proof. Open it, and check that the page exists and says what the chatbot claimed."
       },
       "glossary": [],
       "widgetData": {
@@ -180,16 +211,22 @@
       "title": "The Habit",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "Finish the habit sentence."
+        "review": "Finish the habit sentence. It is the shortest form of everything in this lesson.",
+        "tryThis": "Say the sentence to yourself the next time you are about to share something a chatbot told you."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the habit:",
         "template": "Use the chatbot answer as a starting point, and {blank} anything important before you share it.",
-        "options": ["verify", "forward", "memorise", "ignore"],
+        "options": [
+          "verify",
+          "forward",
+          "memorise",
+          "ignore"
+        ],
         "correctAnswer": "verify",
-        "explanation": "Verifying is the step that turns a quick draft into something you can stand behind.",
-        "bonusFact": "Saying \"I checked this\" is more convincing than \"the AI said so\"."
+        "explanation": "Verifying is the step that turns a quick draft into something you can stand behind. It takes a few minutes and protects your reputation.",
+        "bonusFact": "Saying \"I checked this\" is more convincing than \"the AI said so\". People trust what you can show, not what a tool told you."
       }
     }
   ]

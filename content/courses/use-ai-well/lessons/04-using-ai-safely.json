@@ -2,7 +2,11 @@
   "slug": "04-using-ai-safely",
   "title": "Using AI Safely",
   "chapterId": "ch2",
-  "keyTerms": ["Private data", "Privacy settings", "Honesty"],
+  "keyTerms": [
+    "Private data",
+    "Privacy settings",
+    "Honesty"
+  ],
   "intro": "Learn what never to type into a chatbot, how to use placeholders, and how to stay honest about when AI helped.",
   "recap": [
     "Treat a chatbot like a stranger's notebook. Do not write private things in it.",
@@ -16,12 +20,26 @@
       "title": "What You Type May Be Kept",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "Treat a chatbot like a stranger's notebook: do not write private things in it."
+        "recap": "Treat a chatbot like a stranger's notebook: do not write private things in it. How a tool handles what you type depends on the tool and its settings, so the safe rule is to type only what you would share with a stranger.",
+        "example": "Before pasting a draft email into a chatbot, you replace your account number and your colleague's name with placeholders. You still get the help, and nothing private leaves your phone.",
+        "watchOut": "A friendly, private-feeling chat window makes it easy to over-share. It is still a company's computer on the other end.",
+        "tryThis": "Look at the settings or help page of the chatbot you use most and find what it says about storing your chats."
       },
       "glossary": [
         {
-          "term": "Private data",
-          "definition": "Information that could harm you or others if it spread: passwords, codes, ID and card numbers, addresses, medical details and private messages."
+          "term": "Stored",
+          "definition": "Kept somewhere so it can be used later. A chatbot company may keep what you type, depending on the tool and its settings.",
+          "example": "A message you typed last week may still be on a company's computers today."
+        },
+        {
+          "term": "Honesty",
+          "definition": "Telling the truth about your own work, including when a tool helped you write it.",
+          "example": "Handing in an essay written by a chatbot as if you wrote it yourself, when the rules forbid it, is not honest."
+        },
+        {
+          "term": "Judgement",
+          "definition": "The ability to weigh a situation and decide well. Judgement stays with you; a chatbot can offer ideas but should not make serious choices for you.",
+          "example": "A chatbot can list the pros and cons of a loan. Deciding whether to take it is yours to do."
         }
       ],
       "widgetData": {
@@ -37,7 +55,8 @@
       "title": "Safe to Type or Not?",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false."
+        "explain": "Decide whether each statement is true or false. Imagine reading it aloud to a stranger. If you would not say it to them, do not type it to a chatbot.",
+        "tryThis": "For each card, ask: what is the worst thing that could happen if this text ended up in the wrong hands?"
       },
       "glossary": [],
       "widgetData": {
@@ -79,20 +98,32 @@
       "title": "Remove the Private Parts",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Think about which version still lets the chatbot help, without any private identifiers."
+        "explain": "Think about which version still lets the chatbot help, without any private identifiers. The best prompt keeps the job and removes the names, numbers and addresses.",
+        "watchOut": "A document full of details is often pasted \"to save time\". Typing a short description of the situation is usually safer and works just as well."
       },
       "glossary": [],
       "widgetData": {
         "question": "You want help writing a complaint to your landlord. Which prompt is the safest?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "\"My name is [full name], ID [number], I live at [full address]. Write a complaint about the broken water pipe.\"" },
-          { "id": "opt-2", "text": "\"Write a polite, firm complaint to my landlord about a broken water pipe that has not been fixed for two weeks. Leave the names blank.\"" },
-          { "id": "opt-3", "text": "\"Here is my tenancy agreement with all my details. Write a complaint.\"" }
+          {
+            "id": "opt-1",
+            "text": "\"My name is [full name], ID [number], I live at [full address]. Write a complaint about the broken water pipe.\""
+          },
+          {
+            "id": "opt-2",
+            "text": "\"Write a polite, firm complaint to my landlord about a broken water pipe that has not been fixed for two weeks. Leave the names blank.\""
+          },
+          {
+            "id": "opt-3",
+            "text": "\"Here is my tenancy agreement with all my details. Write a complaint.\""
+          }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "It gives the tool everything it needs and leaves the names and details out. You can fill them in afterwards on your own copy.",
-        "bonusFact": "Using placeholders such as [Name] is an easy habit that keeps private details out of the chat."
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "It gives the tool everything it needs and leaves the names and details out. You can fill them in afterwards on your own copy, where nobody else sees them.",
+        "bonusFact": "Using placeholders such as [Name] is an easy habit that keeps private details out of the chat. Replace them yourself when you copy the result."
       }
     },
     {
@@ -100,7 +131,9 @@
       "title": "Your Safety Checklist",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each card for one habit that keeps you safe."
+        "explain": "Tap each card for one habit that keeps you safe. Together they cover what you share, what you trust, and what you say about your own work.",
+        "example": "Before using a chatbot for a school essay, you check your school's rules, leave out personal details, verify any facts it gives, and say that you used it if the rules ask you to.",
+        "tryThis": "Write the three words protect, check, be honest on a note, and use them the next time you open a chatbot."
       },
       "glossary": [],
       "widgetData": {
@@ -130,7 +163,7 @@
           }
         ],
         "completionMessage": "You have the three safety habits: protect, check and be honest.",
-        "completionBonusFact": "These same habits protect you whichever AI tool you use."
+        "completionBonusFact": "These same habits protect you whichever AI tool you use, today or in the future. Tools change; the habits do not."
       }
     },
     {
@@ -138,7 +171,8 @@
       "title": "Match the Risk to the Habit",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each risk to the habit that protects you."
+        "review": "Match each risk to the habit that protects you. Each habit closes one of the main ways AI use can go wrong.",
+        "watchOut": "Do not let one habit stand in for the others. A prompt with no private data can still contain a wrong fact, and a checked fact can still be dishonestly passed off as your own work."
       },
       "glossary": [],
       "widgetData": {
@@ -173,16 +207,22 @@
       "title": "Course Wrap-Up",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "One last sentence to finish the course."
+        "review": "One last sentence to finish the course. It ties the three lessons together: ask clearly, check what comes back, and keep secrets out.",
+        "tryThis": "Pick one habit from this course and try it for a week."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the final rule:",
         "template": "Ask clearly, {blank} the answer, and never type secrets.",
-        "options": ["check", "copy", "hide", "post"],
+        "options": [
+          "check",
+          "copy",
+          "hide",
+          "post"
+        ],
         "correctAnswer": "check",
-        "explanation": "These three habits cover the course: ask with context and a goal, check what comes back, and keep private data out.",
-        "bonusFact": "Teaching one friend what you learned here is a great way to remember it."
+        "explanation": "These three habits cover the course: ask with context and a goal, check what comes back, and keep private data out. Together they make a chatbot a safe, useful helper.",
+        "bonusFact": "Teaching one friend what you learned here is a great way to remember it, and it spreads safer habits to someone you care about."
       }
     }
   ]

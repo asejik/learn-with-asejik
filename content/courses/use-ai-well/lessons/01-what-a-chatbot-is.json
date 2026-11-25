@@ -2,7 +2,11 @@
   "slug": "01-what-a-chatbot-is",
   "title": "What an AI Chatbot Is, and Is Not",
   "chapterId": "ch1",
-  "keyTerms": ["AI chatbot", "Prediction", "Hallucination"],
+  "keyTerms": [
+    "AI chatbot",
+    "Prediction",
+    "Hallucination"
+  ],
   "intro": "Find out what an AI chatbot really does, what it is good for, and why it can sound sure while being wrong.",
   "recap": [
     "A chatbot writes the words that are most likely to come next. It does not know things the way a person does.",
@@ -16,16 +20,26 @@
       "title": "A Very Fast Guesser",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "An AI chatbot writes the most likely next words. It is useful, but it is not a person and not a search of facts."
+        "recap": "An AI chatbot writes the most likely next words. It is useful, but it is not a person and not a search of facts. Keep that picture in mind and the rest of the course makes sense.",
+        "example": "Ask a chatbot for the capital of a country and it will usually be right, because that fact appears in text everywhere. Ask it for a small town's population last year and it may give a precise number that is simply made up.",
+        "watchOut": "Smooth writing feels like intelligence, so it is easy to trust. A chatbot writes a wrong answer in the same polished voice as a right one.",
+        "tryThis": "Next time you use your phone's word suggestions, notice how it guesses the next word. A chatbot does the same, only far better."
       },
       "glossary": [
         {
-          "term": "AI chatbot",
-          "definition": "A program you chat with in plain language. It was trained on huge amounts of text, and it writes replies word by word."
+          "term": "Chatbot",
+          "definition": "A program you chat with in plain language. An AI chatbot was trained on huge amounts of text, and it writes its replies word by word.",
+          "example": "Typing \"Explain how a bank loan works in simple words\" and getting a short explanation back is a chatbot at work."
         },
         {
           "term": "Hallucination",
-          "definition": "When an AI states something false or made-up in a confident, believable way."
+          "definition": "When an AI states something false or made-up in a confident, believable way. It is not lying on purpose; it is writing what sounds likely.",
+          "example": "A chatbot names a book and an author that do not exist, with a believable title and year."
+        },
+        {
+          "term": "Brainstorming",
+          "definition": "Coming up with many ideas quickly, without judging them yet. Chatbots are good at it because ideas do not have to be exactly right.",
+          "example": "Asking for ten possible names for a small tailoring shop and picking the ones you like."
         }
       ],
       "widgetData": {
@@ -41,20 +55,32 @@
       "title": "Sure Does Not Mean Right",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Think about how the chatbot decides what to write, and whether it checks anything."
+        "explain": "Think about how the chatbot decides what to write. It picks likely words, and nothing in that process checks whether the result is true. So a confident voice tells you about its style, not about the facts.",
+        "watchOut": "Long and detailed answers look more trustworthy, but extra detail only gives a wrong answer more places to be wrong."
       },
       "glossary": [],
       "widgetData": {
         "question": "A chatbot gives a long, confident answer. What does the confident tone tell you about whether it is correct?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "Nothing. It writes in a confident style even when it is wrong." },
-          { "id": "opt-2", "text": "It must be correct, because it sounds so sure." },
-          { "id": "opt-3", "text": "It is correct if the answer is long enough." }
+          {
+            "id": "opt-1",
+            "text": "Nothing. It writes in a confident style even when it is wrong."
+          },
+          {
+            "id": "opt-2",
+            "text": "It must be correct, because it sounds so sure."
+          },
+          {
+            "id": "opt-3",
+            "text": "It is correct if the answer is long enough."
+          }
         ],
-        "correctOptionIds": ["opt-1"],
-        "explanation": "The tool is built to write fluent, believable text. Fluent text can still contain wrong facts, so tone and length are not proof.",
-        "bonusFact": "A wrong answer and a right answer can look equally polished."
+        "correctOptionIds": [
+          "opt-1"
+        ],
+        "explanation": "The tool is built to write fluent, believable text. Fluent text can still contain wrong facts, so tone and length are not proof of correctness.",
+        "bonusFact": "A wrong answer and a right answer can look equally polished. That is why the habit of checking matters more than a feeling of being convinced."
       }
     },
     {
@@ -62,7 +88,8 @@
       "title": "Good At, Bad At",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false."
+        "explain": "Decide whether each statement is true or false. Ask yourself whether the task is about language, where a rough draft helps, or about exact facts, where being wrong can hurt.",
+        "tryThis": "For each card, think of one real job in your own life that fits it."
       },
       "glossary": [],
       "widgetData": {
@@ -104,7 +131,9 @@
       "title": "Match the Task to the Right Level of Trust",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each task to how much checking it needs."
+        "review": "Match each task to how much checking it needs. The rule is simple: the more a wrong answer could cost you, the more you check it somewhere else.",
+        "example": "A name for a shop is your own taste. A date on a legal document must be exactly right, so you confirm it from the official source.",
+        "watchOut": "A task can look harmless but still carry risk. A quote, a number or a medicine dose is a fact, even if it sits inside a casual chat."
       },
       "glossary": [],
       "widgetData": {
@@ -139,16 +168,22 @@
       "title": "Your Role",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "Finish the sentence about your role when you use a chatbot."
+        "review": "Finish the sentence about your role when you use a chatbot. The tool drafts quickly, but you are the one who answers for the result.",
+        "tryThis": "Before the next lesson, think of one thing you could ask a chatbot to draft this week, and what you would check before using it."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the statement:",
         "template": "A chatbot is a helper, and you are still the one who must {blank} the answer.",
-        "options": ["check", "copy", "ignore", "hide"],
+        "options": [
+          "check",
+          "copy",
+          "ignore",
+          "hide"
+        ],
         "correctAnswer": "check",
-        "explanation": "The tool can draft quickly, but it does not take responsibility. Judging the result is your job.",
-        "bonusFact": "The next lessons show how to ask better questions and how to check what comes back."
+        "explanation": "The tool can draft quickly, but it does not take responsibility. Judging the result is your job, because only you know what is true and what is at stake.",
+        "bonusFact": "The next lessons show how to ask better questions and how to check what comes back. Together they turn a quick guesser into a useful helper."
       }
     }
   ]
