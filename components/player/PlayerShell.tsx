@@ -10,7 +10,7 @@ import { LessonCompletionView } from "./LessonCompletionView";
 import { StorageWarning } from "./StorageWarning";
 import { usePlayerMachine } from "./usePlayerMachine";
 import { courseLessons, nextLesson } from "@/lib/courseProgress";
-import { RotateCcw } from "lucide-react";
+import { Info, RotateCcw } from "lucide-react";
 
 // Modular widgets live in components/widgets/ and are found through the registry
 import { WIDGETS } from "../widgets/registry";
@@ -82,7 +82,7 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
   }
 
   const screen = machine.currentScreen;
-  const isLastScreen = machine.currentIndex === machine.totalScreens - 1;
+  const isLastScreen = !machine.isReviewing && machine.currentIndex === machine.totalScreens - 1;
   const isAnswered = machine.feedbackState.status !== null;
   // The registry pairs each type with its own data; TypeScript cannot follow that pairing through a lookup
   const Widget = WIDGETS[screen.widgetType] as ComponentType<WidgetProps<Screen["widgetData"]>>;
@@ -96,7 +96,8 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
       {/* 1. Top Navigation Bar */}
       <PlayerNavBar
         totalScreens={machine.totalScreens}
-        currentIndex={machine.currentIndex}
+        currentIndex={machine.viewIndex}
+        onBack={machine.viewIndex > 0 ? machine.previousScreen : undefined}
         aiTutorLabel={machine.aiTutorLabel}
         onOpenAITutor={() => setIsAITutorOpen(true)}
         courseSlug={course.slug}
@@ -108,11 +109,32 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
         </div>
       )}
 
+      {machine.isReviewing && (
+        <div className="max-w-2xl w-full mx-auto px-4 pt-3">
+          <div
+            role="status"
+            className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-sky-50 border border-sky-200 px-3 py-2 text-sm text-sky-800"
+          >
+            <span className="inline-flex items-center gap-2">
+              <Info className="w-4 h-4 shrink-0 text-sky-600" aria-hidden="true" />
+              Looking back. Answers here are practice and are not scored.
+            </span>
+            <button
+              type="button"
+              onClick={machine.backToCurrent}
+              className="min-h-tap px-3 font-semibold underline underline-offset-2 hover:text-sky-900"
+            >
+              Back to where you were
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 2. Main Screen Interaction Area */}
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 flex flex-col justify-between">
         {/* Keyed by position, so a retry of the same question starts fresh
             instead of showing the previous attempt's answer */}
-        <div key={`${machine.currentIndex}-${screen.id}`} className="space-y-5">
+        <div key={`${machine.viewIndex}-${screen.id}`} className="space-y-5">
           {/* Section Breadcrumb & Title */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
