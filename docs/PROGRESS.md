@@ -271,3 +271,10 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Now the home page also reads saved lesson positions (`getAllLessonStates`). An opened, unfinished lesson makes the card say "In progress" with a Resume button, and counts in the bar by how far through it the learner is (never as finished). Resume opens the unfinished lesson saved last.
   - VERIFIED: type check, lint, build, 135 unit tests (5 new). VERIFIED in the built-in browser (wrangler dev): opened lesson 1, moved one screen, home card showed "In progress", 4%, "Resume course".
   - UNVERIFIED: 375px layout of the changed card (text only changed, no layout change); the 24 browser tests were not re-run for this PR.
+- [x] **Back button and review mode in the lesson player** (2026-11-26, branch `feat/player-back-review`)
+  - Owner request: students can go back and review a previous card.
+  - A back arrow in the top bar (44px, hidden on the first screen) shows the screen before the one on show. A blue "Looking back" bar says answers there are practice and are not scored, with "Back to where you were". Continue while looking back walks forward until the learner reaches their real place.
+  - Looking back never changes the saved place, the retry queue or the lesson result (`reviewIndex` in `usePlayerMachine`; `submitAnswer` shows feedback only). A reload still resumes at the real place.
+  - Known limit: if the learner goes back from a screen they had already answered, that screen starts fresh when they return (their real place is unchanged; a wrong answer there is not queued twice).
+  - VERIFIED: type check, lint, build, 135 unit tests; 26 browser tests pass at 375px and 1280px (new test: back, practice answer, return, no Back on screen 1). VERIFIED in the built-in browser at 375px: Back shows the bar, no sideways scroll.
+  - UNVERIFIED: the look at 1280px (the browser test covers behaviour, not appearance); screen-reader reading of the new bar.

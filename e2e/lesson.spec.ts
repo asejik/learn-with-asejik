@@ -77,6 +77,27 @@ test.describe("lesson player", () => {
     await expect(heading(page)).toHaveText(TITLES[2]);
   });
 
+  test("Back looks at an earlier screen without scoring it, and returns to the same place", async ({ page }) => {
+    await openLesson(page);
+    await answer(page, 0);
+    await answer(page, 1);
+    await continueFromFeedback(page);
+    await expect(heading(page)).toHaveText(TITLES[2]);
+    await page.getByRole("button", { name: "Go back to the previous screen" }).click();
+    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(page.getByText(/Looking back/)).toBeVisible();
+    // A wrong answer while looking back is practice: nothing is queued for retry
+    await answer(page, 1, false);
+    await page.getByRole("button", { name: "Back to where you were" }).click();
+    await expect(heading(page)).toHaveText(TITLES[2]);
+    await expect(page.getByText(/Looking back/)).toHaveCount(0);
+    // The first screen has no Back button
+    await page.getByRole("button", { name: "Go back to the previous screen" }).click();
+    await page.getByRole("button", { name: "Go back to the previous screen" }).click();
+    await expect(heading(page)).toHaveText(TITLES[0]);
+    await expect(page.getByRole("button", { name: "Go back to the previous screen" })).toHaveCount(0);
+  });
+
   test("feedback panel: right-hand on desktop, bottom on phone", async ({ page, viewport }) => {
     await openLesson(page);
     await answer(page, 0);
