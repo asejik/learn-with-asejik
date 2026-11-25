@@ -171,6 +171,18 @@ describe("strict content rules", () => {
     expect(lessonIssues("swipeDeck", (s) => set(s, "widgetData.cards.0.bonusFact", ""))).not.toBe("");
   });
 
+  it("requires the opening and closing cards", () => {
+    expect(LessonSchema.safeParse(without(lesson, "intro")).success).toBe(false);
+    expect(LessonSchema.safeParse(without(lesson, "recap")).success).toBe(false);
+    expect(LessonSchema.safeParse({ ...lesson, recap: ["only one point"] }).success).toBe(false);
+    expect(LessonSchema.safeParse({ ...lesson, intro: "x".repeat(241) }).success).toBe(false);
+    expect(CourseSchema.safeParse(without(course, "overview")).success).toBe(false);
+    expect(CourseSchema.safeParse(without(course, "finish")).success).toBe(false);
+    expect(
+      CourseSchema.safeParse({ ...course, finish: { ...course.finish, relatedCourse: "Not A Slug" } }).success
+    ).toBe(false);
+  });
+
   it("rejects an unknown field on a lesson, a course and a chapter", () => {
     expect(issueMessages(LessonSchema.safeParse({ ...lesson, extra: 1 })).join()).toContain("Unrecognized key");
     expect(issueMessages(CourseSchema.safeParse({ ...course, extra: 1 })).join()).toContain("Unrecognized key");

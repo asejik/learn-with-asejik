@@ -3,6 +3,13 @@
   "title": "What an AI Chatbot Is, and Is Not",
   "chapterId": "ch1",
   "keyTerms": ["AI chatbot", "Prediction", "Hallucination"],
+  "intro": "Find out what an AI chatbot really does, what it is good for, and why it can sound sure while being wrong.",
+  "recap": [
+    "A chatbot writes the words that are most likely to come next. It does not know things the way a person does.",
+    "It is good for drafting, explaining, summarising and brainstorming.",
+    "It can invent names, numbers and sources. This is called a hallucination.",
+    "Use it for what it does well, and check the rest."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

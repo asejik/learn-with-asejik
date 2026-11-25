@@ -6,6 +6,30 @@
   "estimatedMinutes": 28,
   "approxKbSize": 36,
   "canonicalTags": ["online safety", "fraud prevention", "digital literacy"],
+  "overview": {
+    "about": "Scams reach people by phone, text, social media and in person, and they work by rushing you. This course shows the tricks scammers use, how to spot them in a few seconds, and what to do if one reaches you.",
+    "youWillLearn": [
+      "The pressure tricks scammers rely on: urgency, fear, greed and false trust",
+      "How fake alerts, OTP calls and phishing links work, and how to check them",
+      "The warning signs of fake investments, loan offers and job ads",
+      "What to do straight away if you have been targeted"
+    ]
+  },
+  "finish": {
+    "recap": [
+      "Scammers win by rushing you, so your best defence is to slow down and check.",
+      "Never share an OTP, PIN or password, and confirm any alert in your own bank app.",
+      "An offer that asks you to pay first, or promises easy money, is a warning sign.",
+      "If it happens, act fast: tell your bank, keep the evidence and report it."
+    ],
+    "actionPoints": [
+      "Today, tell one family member or friend about the scam trick that surprised you most.",
+      "Agree a family code word you can use to confirm a money request.",
+      "Save your bank's customer care number in your phone, taken from your card or its official app."
+    ],
+    "nextSteps": "Come back to this course whenever a message makes you nervous. A two-minute refresher is cheaper than a mistake. Then learn to use AI tools well, which includes how to check answers that only sound sure.",
+    "relatedCourse": "use-ai-well"
+  },
   "chapters": [
     {
       "id": "ch1",

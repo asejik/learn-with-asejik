@@ -3,6 +3,13 @@
   "title": "Using AI Safely",
   "chapterId": "ch2",
   "keyTerms": ["Private data", "Privacy settings", "Honesty"],
+  "intro": "Learn what never to type into a chatbot, how to use placeholders, and how to stay honest about when AI helped.",
+  "recap": [
+    "Treat a chatbot like a stranger's notebook. Do not write private things in it.",
+    "Never type passwords, OTPs, PINs, card or ID numbers, or other people's private details.",
+    "Use placeholders such as [Name] and add the real details yourself afterwards.",
+    "Follow your school's or workplace's rules, and say when AI helped."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

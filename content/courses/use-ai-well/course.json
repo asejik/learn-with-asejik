@@ -6,6 +6,30 @@
   "estimatedMinutes": 26,
   "approxKbSize": 31,
   "canonicalTags": ["artificial intelligence", "digital literacy", "online safety"],
+  "overview": {
+    "about": "AI chatbots can save you time, but they can also sound sure while being wrong. This course shows what chatbots are good at, how to ask better questions, how to check answers, and how to keep your private details safe.",
+    "youWillLearn": [
+      "What an AI chatbot is, and what it cannot do",
+      "How to ask clear questions that get useful answers",
+      "A simple way to check an answer before you trust it",
+      "What never to type into a chatbot, and how to use it honestly"
+    ]
+  },
+  "finish": {
+    "recap": [
+      "A chatbot predicts likely words. It is a fast drafter, not a source of truth.",
+      "A good prompt gives context, a goal and a format.",
+      "Check names, numbers, dates and links somewhere else before you rely on them.",
+      "Keep passwords, OTPs and private details out of every chat, and say when AI helped."
+    ],
+    "actionPoints": [
+      "Pick one real task this week, such as a message or a summary, and try asking with context, goal and format.",
+      "The next time a chatbot gives you a fact, check it in one separate, reliable place.",
+      "Share the rule \"never type secrets\" with someone who uses AI tools."
+    ],
+    "nextSteps": "Practise on small, low-risk tasks first. Use AI for drafts and ideas, and keep the final check for yourself. If a message ever asks you to share a code or pay first, the scams course will help you slow down.",
+    "relatedCourse": "spot-scams"
+  },
   "chapters": [
     {
       "id": "ch1",

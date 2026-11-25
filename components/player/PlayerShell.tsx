@@ -7,6 +7,7 @@ import { FeedbackPanel } from "./FeedbackPanel";
 import { AITutorDrawer } from "./AITutorDrawer";
 import { GlossaryDrawer } from "./GlossaryDrawer";
 import { LessonCompletionView } from "./LessonCompletionView";
+import { CourseFinishCard, LessonIntroCard, LessonRecapCard, type RelatedCourse } from "./BookendCards";
 import { StorageWarning } from "./StorageWarning";
 import { usePlayerMachine } from "./usePlayerMachine";
 import { courseLessons, nextLesson } from "@/lib/courseProgress";
@@ -21,10 +22,18 @@ interface PlayerShellProps {
   lesson: Lesson;
   /** The privacy notice, rendered on the server for the completion view */
   privacyNotice: ReactNode;
+  /** Course suggested on the last lesson, if the course names one */
+  relatedCourse: RelatedCourse | null;
 }
 
-export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps) {
+export function PlayerShell({ course, lesson, privacyNotice, relatedCourse }: PlayerShellProps) {
   const machine = usePlayerMachine(course.slug, lesson, courseLessons(course).length);
+
+  // Opening and closing cards sit around the screens; they are not screens,
+  // so the saved place, the retry queue and the progress rail do not change
+  const [introSeen, setIntroSeen] = useState(false);
+  const [recapSeen, setRecapSeen] = useState(false);
+  const [finishSeen, setFinishSeen] = useState(false);
 
   // Drawer states
   const [isAITutorOpen, setIsAITutorOpen] = useState(false);
@@ -75,6 +84,21 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
     );
   }
 
+  if (machine.isLessonComplete && !recapSeen) {
+    return <LessonRecapCard lesson={lesson} onContinue={() => setRecapSeen(true)} />;
+  }
+
+  const isLastLesson = nextLesson(course, lesson.slug) === null;
+  if (machine.isLessonComplete && isLastLesson && !finishSeen) {
+    return (
+      <CourseFinishCard
+        course={course}
+        related={relatedCourse}
+        onContinue={() => setFinishSeen(true)}
+      />
+    );
+  }
+
   // If lesson is complete, render celebration completion view with value-first onboarding
   if (machine.isLessonComplete) {
     return (
@@ -84,6 +108,18 @@ export function PlayerShell({ course, lesson, privacyNotice }: PlayerShellProps)
         nextLesson={nextLesson(course, lesson.slug)}
         storageFailed={machine.storageFailed}
         privacyNotice={privacyNotice}
+      />
+    );
+  }
+
+  // The first lesson of a course also opens with the course overview
+  if (!introSeen && machine.currentIndex === 0 && !machine.isReviewing) {
+    return (
+      <LessonIntroCard
+        course={course}
+        lesson={lesson}
+        isFirstLesson={courseLessons(course)[0]?.slug === lesson.slug}
+        onStart={() => setIntroSeen(true)}
       />
     );
   }

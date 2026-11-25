@@ -3,6 +3,13 @@
   "title": "Checking the Answer",
   "chapterId": "ch2",
   "keyTerms": ["Verify", "Source", "Hallucination"],
+  "intro": "Learn a four-step habit for checking an AI answer: spot, ask, cross-check and decide, and when to ask a qualified person.",
+  "recap": [
+    "Names, numbers, dates, quotes and links are the parts most likely to be wrong.",
+    "Spot the risky parts, ask for its basis, cross-check elsewhere, then decide what to use.",
+    "Do not use the same chatbot to confirm its own answer.",
+    "For health, law or money, also ask a qualified person."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { TITLES, answer, continueFromFeedback, feedback, openLesson } from "./lessonSteps";
+import { TITLES, answer, continueFromFeedback, feedback, openLesson, passClosingCards } from "./lessonSteps";
 
 const heading = (page: Page) => page.getByRole("heading", { level: 1 });
 
@@ -26,6 +26,7 @@ test.describe("lesson player", () => {
       await answer(page, i);
       if (i > 0) await continueFromFeedback(page);
     }
+    await passClosingCards(page);
     await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
     // One-lesson tutorial: nothing follows, and the catalog shows it complete
     await expect(page.getByText(/Tutorial Completed/)).toBeVisible();
@@ -64,7 +65,24 @@ test.describe("lesson player", () => {
     await expect(heading(page)).toHaveText(TITLES[5]);
     await answer(page, 5);
     await continueFromFeedback(page);
+    await passClosingCards(page);
     await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
+  });
+
+  test("the opening card shows the course overview and is skipped on a mid-lesson reload", async ({ page }) => {
+    await page.goto("/courses/how-apis-work/01-what-is-an-api");
+    await expect(heading(page)).toHaveText(/How APIs Work/);
+    await expect(page.getByText("What you will learn")).toBeVisible();
+    const sideways = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    expect(sideways).toBe(false);
+    const start = page.getByRole("button", { name: "Start lesson" });
+    expect((await start.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+    await start.click();
+    await answer(page, 0);
+    await expect(heading(page)).toHaveText(TITLES[1]);
+    await page.reload();
+    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(page.getByRole("button", { name: "Start lesson" })).toHaveCount(0);
   });
 
   test("a reload resumes at the same screen", async ({ page }) => {
@@ -151,6 +169,7 @@ test.describe("lesson player", () => {
       await answer(page, i);
       await continueFromFeedback(page);
     }
+    await passClosingCards(page);
     await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
     await expect(warning).toBeVisible(); // and again on the completion screen
   });

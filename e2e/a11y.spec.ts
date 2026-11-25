@@ -25,13 +25,21 @@ test("catalog, privacy and course pages", async ({ page }) => {
 
 test("every lesson screen and its feedback panel", async ({ page }) => {
   test.setTimeout(120_000); // about 13 axe scans in one test
-  await openLesson(page);
+  await page.goto("/courses/how-apis-work/01-what-is-an-api");
+  await scan(page, "opening card");
+  await page.getByRole("button", { name: "Start lesson" }).click();
   for (let i = 0; i < TITLES.length; i++) {
     await scan(page, `screen ${i + 1} before answering`);
     await answer(page, i);
     if (i > 0) await scan(page, `screen ${i + 1} feedback`);
     if (i > 0) await continueFromFeedback(page);
   }
+  await expect(page.getByRole("heading", { name: "What you learned" })).toBeVisible();
+  await scan(page, "lesson recap card");
+  await page.getByRole("button", { name: "Continue" }).click();
+  await expect(page.getByText("The big picture")).toBeVisible();
+  await scan(page, "course finish card");
+  await page.getByRole("button", { name: "Continue" }).click();
   await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
   await scan(page, "completion screen");
 });
