@@ -2,7 +2,12 @@
   "slug": "03-too-good-to-be-true",
   "title": "Investment, Loan and Job Scams",
   "chapterId": "ch1",
-  "keyTerms": ["Guaranteed returns", "Advance fee", "Pyramid scheme", "Loan app"],
+  "keyTerms": [
+    "Guaranteed returns",
+    "Advance fee",
+    "Pyramid scheme",
+    "Loan app"
+  ],
   "intro": "See how investment schemes, loan offers and job ads use the same pay-first trap, and learn the warning signs that give them away.",
   "recap": [
     "Promises of fast, guaranteed returns are a warning sign. Early payouts come from later joiners' money.",
@@ -16,12 +21,21 @@
       "title": "The Offer That Feels Perfect",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "These scams use greed and hope. They offer money, a loan or a job, and ask for something first."
+        "recap": "These scams use greed and hope. They offer money, a loan or a job, and ask for something first. The early payouts are real so that you will believe the rest.",
+        "example": "Bisi sees friends posting that they were paid. She puts in 20,000 naira, and the first payout arrives. She then adds 100,000 naira from her savings. The second payout never comes, and the organiser's phone is off.",
+        "watchOut": "Seeing people you know get paid feels like proof. It is not, because early payouts are the show that brings in later money.",
+        "tryThis": "Next time you see an offer, ask: who pays whom, and when? If you pay first and the promise comes later, stop."
       },
       "glossary": [
         {
-          "term": "Advance fee",
-          "definition": "Money you are asked to pay up front, for a loan, prize or job, before anything is delivered. In a scam, you pay and receive nothing."
+          "term": "Bait",
+          "definition": "Something attractive used to draw you in. In these scams, the early payouts and the promised returns are the bait.",
+          "example": "Being paid 40,000 naira once is the bait. The hook is the much larger amount you are then asked to put in."
+        },
+        {
+          "term": "Scheme",
+          "definition": "A planned way of making money. A pyramid scheme pays earlier members with the money of newer members, so it lasts only while new people keep joining.",
+          "example": "A scheme that cannot explain where its profit comes from, only that \"people are joining\", is a warning sign."
         }
       ],
       "widgetData": {
@@ -37,7 +51,9 @@
       "title": "How a \"Double Your Money\" Scheme Works",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each step to see where the money really comes from."
+        "explain": "Tap each step to see where the money really comes from. Follow one naira from the new member's pocket to the early member's payout. No profit is made along the way.",
+        "example": "Ten people each pay 20,000 naira, so 200,000 naira goes in. If the organiser promises to double it, 400,000 naira is owed. The money is never there, so the last people lose everything.",
+        "watchOut": "A scheme can look healthy for months. The collapse comes when new members stop joining, and nobody can say when that will be."
       },
       "glossary": [
         {
@@ -72,7 +88,7 @@
           }
         ],
         "completionMessage": "You have followed the scheme from first payment to collapse.",
-        "completionBonusFact": "Real investments can lose money and never promise to double it quickly. A promise of no risk is a warning on its own."
+        "completionBonusFact": "Real investments can lose money and never promise to double it quickly. A promise of no risk is a warning on its own, and so is pressure to bring in friends."
       }
     },
     {
@@ -80,20 +96,32 @@
       "title": "Spot the Red Flag",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Look for the part of the offer that cannot be true in real life."
+        "explain": "Look for the part of the offer that cannot be true in real life. Platforms and minimum amounts vary, but nobody can guarantee a high return with no risk.",
+        "watchOut": "A professional look, a registered-sounding name and a long list of testimonials are all easy to fake. They are not the red flag, and they are not proof either."
       },
       "glossary": [],
       "widgetData": {
         "question": "An advert says: \"Invest 50,000 naira and earn 30% every week, guaranteed, with zero risk.\" What is the biggest red flag?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "A guaranteed, very high, weekly return with zero risk." },
-          { "id": "opt-2", "text": "It is advertised on social media." },
-          { "id": "opt-3", "text": "The minimum amount is 50,000 naira." }
+          {
+            "id": "opt-1",
+            "text": "A guaranteed, very high, weekly return with zero risk."
+          },
+          {
+            "id": "opt-2",
+            "text": "It is advertised on social media."
+          },
+          {
+            "id": "opt-3",
+            "text": "The minimum amount is 50,000 naira."
+          }
         ],
-        "correctOptionIds": ["opt-1"],
-        "explanation": "Real investments carry risk, and nobody can guarantee high weekly returns. The promise is the trap, not the platform or the amount.",
-        "bonusFact": "The higher the promised return, the higher the chance that the promise is false."
+        "correctOptionIds": [
+          "opt-1"
+        ],
+        "explanation": "Real investments carry risk, and nobody can guarantee high weekly returns. The promise is the trap, not the platform or the amount. If the offer sounds too good to need any risk, assume the risk is yours.",
+        "bonusFact": "The higher the promised return, the higher the chance that the promise is false. A fair rule: if you cannot explain how they make the money, do not give them yours."
       }
     },
     {
@@ -101,7 +129,8 @@
       "title": "Loan or Job: Real or Scam?",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false. Ask yourself who is paying whom, and when."
+        "explain": "Decide whether each statement is true or false. Ask yourself who is paying whom, and when. The pattern in every scam here is that you pay first.",
+        "tryThis": "For each card, say out loud what the scammer gets and what you get. If you get a promise and they get money, stop."
       },
       "glossary": [],
       "widgetData": {
@@ -143,7 +172,8 @@
       "title": "Match the Scam to Its Red Flag",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each scam type to the red flag that gives it away."
+        "review": "Match each scam type to the red flag that gives it away. All four have the same skeleton: a good-sounding promise, then a request for money or details before anything arrives.",
+        "watchOut": "A prize draw you never entered is a different trick from an investment, but both ask you to pay before you receive."
       },
       "glossary": [],
       "widgetData": {
@@ -178,16 +208,22 @@
       "title": "A Simple Test",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "Finish the sentence with the word that every investment must have."
+        "review": "Finish the sentence with the word that every investment promise leans on, and notice why that word should make you cautious rather than excited.",
+        "tryThis": "Write down one offer you have heard about. Next to it, write who guarantees the return and what happens if they do not pay."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the statement:",
         "template": "Be careful when anyone promises {blank} returns with no risk.",
-        "options": ["guaranteed", "slow", "small", "honest"],
+        "options": [
+          "guaranteed",
+          "slow",
+          "small",
+          "honest"
+        ],
         "correctAnswer": "guaranteed",
-        "explanation": "Every real investment can lose money. A guarantee of high returns is a promise nobody can keep.",
-        "bonusFact": "Before you pay anyone, ask a trusted person who has no stake in the deal what they think."
+        "explanation": "Every real investment can lose money. A guarantee of high returns is a promise nobody can keep, so the promise itself is the warning.",
+        "bonusFact": "Before you pay anyone, ask a trusted person who has no stake in the deal what they think. A calm second opinion is often enough to break the spell."
       }
     }
   ]

@@ -2,7 +2,12 @@
   "slug": "02-fake-alerts-and-otps",
   "title": "Fake Alerts, OTPs and Phishing",
   "chapterId": "ch1",
-  "keyTerms": ["OTP", "Phishing", "Fake alert", "Spoofing"],
+  "keyTerms": [
+    "OTP",
+    "Phishing",
+    "Fake alert",
+    "Spoofing"
+  ],
   "intro": "Learn how fake alerts, OTP calls and phishing links trick people, and the quick checks that stop them before any money moves.",
   "recap": [
     "An OTP, PIN or password is for your eyes only. Nobody who is really helping you needs it.",
@@ -16,16 +21,21 @@
       "title": "The Call From \"Your Bank\"",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "This lesson covers the scams that reach you by call, text or chat, and the one code you must never share."
+        "recap": "This lesson covers the scams that reach you by call, text or chat, and the one code you must never share. The thief cannot approve a transfer without your OTP, so the whole trick is to get you to give it away.",
+        "example": "Emeka's real bank sends an OTP only when he starts a payment himself. The call came first, and the code arrived while the caller was talking. That order is the clue: a code you did not ask for means someone else is trying to act as you.",
+        "watchOut": "The caller sounds calm and knows your name, and may even know the last digits of your account. None of that proves they work for your bank, because such details can be bought or stolen.",
+        "tryThis": "Look at your bank's official app or card. Find the customer care number printed there and save it in your phone under a name you will recognise."
       },
       "glossary": [
         {
           "term": "OTP",
-          "definition": "One-Time Password: a short code sent to your phone to confirm it is really you. Anyone who has it can act as you."
+          "definition": "One-Time Password: a short code sent to your phone to confirm it is really you. Anyone who has it can act as you, so it is never shared.",
+          "example": "You send money in your bank app and get an OTP by text. You type it in yourself. If a caller asks you to read it out, they are trying to approve their own payment."
         },
         {
-          "term": "Phishing",
-          "definition": "A message made to look like it comes from a trusted sender, to make you click a link or hand over details."
+          "term": "PIN",
+          "definition": "Personal Identification Number: the secret number that lets you use your card or account. Only you should ever know it.",
+          "example": "A real bank never calls to ask for your PIN. If you hear \"please confirm your PIN\", it is a scam."
         }
       ],
       "widgetData": {
@@ -41,20 +51,32 @@
       "title": "What Would You Do?",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Think about who started the call, and what the caller wants you to read out."
+        "explain": "Ask two questions: who started this call, and what does the caller want from me? A caller who starts the conversation and wants a code is the opposite of how a real bank works. Hanging up and calling back puts you in control.",
+        "watchOut": "Do not stay on the line to \"verify\" them. Scammers are skilled at sounding sure, and a long conversation gives them more chances to pressure you."
       },
       "glossary": [],
       "widgetData": {
         "question": "Someone calls saying they are from your bank and asks you to read out the code just sent to your phone. What is the best move?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "Read out the code quickly, because they are protecting your money." },
-          { "id": "opt-2", "text": "Hang up. Then call your bank on the number on your card or in its official app." },
-          { "id": "opt-3", "text": "Ask them to prove who they are, then read it out if they sound sure." }
+          {
+            "id": "opt-1",
+            "text": "Read out the code quickly, because they are protecting your money."
+          },
+          {
+            "id": "opt-2",
+            "text": "Hang up. Then call your bank on the number on your card or in its official app."
+          },
+          {
+            "id": "opt-3",
+            "text": "Ask them to prove who they are, then read it out if they sound sure."
+          }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "The code approves an action, so it must never be read out. Calling back on a number you already trust lets you reach the real bank.",
-        "bonusFact": "Scammers can make a call look like it comes from a trusted number, so the number on your screen proves nothing."
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "The code approves an action, so it must never be read out. Calling back on a number you already trust lets you reach the real bank, even if the first call looked genuine.",
+        "bonusFact": "Scammers can make a call look like it comes from a trusted number, so the number on your screen proves nothing. That is why you call back yourself, on a number from your card or official app."
       }
     },
     {
@@ -62,7 +84,10 @@
       "title": "Anatomy of a Phishing Message",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each part of the message. A scam message usually has all four."
+        "explain": "Tap each part of the message. A scam message usually has all four, and finding any two is enough reason to stop and check another way.",
+        "example": "\"FIRST-BANK: Your account will be blocked in 1 hour. Confirm your PIN at bit.ly/xyz.\" It has a look-alike sender, a deadline, a link and a request for a secret.",
+        "watchOut": "Short links hide where they lead. A link that looks harmless can still open a copy of your bank's login page.",
+        "tryThis": "Open a recent bank text you trust. Notice how it names a specific transaction and asks you to do nothing urgent."
       },
       "glossary": [],
       "widgetData": {
@@ -74,14 +99,14 @@
             "label": "1. Sender",
             "title": "The sender looks right but is not",
             "definition": "The name may match your bank, but the number or address behind it is different, or is a plain personal number or a free email address. Display names are easy to fake.",
-            "bonusFact": "Faking how a sender looks is called spoofing."
+            "bonusFact": "Faking how a sender looks is called spoofing. It is cheap and common, so judge the message by what it asks, not by who it claims to be."
           },
           {
             "id": "node-deadline",
             "label": "2. Deadline",
             "title": "A deadline to rush you",
             "definition": "\"Your account will be blocked in one hour\". The deadline is the urgency lever from lesson 1.",
-            "bonusFact": "Real banks do not freeze your account over a text that expires in minutes."
+            "bonusFact": "Real banks do not freeze your account over a text that expires in minutes. A genuine problem gives you time to check properly."
           },
           {
             "id": "node-link",
@@ -99,7 +124,7 @@
           }
         ],
         "completionMessage": "You have inspected all four parts of a phishing message.",
-        "completionBonusFact": "Check the sender, the deadline, the link and the ask. Two or more warning signs is enough to stop."
+        "completionBonusFact": "Check the sender, the deadline, the link and the ask. Two or more warning signs is enough to stop, and one is worth a second look."
       }
     },
     {
@@ -107,7 +132,8 @@
       "title": "Alert or Trap?",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false. Think about what proves that money has really arrived."
+        "explain": "Decide whether each statement is true or false. Think about what proves that money has really arrived, and who you can trust to confirm it.",
+        "tryThis": "For each statement, ask: what could go wrong if I believed this without checking another way?"
       },
       "glossary": [],
       "widgetData": {
@@ -149,7 +175,8 @@
       "title": "Match the Warning Sign",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each situation to the safer response."
+        "review": "Match each situation to the safer response. Notice the pattern: in every case you stop using the channel the scammer gave you, and check through one you chose yourself.",
+        "watchOut": "Do not reply to the message to ask if it is real. A scammer will simply say yes."
       },
       "glossary": [],
       "widgetData": {
@@ -184,16 +211,22 @@
       "title": "The Golden Rule",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "One rule covers the whole lesson. Fill in the blank."
+        "review": "One rule covers the whole lesson. It has no exceptions, which makes it easy to remember and easy to teach to someone else.",
+        "tryThis": "Tell one person who is not online much that a bank will never ask for their OTP or PIN."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the rule:",
         "template": "Your OTP, PIN and password are for your eyes only, so {blank} should ever be told them.",
-        "options": ["nobody", "only the bank", "only family", "only support staff"],
+        "options": [
+          "nobody",
+          "only the bank",
+          "only family",
+          "only support staff"
+        ],
         "correctAnswer": "nobody",
-        "explanation": "Anyone who really helps you can do it without your secrets. Anyone who asks for them is a risk.",
-        "bonusFact": "Changing your PIN or password right away limits the damage if you ever shared one by mistake."
+        "explanation": "Anyone who really helps you can do it without your secrets. Anyone who asks for them, however politely, is a risk.",
+        "bonusFact": "Changing your PIN or password right away limits the damage if you ever shared one by mistake. Then tell your bank what happened."
       }
     }
   ]
