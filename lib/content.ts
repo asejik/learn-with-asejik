@@ -60,6 +60,14 @@ function checkCourseFiles(folder: string, course: Course) {
       }
     }
   }
+  const related = course.finish.relatedCourse;
+  if (related) {
+    if (related === folder) {
+      problems.push(`finish.relatedCourse points at the course itself`);
+    } else if (!fs.existsSync(path.join(COURSES_DIRECTORY, related, "course.json"))) {
+      problems.push(`finish.relatedCourse "${related}" is not a course`);
+    }
+  }
   const lessonsDir = path.join(COURSES_DIRECTORY, folder, "lessons");
   if (fs.existsSync(lessonsDir)) {
     for (const file of fs.readdirSync(lessonsDir).filter((f) => f.endsWith(".json"))) {

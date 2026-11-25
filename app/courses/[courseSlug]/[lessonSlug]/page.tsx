@@ -41,9 +41,19 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // mistaken for a missing lesson.
   let data;
   try {
+    const course = getCourseBySlug(courseSlug);
+    const related = course.finish.relatedCourse
+      ? getCourseBySlug(course.finish.relatedCourse)
+      : null;
     data = {
-      course: getCourseBySlug(courseSlug),
+      course,
       lesson: getLesson(courseSlug, lessonSlug),
+      related: related && {
+        slug: related.slug,
+        title: related.title,
+        summary: related.summary,
+        firstLessonSlug: related.chapters[0].lessons[0].slug,
+      },
     };
   } catch {
     notFound();
@@ -55,6 +65,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
     <PlayerShell
       course={data.course}
       lesson={data.lesson}
+      relatedCourse={data.related}
       privacyNotice={<PrivacyNoticeContent />}
     />
   );

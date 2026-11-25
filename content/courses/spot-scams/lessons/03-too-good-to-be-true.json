@@ -3,6 +3,13 @@
   "title": "Investment, Loan and Job Scams",
   "chapterId": "ch1",
   "keyTerms": ["Guaranteed returns", "Advance fee", "Pyramid scheme", "Loan app"],
+  "intro": "See how investment schemes, loan offers and job ads use the same pay-first trap, and learn the warning signs that give them away.",
+  "recap": [
+    "Promises of fast, guaranteed returns are a warning sign. Early payouts come from later joiners' money.",
+    "A real employer pays you. A fee for training or a uniform before you start is a scam pattern.",
+    "A fee before a loan arrives is the trap. A real lender states every charge before you agree.",
+    "Screenshots of other people's payouts prove nothing about the next person."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

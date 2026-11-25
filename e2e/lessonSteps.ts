@@ -14,9 +14,19 @@ export const TITLES = [
 
 export const feedback = (page: Page) => page.getByRole("region", { name: "Answer Feedback" });
 
+/** Opens the lesson, passes the opening card, and lands on screen 1 */
 export async function openLesson(page: Page) {
   await page.goto(LESSON_URL);
+  await page.getByRole("button", { name: "Start lesson" }).click();
   await expect(page.getByRole("heading", { level: 1, name: TITLES[0] })).toBeVisible();
+}
+
+/** After the last screen: passes the lesson recap and the course finish card */
+export async function passClosingCards(page: Page) {
+  await expect(page.getByRole("heading", { name: "What you learned" })).toBeVisible();
+  await page.getByRole("button", { name: "Continue" }).click();
+  await expect(page.getByText("The big picture")).toBeVisible();
+  await page.getByRole("button", { name: "Continue" }).click();
 }
 
 /** Answers screen `index` (wrongly if `correct` is false, cloze and choice only). Stops before Continue. */

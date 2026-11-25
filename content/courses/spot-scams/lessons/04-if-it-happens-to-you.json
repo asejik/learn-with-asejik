@@ -3,6 +3,14 @@
   "title": "If It Happens to You",
   "chapterId": "ch2",
   "keyTerms": ["Evidence", "Recovery scam", "Report"],
+  "intro": "Learn what to do in the first hour after a scam, why speaking up early matters, and how to spot the second scam that promises to get your money back.",
+  "recap": [
+    "Stop all contact and payments straight away.",
+    "Call your bank on the number from your card or its official app, never one from a message.",
+    "Keep the evidence: screenshots, numbers, times and amounts. Do not delete the messages.",
+    "Be careful of anyone who offers to recover your money for a fee. That is a second scam.",
+    "Being scammed does not mean you were foolish. Report it and warn others."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

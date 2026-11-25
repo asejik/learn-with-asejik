@@ -3,6 +3,13 @@
   "title": "The Scammer's Playbook",
   "chapterId": "ch1",
   "keyTerms": ["Scam", "Urgency", "Fear", "Greed", "Trust"],
+  "intro": "Meet the four feelings scammers press again and again: urgency, fear, greed and false trust. You will practise naming them in real-looking messages.",
+  "recap": [
+    "Most scams work on a feeling, not a machine. Scammers press urgency, fear, greed and trust.",
+    "A genuine problem can almost always wait ten minutes while you check it properly.",
+    "A message that knows your name is not proof that it is real.",
+    "You never pay a fee to receive a prize or money you did not ask for."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

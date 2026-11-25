@@ -10,6 +10,26 @@
     "web applications",
     "computer science"
   ],
+  "overview": {
+    "about": "Almost every app you use talks to other systems through APIs: weather, maps, mobile money. This short tutorial explains what an API is and how a request becomes a response, in plain words and with no code.",
+    "youWillLearn": [
+      "What an API is, and why apps need one",
+      "The steps a request takes from your phone to a server and back",
+      "How to read common status codes such as 200 and 404"
+    ]
+  },
+  "finish": {
+    "recap": [
+      "An API is a controlled doorway between systems.",
+      "A request goes out, the server checks it and prepares an answer, and a response comes back.",
+      "Status codes tell you whether it worked."
+    ],
+    "actionPoints": [
+      "Next time you check the weather or send money in an app, think about the API call behind it.",
+      "Look up the developer page of a service you use and see what it lets other apps do."
+    ],
+    "nextSteps": "Keep noticing APIs in the apps you use every day. If you want to build with them, a good next step is a no-code tool such as Zapier or Make, which connects two services without code."
+  },
   "chapters": [
     {
       "id": "ch1",

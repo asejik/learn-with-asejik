@@ -3,6 +3,13 @@
   "title": "Fake Alerts, OTPs and Phishing",
   "chapterId": "ch1",
   "keyTerms": ["OTP", "Phishing", "Fake alert", "Spoofing"],
+  "intro": "Learn how fake alerts, OTP calls and phishing links trick people, and the quick checks that stop them before any money moves.",
+  "recap": [
+    "An OTP, PIN or password is for your eyes only. Nobody who is really helping you needs it.",
+    "A text saying money has arrived is not proof. Check your balance in your own bank app.",
+    "Check the sender, the link and what they ask for, not the logo or how polished it looks.",
+    "If someone you know sends an odd money request, call them on their usual number."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

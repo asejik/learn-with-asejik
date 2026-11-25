@@ -237,6 +237,10 @@ export const LessonSchema = z.strictObject({
   title: z.string().min(1),
   chapterId: z.string().optional(),
   keyTerms: z.array(z.string()).default([]),
+  /** Opening card: what this lesson covers and what the learner will do */
+  intro: z.string().min(1).max(240, "Lesson intro must be 240 characters or fewer"),
+  /** Closing card: the main points to take away */
+  recap: z.array(z.string().min(1)).min(2).max(5),
   screens: z
     .array(ScreenSchema)
     .min(1)
@@ -280,6 +284,19 @@ export const CourseSchema = z.strictObject({
       (tags) => new Set(tags).size === tags.length,
       { message: "Duplicate canonical tags are not permitted" }
     ),
+  /** Opening card on the first lesson */
+  overview: z.strictObject({
+    about: z.string().min(1),
+    youWillLearn: z.array(z.string().min(1)).min(2).max(5),
+  }),
+  /** Closing card on the last lesson */
+  finish: z.strictObject({
+    recap: z.array(z.string().min(1)).min(2).max(6),
+    actionPoints: z.array(z.string().min(1)).min(2).max(5),
+    nextSteps: z.string().min(1),
+    /** Slug of a course to suggest next; checked against the real courses */
+    relatedCourse: SlugSchema.optional(),
+  }),
   chapters: z.array(ChapterSchema).min(1),
 }).superRefine((course, ctx) => {
   noDuplicates(course.chapters.map((c) => c.id), "chapter id", ctx, ["chapters"]);

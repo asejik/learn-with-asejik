@@ -3,6 +3,13 @@
   "title": "Asking Well: Better Questions, Better Answers",
   "chapterId": "ch1",
   "keyTerms": ["Prompt", "Context", "Goal", "Format"],
+  "intro": "Learn the three ingredients of a good prompt, which are context, goal and format, and how to steer an answer with follow-up messages.",
+  "recap": [
+    "A chatbot cannot read your mind, so say what you need.",
+    "Context: who you are, who the answer is for, and the situation.",
+    "Goal: the exact job you want done. Format: the length, tone and shape.",
+    "If the first answer is not right, reply and ask it to change something."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",

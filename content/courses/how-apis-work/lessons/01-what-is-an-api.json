@@ -9,6 +9,13 @@
     "JSON Payload",
     "Status Codes"
   ],
+  "intro": "Meet the digital waiter: see how an API carries your request to a server and brings back exactly the data you asked for, with no code needed.",
+  "recap": [
+    "An API takes your request to a remote system and brings back only the data you asked for.",
+    "The client and the server follow agreed rules, like a contract.",
+    "Requests and responses travel as HTTP messages, and responses usually carry JSON.",
+    "Status codes such as 200, 401, 404 and 500 tell you what happened."
+  ],
   "screens": [
     {
       "id": "screen-1-reading",
