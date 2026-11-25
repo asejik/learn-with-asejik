@@ -20,7 +20,7 @@ export function CatalogHeader({ courseCount, lessonCount }: CatalogHeaderProps) 
           Learn by doing, <em className="italic text-brand-500">one screen at a time.</em>
         </h1>
         <p className="mt-5 sm:mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-slate-700">
-          Master practical skills through in-depth modules and interactive checks. Each lesson takes 10 to 15 minutes and stays current as tools change.
+          Master practical skills through in-depth modules and interactive checks. Each lesson takes 6 to 8 minutes and stays current as tools change.
         </p>
         <div className="mt-7 sm:mt-8 flex flex-wrap gap-3">
           <a
