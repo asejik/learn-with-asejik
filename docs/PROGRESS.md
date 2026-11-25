@@ -324,3 +324,9 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - VERIFIED: type check, lint, build (content validation), 137 unit tests, 28 browser tests (the 4 walk tests re-run after the timeout change: pass); built-in browser at 375px: walk-through list readable, no sideways scroll.
   - UNVERIFIED: 1280px appearance; screen-reader reading of the list.
   - Owner to review: the 9 walk-throughs, for the fact-check (the scheme arithmetic and the bank steps especially).
+- [x] **Fix: glossary matcher handles phrases, and dead glossary entries removed** (2026-11-26, branch `fix/glossary-matcher`)
+  - The reading screen compared one word at a time, so a term of more than one word (for example "Advance fee") could never be tapped. New `lib/glossaryMatch.ts` finds whole words and phrases in any case, with an optional plural, prefers the longer term, escapes special characters and avoids look-behind (older phones). The tappable part is now the term itself, not the punctuation stuck to it. 7 unit tests.
+  - Checked every glossary entry in all 9 lessons: four could never be shown because their screen is not a reading (the widgets on other screens do not show glossary words): "Payload" and "Status" (APIs tutorial), "Pyramid scheme" (Spot Scams 3, already covered by "Scheme") and "Evidence" (Spot Scams 4). Removed them (evidence: scan of all lesson files).
+  - New test `lib/glossaryContent.test.ts`: every glossary term in the real lessons must sit on a reading screen and appear in its text, so a dead term fails the build from now on.
+  - VERIFIED: type check, lint, build, 166 unit tests, 28 browser tests (incl. the 44px glossary hit-area test) at 375px and 1280px.
+  - UNVERIFIED: the look of a multi-word term wrapping across two lines on a phone (no current lesson has one).
