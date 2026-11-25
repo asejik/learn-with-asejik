@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, BookOpen, Lightbulb, CheckCircle2 } from "lucide-react";
+import { Sparkles, BookOpen, Lightbulb, CheckCircle2, AlertTriangle } from "lucide-react";
 import { SlideOverDrawer } from "./SlideOverDrawer";
 
 interface AITutorDrawerProps {
@@ -10,6 +10,9 @@ interface AITutorDrawerProps {
     recap?: string;
     explain?: string;
     review?: string;
+    example?: string;
+    watchOut?: string;
+    tryThis?: string;
   };
   activeContext: "recap" | "explain" | "review";
   lessonTitle: string;
@@ -93,8 +96,35 @@ export function AITutorDrawer({
         </div>
       )}
 
+      {/* Extra depth: a worked example, a common mistake, and one thing to try */}
+      {aiTutor?.example && (
+        <section className="space-y-1.5" aria-labelledby="tutor-example">
+          <h3 id="tutor-example" className="text-xs font-bold uppercase tracking-wide text-slate-700">
+            Example
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">{aiTutor.example}</p>
+        </section>
+      )}
+      {aiTutor?.watchOut && (
+        <section className="space-y-1.5" aria-labelledby="tutor-watch-out">
+          <h3 id="tutor-watch-out" className="text-xs font-bold uppercase tracking-wide text-slate-700 flex items-center gap-1.5">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-600" aria-hidden="true" />
+            Watch out
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">{aiTutor.watchOut}</p>
+        </section>
+      )}
+      {aiTutor?.tryThis && (
+        <section className="space-y-1.5" aria-labelledby="tutor-try-this">
+          <h3 id="tutor-try-this" className="text-xs font-bold uppercase tracking-wide text-slate-700">
+            Try this
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">{aiTutor.tryThis}</p>
+        </section>
+      )}
+
       {/* General Guidance notes if no specific hint */}
-      {!hasRecap && !hasExplain && !hasReview && (
+      {!hasRecap && !hasExplain && !hasReview && !aiTutor?.example && !aiTutor?.watchOut && !aiTutor?.tryThis && (
         <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 leading-relaxed space-y-2">
           <p className="font-semibold text-slate-800">
             You&apos;re doing great!

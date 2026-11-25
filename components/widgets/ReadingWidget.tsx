@@ -44,7 +44,11 @@ export default function ReadingWidget({
             {p.split(" ").map((word, wIdx) => {
               const cleanWord = word.replace(/[^a-zA-Z]/g, "");
               const matchedGlossary = glossary.find(
-                (g) => g.term.toLowerCase() === cleanWord.toLowerCase()
+                (g) => {
+                  const term = g.term.toLowerCase();
+                  const w = cleanWord.toLowerCase();
+                  return w === term || w === `${term}s`;
+                }
               );
 
               if (matchedGlossary && onOpenGlossary) {

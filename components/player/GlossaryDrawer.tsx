@@ -8,6 +8,7 @@ interface GlossaryDrawerProps {
   onClose: () => void;
   term: string;
   definition: string;
+  example?: string;
 }
 
 export function GlossaryDrawer({
@@ -15,6 +16,7 @@ export function GlossaryDrawer({
   onClose,
   term,
   definition,
+  example,
 }: GlossaryDrawerProps) {
   if (!term) return null;
 
@@ -50,6 +52,13 @@ export function GlossaryDrawer({
           {definition}
         </p>
       </div>
+
+      {example && (
+        <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-2">
+          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wide">Example</h3>
+          <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">{example}</p>
+        </div>
+      )}
 
       <p className="text-xs text-slate-500 leading-normal">
         Terms are defined inline to ensure you never have to leave the lesson or open distracting external tabs.

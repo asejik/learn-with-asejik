@@ -35,11 +35,19 @@ export const AITutorSchema = z.strictObject({
   recap: z.string().optional(),
   explain: z.string().optional(),
   review: z.string().optional(),
+  /** A short worked example that makes the idea concrete */
+  example: z.string().optional(),
+  /** A common mistake, or something easy to get wrong */
+  watchOut: z.string().optional(),
+  /** One small thing to try straight away */
+  tryThis: z.string().optional(),
 });
 
 export const GlossaryTermSchema = z.strictObject({
   term: z.string().min(1),
   definition: z.string().min(1),
+  /** The term used in a real sentence or situation */
+  example: z.string().optional(),
 });
 
 const GlossarySchema = z
