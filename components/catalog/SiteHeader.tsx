@@ -1,16 +1,15 @@
 import Link from "next/link";
-import { siteConfig } from "@/lib/config";
+import { Logo } from "@/components/brand/Logo";
 
-/** Wordmark and main links; the logo mark is a placeholder until the logo task. */
+/** Logo and main links. */
 export function SiteHeader() {
   const navLink =
     "min-h-tap px-3 inline-flex items-center text-sm font-medium text-slate-700 hover:text-slate-900 transition";
   return (
     <header className="border-b border-slate-200">
       <div className="max-w-5xl w-full mx-auto px-4 py-1.5 flex items-center justify-between gap-3">
-        <Link href="/" className="min-h-tap inline-flex items-center gap-2.5 text-slate-900">
-          <span aria-hidden="true" className="block w-3.5 h-3.5 rounded-[3px] bg-brand-600" />
-          <span className="font-display text-xl tracking-tight">{siteConfig.name}</span>
+        <Link href="/" className="min-h-tap inline-flex items-center text-slate-900" aria-label="Learn with Asejik, home">
+          <Logo />
         </Link>
         <nav aria-label="Main" className="flex items-center gap-1">
           <a href="#courses" className={`${navLink} hidden sm:inline-flex`}>

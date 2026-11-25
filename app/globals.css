@@ -5,6 +5,32 @@
 :root {
   --foreground-rgb: 27, 22, 18;
   --background-rgb: 246, 239, 227;
+
+  /* Logo colours (see docs/DESIGN.md, Logo). Charcoal and ivory come from asejik.com. */
+  --logo-charcoal: #16140f;
+  --logo-ivory: #f4efe6;
+  --logo-accent: #c65f2b;
+  --logo-dot: #a94a1c;
+}
+
+/* The dots of the j and i in the wordmark are drawn over the letters' own dots.
+   Sizes are in em, measured from Fraunces Bold, so they follow the font size. */
+.logo-wordmark-dark {
+  color: var(--logo-ivory);
+  --logo-dot: #e3a074;
+}
+.logo-dot {
+  position: relative;
+}
+.logo-dot::after {
+  content: "";
+  position: absolute;
+  left: 0.0375em;
+  bottom: 0.7875em;
+  width: 0.2475em;
+  height: 0.2075em;
+  border-radius: 50%;
+  background: var(--logo-dot);
 }
 
 body {

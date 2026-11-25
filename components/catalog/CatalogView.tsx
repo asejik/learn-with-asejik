@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Course } from "@/lib/schema";
 import { SiteHeader } from "./SiteHeader";
+import { Logo } from "@/components/brand/Logo";
 import { CatalogHeader } from "./CatalogHeader";
 import { TagFilterBar } from "./TagFilterBar";
 import { CourseCard } from "./CourseCard";
@@ -296,10 +297,7 @@ export function CatalogView({ initialCourses }: CatalogViewProps) {
       <footer className="bg-slate-900 text-slate-50">
         <div className="max-w-5xl mx-auto px-4 py-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
           <div className="max-w-sm">
-            <div className="flex items-center gap-2.5">
-              <span aria-hidden="true" className="block w-3 h-3 rounded-[3px] bg-brand-500" />
-              <span className="font-display text-xl">{siteConfig.name}</span>
-            </div>
+            <Logo tone="dark" />
             <p className="mt-3 text-sm leading-relaxed text-slate-300 inline-flex gap-2">
               <ShieldCheck className="w-4 h-4 mt-0.5 shrink-0 text-emerald-400" aria-hidden="true" />
               <span>Your progress is saved on your phone. Nothing is sent anywhere unless you join the pilot list.</span>

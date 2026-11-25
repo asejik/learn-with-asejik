@@ -161,3 +161,24 @@ Every interactive touch target (buttons, choice options, tag pills, drawer toggl
 ## 9. Tailwind CSS Configuration
 
 The palette, font family and tap-size tokens are defined in `tailwind.config.ts`, which is the source of truth (a copy here would drift). The headline font is loaded in `app/layout.tsx` with `next/font` and exposed as the `--font-display` variable.
+
+---
+
+## 10. Logo (adopted 2026-11-26)
+
+**The mark**: a ladder-shaped A on a charcoal rounded tile. It is a nod to the truss-shaped A of asejik.com (the parent brand) and means learning one step at a time. Ivory legs and upper rung, with the lower rung and the peak dot in terracotta.
+
+**The wordmark**: "Learn with Asejik" on one line, Fraunces Bold (the headline font). The dots of the j and i in "Asejik" are terracotta. Never let it wrap.
+
+**Code**: `components/brand/Logo.tsx` (`Logo`, `LogoMark`, `Wordmark`). The coloured dots are drawn over the letters' own dots, sized in em from Fraunces Bold, so they follow the font size. If the headline font ever changes, re-measure them (`.logo-dot::after` in `app/globals.css`).
+
+| Token (`app/globals.css`) | Value | Use |
+| :--- | :--- | :--- |
+| `--logo-charcoal` | `#16140F` | Tile (the parent brand's charcoal) |
+| `--logo-ivory` | `#F4EFE6` | Ladder, and wordmark on dark |
+| `--logo-accent` | `#C65F2B` | Lower rung and peak dot (brand-500) |
+| `--logo-dot` | `#A94A1C` on light, `#E3A074` on dark | Dots of the j and i |
+
+**Files** (`public/`): `icon.svg` (tab icon), `favicon.ico`, `icon-192.png` and `icon-512.png` (rounded tile), `icon-maskable-512.png` and `apple-touch-icon.png` (full square, mark kept inside the safe zone so phone masks do not cut it).
+
+**Rules**: keep clear space around the logo of at least the width of the peak dot. Do not stretch, rotate, recolour or add effects. On a dark background use the light wordmark (`tone="dark"`); the tile keeps its own shape. Minimum size: tile 24px.
