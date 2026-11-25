@@ -302,3 +302,8 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Content: lesson 1 of Spot Scams (The Scammer's Playbook) rewritten in the deeper style as the sample: longer tutor hints on all 6 screens, two glossary terms with examples, longer bonus insights and explanations on the diagram, question and last screen. The other 8 lessons are still the short version, waiting for the owner's sign-off on depth and tone.
   - VERIFIED: type check, lint, build (content validation), 137 unit tests, 28 browser tests at 375px and 1280px. VERIFIED in the built-in browser at 375px: tutor drawer with all four sections, glossary drawer with the example, plural match.
   - UNVERIFIED: 1280px appearance of the drawers; screen-reader reading of the new sections.
+- [x] **Deeper hints: Spot Scams lessons 2 to 4** (2026-11-26, branch `content/deeper-hints-scams`)
+  - Owner approved the depth of the sample lesson ("I love it"). Same style applied to the other three Spot Scams lessons: longer tutor hints on all 6 screens of each, worked examples, "Watch out" and "Try this" where they matter, longer bonus insights and explanations, and tappable glossary words in the readings (OTP, PIN, Bait, Scheme, Shame, each with an example).
+  - Content only; no code or schema change. VERIFIED: content validation, 137 unit tests. The browser tests were not re-run (they use the APIs tutorial, which this PR does not touch); CI runs them.
+  - Known gap: glossary terms of more than one word (for example "Advance fee", "Recovery scam", "Pyramid scheme") never match a word in the text, so they stay untappable. Not changed here; worth a small matcher fix later.
+  - Owner to review: all new text, for the fact-check.
