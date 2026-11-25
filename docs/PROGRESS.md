@@ -317,3 +317,10 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - This finishes the deeper-hints rollout for all 9 lessons.
   - VERIFIED: content validation, 137 unit tests, 28 browser tests at 375px and 1280px (this lesson is the browser-test lesson).
   - Owner to review: all new text, for the fact-check.
+- [x] **Tutor "Walk through it": step-by-step worked examples** (2026-11-26, branch `feat/tutor-walk-through`)
+  - Owner approved adding a longer worked example. New optional tutor field `walkThrough` (a title and 3 to 6 steps), shown in the tutor drawer as a numbered list under the short Example.
+  - Written for one key screen in each of the 9 lessons: the lever message, the OTP call, the "double your money" scheme, the first hour after a scam, a chatbot asked for an unknowable fact, improving a prompt, checking a claim in four steps, redacting an email, and a balance check through an API.
+  - Test change: the four browser tests that walk a whole lesson now allow 60 seconds instead of 30 (`test.setTimeout`). They take 18 to 25 seconds on this machine since the opening, recap and per-card steps were added, so 30 was too tight and failed twice under load. No assertion was changed.
+  - VERIFIED: type check, lint, build (content validation), 137 unit tests, 28 browser tests (the 4 walk tests re-run after the timeout change: pass); built-in browser at 375px: walk-through list readable, no sideways scroll.
+  - UNVERIFIED: 1280px appearance; screen-reader reading of the list.
+  - Owner to review: the 9 walk-throughs, for the fact-check (the scheme arithmetic and the bank steps especially).

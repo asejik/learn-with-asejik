@@ -49,7 +49,17 @@
         "explain": "Tap each step. The order matters, because money is easier to stop the sooner you act. Stop, call, save, report: each step protects the next one.",
         "example": "You paid a fake seller and they now ask for a small extra fee. You stop replying, call your bank from the number on your card, screenshot the chat and the transfer, then report the seller's profile to the platform.",
         "watchOut": "Do not delete the chat or block the number before saving copies. Your bank and the authorities may need that evidence.",
-        "tryThis": "Write the four words on a note in your phone: stop, call, save, report."
+        "tryThis": "Write the four words on a note in your phone: stop, call, save, report.",
+        "walkThrough": {
+          "title": "Your first hour, after paying a fake seller 50,000 naira",
+          "steps": [
+            "Minute 1: the seller asks for \"one more small payment\" to release the goods. You stop. You do not reply and you do not pay.",
+            "Minute 5: you call your bank on the number printed on your card, tell them what happened and ask them to protect your account.",
+            "Minute 15: you take screenshots of the chat, the seller's profile and your transfer receipt. You write down the times and amounts.",
+            "Minute 30: you report the seller to the platform and to the police or the proper authority in your area.",
+            "Minute 45: you tell family and friends, so the same trick does not catch them."
+          ]
+        }
       },
       "glossary": [
         {

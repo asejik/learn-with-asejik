@@ -64,7 +64,17 @@
         "explain": "Tap each part. A good prompt can be one short paragraph with all three. You do not need fancy words; plain language that says what matters is enough.",
         "example": "\"I sell phone accessories at a market stall (context). Write three friendly WhatsApp status lines about a weekend discount (goal). Keep each under 20 words (format).\"",
         "watchOut": "Do not put private details in the context, such as an ID number or a home address. You can say \"a customer\" instead of the customer's name.",
-        "tryThis": "Rewrite one of your own vague requests with all three parts."
+        "tryThis": "Rewrite one of your own vague requests with all three parts.",
+        "walkThrough": {
+          "title": "Improving a prompt, one part at a time",
+          "steps": [
+            "Start: \"Write something about my shop.\" The chatbot has to guess everything.",
+            "Add context: \"I sell phone accessories at a market stall.\" Now it knows who you are.",
+            "Add a goal: \"Write three friendly WhatsApp status lines about a weekend discount.\" Now it knows the job.",
+            "Add a format: \"Keep each one under 20 words.\" Now it knows the shape.",
+            "Send it. If one line is not right, reply with a change such as \"make the second one funnier\"."
+          ]
+        }
       },
       "glossary": [],
       "widgetData": {

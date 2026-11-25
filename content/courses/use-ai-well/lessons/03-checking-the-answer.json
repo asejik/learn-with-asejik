@@ -53,7 +53,17 @@
         "explain": "Tap each step. You do not need all four every time, but the more it matters, the more of them you do. The steps run in a loop you can repeat for anything important.",
         "example": "A chatbot says a new law starts in March. You spot the date, ask where it is from, look it up on an official government site, and keep only what the official page confirms.",
         "watchOut": "Asking the chatbot \"Are you sure?\" does not count as a check. It may repeat the same error with new confidence.",
-        "tryThis": "Choose one fact from a recent chatbot answer and take it through the four steps."
+        "tryThis": "Choose one fact from a recent chatbot answer and take it through the four steps.",
+        "walkThrough": {
+          "title": "Checking a chatbot's claim: \"A new rule starts in March.\"",
+          "steps": [
+            "Spot: the date and the rule are exact facts, so they are the parts to check.",
+            "Ask: you ask where it comes from. It names an official-sounding source. That is a clue, not proof.",
+            "Cross-check: you search for the rule on an official government website, not through the chatbot.",
+            "Decide: the official page says the rule starts in June. You use June and leave out the chatbot's date.",
+            "Result: you caught a mistake in two minutes, before you passed it on."
+          ]
+        }
       },
       "glossary": [],
       "widgetData": {

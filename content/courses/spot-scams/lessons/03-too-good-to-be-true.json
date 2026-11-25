@@ -53,7 +53,18 @@
       "aiTutor": {
         "explain": "Tap each step to see where the money really comes from. Follow one naira from the new member's pocket to the early member's payout. No profit is made along the way.",
         "example": "Ten people each pay 20,000 naira, so 200,000 naira goes in. If the organiser promises to double it, 400,000 naira is owed. The money is never there, so the last people lose everything.",
-        "watchOut": "A scheme can look healthy for months. The collapse comes when new members stop joining, and nobody can say when that will be."
+        "watchOut": "A scheme can look healthy for months. The collapse comes when new members stop joining, and nobody can say when that will be.",
+        "walkThrough": {
+          "title": "Following 100,000 naira through a \"double your money\" scheme",
+          "steps": [
+            "Ten friends each pay in 10,000 naira. The organiser now holds 100,000 naira and promises to double it.",
+            "The first two friends are paid 20,000 naira each. That money comes from the other eight friends' payments, not from any profit.",
+            "The two paid friends tell everyone, and more people join. The scheme now looks real.",
+            "Newcomers slow down. There is not enough money to pay everyone what was promised.",
+            "The organiser's phone goes silent. The last people in lose what they paid.",
+            "What to do instead: before paying, ask where the profit really comes from. If the only answer is \"more people joining\", walk away."
+          ]
+        }
       },
       "glossary": [
         {

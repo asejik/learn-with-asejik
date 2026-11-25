@@ -158,7 +158,17 @@
         "explain": "Tap each of the three steps in the lifecycle below to learn how an API transaction completes. Request goes out, the server works, and a response comes back. Almost every API call follows this shape.",
         "example": "You tap \"check balance\". The app sends a request, the bank's server confirms who you are and looks up the amount, and the response carries the balance and a 200 OK status.",
         "watchOut": "If any step fails, the whole call fails. A request with a missing key is stopped at the server, and a broken server cannot answer at all.",
-        "tryThis": "Next time an app shows an error, ask which of the three steps it probably failed at."
+        "tryThis": "Next time an app shows an error, ask which of the three steps it probably failed at.",
+        "walkThrough": {
+          "title": "Checking your balance, one request at a time",
+          "steps": [
+            "You tap \"check balance\" in your banking app. The app is the client.",
+            "Request: the app sends a message to the bank's server with your account details and a security token.",
+            "Server logic: the server checks the token, confirms the request is allowed, and looks up your balance.",
+            "Response: the server sends back a 200 OK status and your balance as a small piece of JSON.",
+            "The app turns that JSON into the number on your screen. At no point did the app see the bank's database."
+          ]
+        }
       },
       "glossary": [],
       "widgetData": {

@@ -24,7 +24,17 @@
         "recap": "This lesson covers the scams that reach you by call, text or chat, and the one code you must never share. The thief cannot approve a transfer without your OTP, so the whole trick is to get you to give it away.",
         "example": "Emeka's real bank sends an OTP only when he starts a payment himself. The call came first, and the code arrived while the caller was talking. That order is the clue: a code you did not ask for means someone else is trying to act as you.",
         "watchOut": "The caller sounds calm and knows your name, and may even know the last digits of your account. None of that proves they work for your bank, because such details can be bought or stolen.",
-        "tryThis": "Look at your bank's official app or card. Find the customer care number printed there and save it in your phone under a name you will recognise."
+        "tryThis": "Look at your bank's official app or card. Find the customer care number printed there and save it in your phone under a name you will recognise.",
+        "walkThrough": {
+          "title": "The call from \"your bank\", step by step",
+          "steps": [
+            "The call comes first. Emeka's phone rings and a calm voice says it is his bank's security team.",
+            "A code arrives while they talk. He did not ask for it. That is the clue: a code you did not request means someone else is trying to act as you.",
+            "The caller asks him to read the code out. This is the whole trick, because the code approves the thief's transfer.",
+            "What he should do: hang up, then call the number on his card.",
+            "What he gets: the real bank confirms there is no problem, and his money stays where it is."
+          ]
+        }
       },
       "glossary": [
         {
