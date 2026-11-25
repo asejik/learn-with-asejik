@@ -2,7 +2,12 @@
   "slug": "02-asking-well",
   "title": "Asking Well: Better Questions, Better Answers",
   "chapterId": "ch1",
-  "keyTerms": ["Prompt", "Context", "Goal", "Format"],
+  "keyTerms": [
+    "Prompt",
+    "Context",
+    "Goal",
+    "Format"
+  ],
   "intro": "Learn the three ingredients of a good prompt, which are context, goal and format, and how to steer an answer with follow-up messages.",
   "recap": [
     "A chatbot cannot read your mind, so say what you need.",
@@ -16,12 +21,31 @@
       "title": "The Question Is the Steering Wheel",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "The words you type are called a prompt. A clear prompt gets a more useful answer than a vague one."
+        "recap": "The words you type are called a prompt. A clear prompt gets a more useful answer than a vague one, because the chatbot cannot read your mind and must otherwise guess.",
+        "example": "\"Write me a message\" gets a generic reply. \"Write a polite message to a customer whose order is two days late, offering a new delivery date\" gets something you can nearly send.",
+        "watchOut": "A longer prompt is not automatically a better one. What helps is the right information: who it is for, what you want, and how it should look.",
+        "tryThis": "Think of a request you made to a person this week. Would a stranger have had enough information to do it?"
       },
       "glossary": [
         {
           "term": "Prompt",
-          "definition": "The message you type to an AI chatbot to tell it what you want."
+          "definition": "The message you type to an AI chatbot to tell it what you want.",
+          "example": "\"Summarise this paragraph in three short bullet points\" is a prompt."
+        },
+        {
+          "term": "Context",
+          "definition": "The background the chatbot needs: who you are, who the answer is for, and what the situation is.",
+          "example": "\"I run a small tailoring shop\" is context. It changes what a good reply looks like."
+        },
+        {
+          "term": "Goal",
+          "definition": "The exact job you want done. A clear goal is something you could check afterwards, such as \"apologise and offer a new delivery day\".",
+          "example": "\"Help me with a message\" is not a goal. \"Write an apology for a late order\" is."
+        },
+        {
+          "term": "Format",
+          "definition": "How the answer should look: its length, tone and shape.",
+          "example": "\"Under 80 words, friendly, as a text message\" is a format."
         }
       ],
       "widgetData": {
@@ -37,7 +61,10 @@
       "title": "Context, Goal, Format",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each part. A good prompt can be one short paragraph with all three."
+        "explain": "Tap each part. A good prompt can be one short paragraph with all three. You do not need fancy words; plain language that says what matters is enough.",
+        "example": "\"I sell phone accessories at a market stall (context). Write three friendly WhatsApp status lines about a weekend discount (goal). Keep each under 20 words (format).\"",
+        "watchOut": "Do not put private details in the context, such as an ID number or a home address. You can say \"a customer\" instead of the customer's name.",
+        "tryThis": "Rewrite one of your own vague requests with all three parts."
       },
       "glossary": [],
       "widgetData": {
@@ -49,7 +76,7 @@
             "label": "Context",
             "title": "Context: who and why",
             "definition": "Say who you are, who the answer is for, and what the situation is. Example: \"I run a small tailoring shop and want to reply to a customer whose order is late.\"",
-            "bonusFact": "Never put private details in context that you would not want stored. The safety lesson covers this."
+            "bonusFact": "Never put private details in context that you would not want stored. The safety lesson later in this course explains why."
           },
           {
             "id": "node-goal",
@@ -67,7 +94,7 @@
           }
         ],
         "completionMessage": "You now have the three parts: context, goal and format.",
-        "completionBonusFact": "Treat the first reply as a draft and improve it with follow-up messages."
+        "completionBonusFact": "Treat the first reply as a draft and improve it with follow-up messages. Asking again is not a failure; it is how the tool is meant to be used."
       }
     },
     {
@@ -75,19 +102,31 @@
       "title": "Pick the Stronger Prompt",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Look for the prompt with the most context, a clear goal and a stated format."
+        "explain": "Look for the prompt with the most helpful information: who you are, a clear goal and a stated format. The two weaker prompts leave the chatbot guessing.",
+        "watchOut": "Do not choose a prompt only because it is polite or enthusiastic. Politeness is nice, but it does not tell the tool what you need."
       },
       "glossary": [],
       "widgetData": {
         "question": "Which prompt is most likely to get a useful answer?",
         "isMultiSelect": false,
         "options": [
-          { "id": "opt-1", "text": "\"Write something about my business.\"" },
-          { "id": "opt-2", "text": "\"I sell phone accessories at a market stall. Write 3 short, friendly WhatsApp status lines about a weekend discount, under 20 words each.\"" },
-          { "id": "opt-3", "text": "\"Business ideas please, thanks.\"" }
+          {
+            "id": "opt-1",
+            "text": "\"Write something about my business.\""
+          },
+          {
+            "id": "opt-2",
+            "text": "\"I sell phone accessories at a market stall. Write 3 short, friendly WhatsApp status lines about a weekend discount, under 20 words each.\""
+          },
+          {
+            "id": "opt-3",
+            "text": "\"Business ideas please, thanks.\""
+          }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "It tells the tool who you are, what you want and what shape the answer should take. The others leave too much to guesswork.",
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "It tells the tool who you are, what you want and what shape the answer should take. The others leave too much to guesswork, so the reply is more likely to miss.",
         "bonusFact": "Longer is not always better. The best prompt is the one that says what matters and nothing extra."
       }
     },
@@ -96,7 +135,8 @@
       "title": "Prompt Habits",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Decide whether each statement is true or false."
+        "explain": "Decide whether each statement is true or false. Remember that talking to a chatbot is a conversation: you can ask again, change something, or give it more detail.",
+        "tryThis": "Think of one thing you would say to improve a chatbot's answer, such as \"shorter\", \"simpler words\" or \"give two examples\"."
       },
       "glossary": [],
       "widgetData": {
@@ -138,7 +178,9 @@
       "title": "Fix the Weak Prompt",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Match each weak prompt to the part that is missing."
+        "review": "Match each weak prompt to the part that is missing. Spotting what is missing is the quickest way to fix your own prompts.",
+        "example": "\"Explain inflation\" does not say who it is for. Adding \"to a secondary school student, in five sentences\" fixes the context and the format at once.",
+        "watchOut": "Several parts can be missing at once. Match the one that would help most."
       },
       "glossary": [],
       "widgetData": {
@@ -173,16 +215,22 @@
       "title": "One Quick Rule",
       "widgetType": "cloze",
       "aiTutor": {
-        "review": "Finish the rule about what to do when an answer is not right."
+        "review": "Finish the rule about what to do when an answer is not right. Specific feedback gives the tool something to work with.",
+        "tryThis": "Next time an answer is not right, tell the chatbot exactly what to change, in one short sentence."
       },
       "glossary": [],
       "widgetData": {
         "prompt": "Complete the rule:",
         "template": "When an answer is not right, don't give up: tell the chatbot what to {blank}.",
-        "options": ["change", "forget", "delete", "guess"],
+        "options": [
+          "change",
+          "forget",
+          "delete",
+          "guess"
+        ],
         "correctAnswer": "change",
-        "explanation": "Specific feedback such as \"shorter\" or \"simpler words\" gives it something to work with.",
-        "bonusFact": "Asking for two or three options at once is a good way to compare approaches."
+        "explanation": "Specific feedback such as \"shorter\" or \"simpler words\" gives it something to work with, and each reply gets closer to what you need.",
+        "bonusFact": "Asking for two or three options at once is a good way to compare approaches. You can then say which one to develop."
       }
     }
   ]
