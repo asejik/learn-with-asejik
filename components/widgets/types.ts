@@ -15,5 +15,21 @@ export interface BaseWidgetProps<T> {
 /** For widgets with nothing to get right or wrong (e.g. exploring a diagram) */
 export type ExploredHandler = (result: { explanation: string; bonusFact?: string }) => void;
 
+/**
+ * For widgets with several steps on one screen (a card deck): shows feedback
+ * for one step without finishing the screen. `onContinue` runs when the
+ * learner taps the panel's button.
+ */
+export type CardFeedbackHandler = (result: {
+  isCorrect: boolean;
+  explanation: string;
+  bonusFact?: string;
+  continueLabel: string;
+  onContinue: () => void;
+}) => void;
+
 /** What the player gives every widget; a widget uses only the props it needs */
-export type WidgetProps<T> = BaseWidgetProps<T> & { onExplored: ExploredHandler };
+export type WidgetProps<T> = BaseWidgetProps<T> & {
+  onExplored: ExploredHandler;
+  onCardFeedback: CardFeedbackHandler;
+};

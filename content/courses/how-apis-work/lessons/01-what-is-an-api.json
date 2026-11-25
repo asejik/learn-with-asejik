@@ -103,19 +103,22 @@
             "id": "c1",
             "statement": "An API allows you to access external data without having direct access to the remote database.",
             "isTrue": true,
-            "explanation": "True! The API acts as a secure guardrail, verifying permissions before querying the database."
+            "explanation": "True! The API acts as a secure guardrail, verifying permissions before querying the database.",
+            "bonusFact": "Many apps you use every day, such as weather and payment apps, call APIs behind the scenes."
           },
           {
             "id": "c2",
             "statement": "All APIs require writing Python or JavaScript code to be useful to an organization.",
             "isTrue": false,
-            "explanation": "False! No-code automation tools (like Zapier, Make, and Airtable) connect APIs visually."
+            "explanation": "False! No-code automation tools (like Zapier, Make, and Airtable) connect APIs visually.",
+            "bonusFact": "Tools like Zapier and Make let you connect two services by choosing options on screen, with no code."
           },
           {
             "id": "c3",
             "statement": "An API response usually returns lightweight structured text (JSON) rather than a heavy full webpage.",
             "isTrue": true,
-            "explanation": "True! JSON is compact, human-readable, and saves massive bandwidth on mobile devices."
+            "explanation": "True! JSON is compact, human-readable, and saves massive bandwidth on mobile devices.",
+            "bonusFact": "JSON is plain text, so the same response works on any phone, browser or server."
           }
         ]
       }

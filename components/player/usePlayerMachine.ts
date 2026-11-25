@@ -19,6 +19,9 @@ export interface FeedbackState {
   bonusFact?: string;
   /** Screens before the queued retry (0 = next); null when none is queued */
   retryAfterScreens?: number | null;
+  /** Set for one step inside a screen: the panel button runs this, not the next screen */
+  onContinue?: () => void;
+  continueLabel?: string;
 }
 
 export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLessons: number) {
@@ -192,6 +195,36 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
     [currentIndex, currentScreen.id, sequence, isReviewing]
   );
 
+  // Feedback for one card of a deck. The screen is not finished, so there is
+  // no retry and nothing is saved; the panel button moves to the next card.
+  const showCardFeedback = useCallback(
+    ({
+      isCorrect,
+      explanation,
+      bonusFact,
+      continueLabel,
+      onContinue,
+    }: {
+      isCorrect: boolean;
+      explanation: string;
+      bonusFact?: string;
+      continueLabel: string;
+      onContinue: () => void;
+    }) => {
+      setFeedbackState({
+        status: isCorrect ? "correct" : "incorrect",
+        explanation,
+        bonusFact: isCorrect ? bonusFact : undefined,
+        retryAfterScreens: null,
+        continueLabel,
+        onContinue,
+      });
+    },
+    []
+  );
+
+  const clearFeedback = useCallback(() => setFeedbackState({ status: null }), []);
+
   // Exploration finished (no right or wrong): blue Info feedback
   const showInfo = useCallback(
     ({ explanation, bonusFact }: { explanation: string; bonusFact?: string }) => {
@@ -304,6 +337,8 @@ export function usePlayerMachine(courseSlug: string, lesson: Lesson, totalLesson
     ungate,
     submitAnswer,
     showInfo,
+    showCardFeedback,
+    clearFeedback,
     nextScreen,
     previousScreen,
     backToCurrent,

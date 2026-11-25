@@ -40,25 +40,29 @@
             "id": "c1",
             "statement": "It is fine to paste your banking password so the chatbot can help you log in.",
             "isTrue": false,
-            "explanation": "Passwords, PINs and OTPs are for you alone. No chatbot needs them to help, and sharing one is a risk."
+            "explanation": "Passwords, PINs and OTPs are for you alone. No chatbot needs them to help, and sharing one is a risk.",
+            "bonusFact": "If you ever typed a password or code by mistake, change it straight away."
           },
           {
             "id": "c2",
             "statement": "You can ask for help writing a CV without including your ID number, home address or bank details.",
             "isTrue": true,
-            "explanation": "Useful help rarely needs private identifiers. You can add them later in your own document."
+            "explanation": "Useful help rarely needs private identifiers. You can add them later in your own document.",
+            "bonusFact": "Write the CV with placeholders, then add your own details in your own copy."
           },
           {
             "id": "c3",
             "statement": "A friend's private message is safe to paste in, because it is only a chat.",
             "isTrue": false,
-            "explanation": "Other people's private details are not yours to share. Remove names and personal details first."
+            "explanation": "Other people's private details are not yours to share. Remove names and personal details first.",
+            "bonusFact": "Remove names and personal details before you paste, or describe the situation in your own words."
           },
           {
             "id": "c4",
             "statement": "Your employer's confidential files are fine to paste in if the chatbot is free.",
             "isTrue": false,
-            "explanation": "Being free does not make it private. Check your workplace rules before putting work documents into any tool."
+            "explanation": "Being free does not make it private. Check your workplace rules before putting work documents into any tool.",
+            "bonusFact": "Read your workplace's rules, or ask your manager, before you paste work files into any AI tool."
           }
         ]
       }

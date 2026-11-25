@@ -106,25 +106,29 @@
             "id": "c1",
             "statement": "A genuine problem with your account can almost always wait ten minutes while you check it properly.",
             "isTrue": true,
-            "explanation": "Real organisations give you time and several ways to confirm. Checking first costs you nothing."
+            "explanation": "Real organisations give you time and several ways to confirm. Checking first costs you nothing.",
+            "bonusFact": "Try saying \"I will call you back on the number on my card.\" A real caller will accept that."
           },
           {
             "id": "c2",
             "statement": "If a message uses your correct name, it must be real.",
             "isTrue": false,
-            "explanation": "Names are easy to find or buy. A message that knows your name can still be a scam."
+            "explanation": "Names are easy to find or buy. A message that knows your name can still be a scam.",
+            "bonusFact": "A scammer knowing your name is like a stranger knowing your street. It proves nothing about who they are."
           },
           {
             "id": "c3",
             "statement": "A message that makes you feel scared or excited is a reason to slow down.",
             "isTrue": true,
-            "explanation": "Strong feelings are the lever. Pausing takes the power out of it."
+            "explanation": "Strong feelings are the lever. Pausing takes the power out of it.",
+            "bonusFact": "Count to ten and ask one other person before you reply or pay."
           },
           {
             "id": "c4",
             "statement": "A real prize can ask you to pay a small fee before you receive it.",
             "isTrue": false,
-            "explanation": "Paying first to get money is the trap. The \"fee\" is what the scammer is after."
+            "explanation": "Paying first to get money is the trap. The \"fee\" is what the scammer is after.",
+            "bonusFact": "A good rule: you never pay money to receive money you did not ask for."
           }
         ]
       }

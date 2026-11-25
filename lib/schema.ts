@@ -158,6 +158,8 @@ export const SwipeCardSchema = z.strictObject({
   statement: z.string().min(1),
   isTrue: z.boolean(),
   explanation: z.string().min(1),
+  // Shown with "Spot on" when the learner gets this card right
+  bonusFact: z.string().min(1),
 });
 
 export const SwipeDeckWidgetDataSchema = z.strictObject({

@@ -99,25 +99,29 @@
             "id": "c1",
             "statement": "If the first answer is not right, you can reply and ask it to change something.",
             "isTrue": true,
-            "explanation": "Conversation is how you steer the result. Say what to shorten, change or explain."
+            "explanation": "Conversation is how you steer the result. Say what to shorten, change or explain.",
+            "bonusFact": "A short follow-up such as \"make it shorter\" or \"give an example\" often beats starting over."
           },
           {
             "id": "c2",
             "statement": "You must use special secret words for the chatbot to work well.",
             "isTrue": false,
-            "explanation": "Plain, clear language works best. There are no magic words."
+            "explanation": "Plain, clear language works best. There are no magic words.",
+            "bonusFact": "Try asking the way you would ask a helpful colleague: clear, polite and specific."
           },
           {
             "id": "c3",
             "statement": "Telling the chatbot who the answer is for helps it pick the right tone and level.",
             "isTrue": true,
-            "explanation": "An answer for a child, a customer or an expert should sound different. Saying who it is for helps."
+            "explanation": "An answer for a child, a customer or an expert should sound different. Saying who it is for helps.",
+            "bonusFact": "Add a line such as \"explain this to a 12-year-old\" or \"write for a customer\" to set the level."
           },
           {
             "id": "c4",
             "statement": "You should share your passwords and ID numbers so it can personalise the answer.",
             "isTrue": false,
-            "explanation": "Personalising never needs secrets. Keep private codes and ID numbers out of every prompt."
+            "explanation": "Personalising never needs secrets. Keep private codes and ID numbers out of every prompt.",
+            "bonusFact": "Use placeholders like [Name], then fill in the real details yourself afterwards."
           }
         ]
       }
