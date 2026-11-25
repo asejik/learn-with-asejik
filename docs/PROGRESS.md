@@ -266,3 +266,8 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Colours, feedback panels (green check, amber triangle, blue info), the progress rail, glossary drawer and 44px targets are unchanged apart from the palette from PR A.
   - Checked at 375px in the built-in browser (a lesson question with its feedback panel); 130 unit tests, type check, lint, build and 24 browser tests (axe included) pass.
   - Not looked at on screen: completion screen, privacy page, offline and not-found pages at 375px and 1280px; the lesson player at 1280px. They use the same tokens, and axe passes on them.
+- [x] **Fix: home page progress for started courses** (2026-11-26, branch `fix/home-progress-in-progress`)
+  - Owner report: a started course still showed "Not started" and "Start course". Cause: the home page read only finished lessons; a lesson in progress was saved but never read.
+  - Now the home page also reads saved lesson positions (`getAllLessonStates`). An opened, unfinished lesson makes the card say "In progress" with a Resume button, and counts in the bar by how far through it the learner is (never as finished). Resume opens the unfinished lesson saved last.
+  - VERIFIED: type check, lint, build, 135 unit tests (5 new). VERIFIED in the built-in browser (wrangler dev): opened lesson 1, moved one screen, home card showed "In progress", 4%, "Resume course".
+  - UNVERIFIED: 375px layout of the changed card (text only changed, no layout change); the 24 browser tests were not re-run for this PR.

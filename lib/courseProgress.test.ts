@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { courseLessons, coursePercent, nextLesson, resumeLesson } from "./courseProgress";
+import {
+  courseLessons,
+  coursePercent,
+  hasStartedCourse,
+  nextLesson,
+  partialLessons,
+  resumeLesson,
+} from "./courseProgress";
 import type { Course } from "./schema";
 
 const lesson = (slug: string) => ({ slug, title: `Lesson ${slug}` });
@@ -44,5 +51,38 @@ describe("courseProgress", () => {
     expect(resumeLesson(course, ["a"])?.slug).toBe("b");
     expect(resumeLesson(course, ["a", "c"])?.slug).toBe("b");
     expect(resumeLesson(course, ["a", "b", "c"])?.slug).toBe("a");
+  });
+
+  describe("lessons in progress", () => {
+    const partial = partialLessons([
+      { lessonSlug: "b", currentScreenIndex: 3, sequence: ["1", "2", "3", "4", "5", "6"], positionSavedAt: 200 },
+    ]);
+
+    it("counts how far through an open lesson the learner is", () => {
+      expect(partial.b.fraction).toBe(0.5);
+      expect(coursePercent(course, ["a"], partial)).toBe(50); // (1 + 0.5) / 3
+    });
+
+    it("never counts an open lesson as finished", () => {
+      const last = partialLessons([{ lessonSlug: "a", currentScreenIndex: 5, sequence: ["1", "2", "3", "4", "5", "6"], positionSavedAt: 1 }]);
+      expect(last.a.fraction).toBeLessThan(1);
+    });
+
+    it("a lesson opened on its first screen is started but at 0%", () => {
+      const fresh = partialLessons([{ lessonSlug: "a", currentScreenIndex: 0, sequence: ["1", "2"], positionSavedAt: 1 }]);
+      expect(coursePercent(course, [], fresh)).toBe(0);
+      expect(hasStartedCourse(course, [], fresh)).toBe(true);
+      expect(hasStartedCourse(course, [], {})).toBe(false);
+    });
+
+    it("ignores a finished lesson with no later position", () => {
+      expect(partialLessons([{ lessonSlug: "a", positionSavedAt: 5, completedAt: 9 }])).toEqual({});
+    });
+
+    it("resumes the open lesson saved last", () => {
+      expect(resumeLesson(course, ["a"], partial)?.slug).toBe("b");
+      const both = { ...partial, c: { fraction: 0.2, savedAt: 300 } };
+      expect(resumeLesson(course, ["a"], both)?.slug).toBe("c");
+    });
   });
 });
