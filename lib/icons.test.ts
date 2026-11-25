@@ -30,6 +30,10 @@ describe("app icons", () => {
     expect(fs.existsSync(path.join(PUBLIC, "favicon.ico"))).toBe(true);
   });
 
+  it("the share card is the size social sites expect", () => {
+    expect(pngSize(path.join(PUBLIC, "og-image.png"))).toEqual([1200, 630]);
+  });
+
   it("the tab icon uses the logo colours, not the old blue", () => {
     const svg = fs.readFileSync(path.join(PUBLIC, "icon.svg"), "utf-8").toLowerCase();
     expect(svg).toContain("#16140f");
