@@ -18,6 +18,21 @@ test("catalog: buttons and links are at least 44px", async ({ page }) => {
   expect(small).toEqual([]);
 });
 
+test("the logo shows in the header on one line", async ({ page }) => {
+  await page.goto("/");
+  const logo = page.getByRole("link", { name: "Learn with Asejik, home" });
+  await expect(logo).toBeVisible();
+  const lineHeight = await logo.locator(".logo-wordmark").evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return r.height / parseFloat(getComputedStyle(el).fontSize);
+  });
+  // One line of text is about 1.2 times the font size tall; two lines would be 2.4
+  expect(lineHeight).toBeLessThan(1.6);
+  await expect(logo.locator(".logo-dot")).toHaveCount(2);
+  const sideways = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+  expect(sideways).toBe(false);
+});
+
 test.describe("lesson player", () => {
   test("completes the lesson and shows the sign-up form", async ({ page }) => {
     test.setTimeout(60_000); // a whole lesson walk, slower on a busy machine
