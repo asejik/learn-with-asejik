@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Compass, ListChecks, Target, X } from "lucide-react";
+import { ArrowRight, BookOpen, Compass, ListChecks, ListOrdered, Target, X } from "lucide-react";
 import type { Course, Lesson } from "@/lib/schema";
 
 /**
@@ -20,10 +20,10 @@ export interface RelatedCourse {
 
 const EYEBROW = "font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-700";
 
-function Frame({ children }: { children: ReactNode }) {
+function Frame({ children, onOpenLessons }: { children: ReactNode; onOpenLessons?: () => void }) {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <nav className="max-w-2xl w-full mx-auto px-4 py-2.5 flex items-center">
+      <nav className="max-w-2xl w-full mx-auto px-4 py-2.5 flex items-center justify-between">
         <Link
           href="/"
           className="min-h-tap min-w-tap -ml-3 flex items-center justify-center text-slate-500 hover:text-slate-900 rounded-xl hover:bg-slate-100 transition"
@@ -31,6 +31,17 @@ function Frame({ children }: { children: ReactNode }) {
         >
           <X className="w-5 h-5" />
         </Link>
+        {onOpenLessons && (
+          <button
+            type="button"
+            onClick={onOpenLessons}
+            className="min-h-tap px-3 -mr-3 flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-100 transition"
+            aria-label="Open the list of lessons"
+          >
+            <ListOrdered className="w-5 h-5" aria-hidden="true" />
+            <span>Lessons</span>
+          </button>
+        )}
       </nav>
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 pb-10 pt-2 space-y-6">{children}</main>
     </div>
@@ -71,11 +82,12 @@ interface LessonIntroCardProps {
   /** The first lesson also shows the course overview */
   isFirstLesson: boolean;
   onStart: () => void;
+  onOpenLessons?: () => void;
 }
 
-export function LessonIntroCard({ course, lesson, isFirstLesson, onStart }: LessonIntroCardProps) {
+export function LessonIntroCard({ course, lesson, isFirstLesson, onStart, onOpenLessons }: LessonIntroCardProps) {
   return (
-    <Frame>
+    <Frame onOpenLessons={onOpenLessons}>
       {isFirstLesson && (
         <section className="space-y-4" aria-labelledby="course-overview-heading">
           <p className={EYEBROW}>About this {course.mode}</p>
@@ -111,9 +123,17 @@ export function LessonIntroCard({ course, lesson, isFirstLesson, onStart }: Less
   );
 }
 
-export function LessonRecapCard({ lesson, onContinue }: { lesson: Lesson; onContinue: () => void }) {
+export function LessonRecapCard({
+  lesson,
+  onContinue,
+  onOpenLessons,
+}: {
+  lesson: Lesson;
+  onContinue: () => void;
+  onOpenLessons?: () => void;
+}) {
   return (
-    <Frame>
+    <Frame onOpenLessons={onOpenLessons}>
       <section className="space-y-4" aria-labelledby="lesson-recap-heading">
         <p className={EYEBROW}>Lesson recap</p>
         <h1 id="lesson-recap-heading" className="font-display text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
@@ -147,12 +167,13 @@ interface CourseFinishCardProps {
   course: Course;
   related: RelatedCourse | null;
   onContinue: () => void;
+  onOpenLessons?: () => void;
 }
 
-export function CourseFinishCard({ course, related, onContinue }: CourseFinishCardProps) {
+export function CourseFinishCard({ course, related, onContinue, onOpenLessons }: CourseFinishCardProps) {
   const noun = course.mode === "course" ? "course" : "tutorial";
   return (
-    <Frame>
+    <Frame onOpenLessons={onOpenLessons}>
       <section className="space-y-5" aria-labelledby="course-finish-heading">
         <p className={EYEBROW}>You finished the {noun}</p>
         <h1 id="course-finish-heading" className="font-display text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">

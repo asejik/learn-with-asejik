@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { X, Sparkles, ArrowLeft } from "lucide-react";
+import { X, Sparkles, ArrowLeft, ListOrdered } from "lucide-react";
 
 interface PlayerNavBarProps {
   totalScreens: number;
@@ -10,6 +10,8 @@ interface PlayerNavBarProps {
   onOpenAITutor: () => void;
   /** Show the previous screen; omitted on the first screen */
   onBack?: () => void;
+  /** Opens the list of lessons; omitted when the course has only one lesson */
+  onOpenLessons?: () => void;
   courseSlug: string;
 }
 
@@ -19,6 +21,7 @@ export function PlayerNavBar({
   aiTutorLabel,
   onOpenAITutor,
   onBack,
+  onOpenLessons,
 }: PlayerNavBarProps) {
   return (
     <nav
@@ -71,6 +74,17 @@ export function PlayerNavBar({
         <span className="text-[11px] font-mono font-bold text-slate-600 hidden sm:inline">
           {currentIndex + 1}/{totalScreens}
         </span>
+
+        {onOpenLessons && (
+          <button
+            type="button"
+            onClick={onOpenLessons}
+            className="min-h-tap min-w-tap flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-100 transition"
+            aria-label="Open the list of lessons"
+          >
+            <ListOrdered className="w-5 h-5" />
+          </button>
+        )}
 
         {/* Dynamic Contextual AI Tutor Button */}
         <button

@@ -95,3 +95,46 @@ export function resumeLesson(
     .sort((a, b) => partial[b.slug].savedAt - partial[a.slug].savedAt);
   return open[0] ?? lessons.find((l) => !completedSlugs.includes(l.slug)) ?? lessons[0] ?? null;
 }
+
+export type LessonStatus = "done" | "in-progress" | "next" | "locked";
+
+export interface LessonRow {
+  slug: string;
+  title: string;
+  status: LessonStatus;
+  /** The lesson on screen now */
+  isCurrent: boolean;
+  /** Finished lessons, the next unfinished one and the current one can be opened */
+  canOpen: boolean;
+}
+
+/**
+ * The course's lessons in chapters, each with where the learner stands and
+ * whether it can be opened. A lesson can be opened once it is finished, or
+ * when it is the first one not yet finished; later lessons stay locked until
+ * the ones before them are done.
+ */
+export function lessonRows(
+  course: Course,
+  completedSlugs: string[],
+  partial: Record<string, PartialLesson>,
+  currentSlug: string
+): Array<{ chapterId: string; chapterTitle: string; lessons: LessonRow[] }> {
+  const nextSlug = courseLessons(course).find((l) => !completedSlugs.includes(l.slug))?.slug;
+  return course.chapters.map((chapter) => ({
+    chapterId: chapter.id,
+    chapterTitle: chapter.title,
+    lessons: chapter.lessons.map((lesson) => {
+      const done = completedSlugs.includes(lesson.slug);
+      const isCurrent = lesson.slug === currentSlug;
+      const status: LessonStatus = done
+        ? "done"
+        : lesson.slug in partial || isCurrent
+          ? "in-progress"
+          : lesson.slug === nextSlug
+            ? "next"
+            : "locked";
+      return { slug: lesson.slug, title: lesson.title, status, isCurrent, canOpen: status !== "locked" };
+    }),
+  }));
+}
