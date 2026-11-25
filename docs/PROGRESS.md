@@ -307,3 +307,9 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - Content only; no code or schema change. VERIFIED: content validation, 137 unit tests. The browser tests were not re-run (they use the APIs tutorial, which this PR does not touch); CI runs them.
   - Known gap: glossary terms of more than one word (for example "Advance fee", "Recovery scam", "Pyramid scheme") never match a word in the text, so they stay untappable. Not changed here; worth a small matcher fix later.
   - Owner to review: all new text, for the fact-check.
+- [x] **Deeper hints: APIs tutorial, and the unsourced claim removed** (2026-11-26, branch `content/deeper-hints-apis`)
+  - Same approved style applied to the one lesson of How APIs Work: longer tutor hints with examples and watch-outs on all 6 screens, richer bonus insights, three glossary terms in the reading (API, Server, Request).
+  - Removed an unsourced statistic ("Over 80% of modern internet traffic consists of API calls") from a bonus insight, and rewrote the three swipe-card explanations that began "True!" or "False!", because the card-by-card results already show the verdict.
+  - This finishes the deeper-hints rollout for all 9 lessons.
+  - VERIFIED: content validation, 137 unit tests, 28 browser tests at 375px and 1280px (this lesson is the browser-test lesson).
+  - Owner to review: all new text, for the fact-check.

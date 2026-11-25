@@ -22,16 +22,26 @@
       "title": "The Digital Waiter",
       "widgetType": "reading",
       "aiTutor": {
-        "recap": "Welcome to your first tutorial! In this lesson, we explore how applications talk to each other across the internet without sharing their private source code."
+        "recap": "Welcome to your first tutorial. This lesson explores how apps talk to each other across the internet without sharing their private inner workings. The waiter in the story is the idea to keep: a go-between who carries your request and brings back only what you asked for.",
+        "example": "You open a weather app and see today's forecast. The app did not measure the weather itself. It sent a request to a weather service's API and showed you the answer that came back.",
+        "watchOut": "An API is not the app, and it is not the database. It is the agreed doorway between them, which is why the kitchen in the story stays private.",
+        "tryThis": "Pick an app on your phone that shows live information, such as maps, money or weather. Ask yourself what it must be asking for from somewhere else."
       },
       "glossary": [
         {
           "term": "API",
-          "definition": "Application Programming Interface: a set of predefined rules and protocols that allows different software applications to communicate."
+          "definition": "Application Programming Interface: a set of agreed rules that lets different software applications talk to each other.",
+          "example": "When a ride-hailing app shows a live map, it uses a mapping service's API to ask for the map."
         },
         {
-          "term": "Client",
-          "definition": "The front-facing device or software (like your smartphone browser) that initiates a request for information."
+          "term": "Server",
+          "definition": "A computer, often far away, that stores data or runs a service and answers requests from other devices.",
+          "example": "The computer that answers your weather app's request is a server."
+        },
+        {
+          "term": "Request",
+          "definition": "A message from your app asking another system for something, such as data or an action.",
+          "example": "\"Give me today's forecast for Lagos\" is a request."
         }
       ],
       "widgetData": {
@@ -48,7 +58,8 @@
       "title": "The Contract Between Systems",
       "widgetType": "cloze",
       "aiTutor": {
-        "explain": "Think about what an API actually delivers. It does not hand over internal database passwords or raw source code; it provides an agreed-upon contract."
+        "explain": "Think about what an API actually delivers. It does not hand over internal database passwords or raw source code. It provides an agreed contract: what you may ask for, what you must send, and what you will get back.",
+        "watchOut": "A contract can be changed by the service that owns it. Apps that rely on an API sometimes need to update when the rules change."
       },
       "glossary": [
         {
@@ -59,10 +70,15 @@
       "widgetData": {
         "prompt": "Complete the statement describing the fundamental role of an API:",
         "template": "An API acts as a standardized {blank} that allows two applications to exchange data without exposing their internal databases.",
-        "options": ["contract", "cable", "database", "firewall"],
+        "options": [
+          "contract",
+          "cable",
+          "database",
+          "firewall"
+        ],
         "correctAnswer": "contract",
-        "explanation": "An API is a formal contract specifying valid endpoints, required inputs, and expected response formats.",
-        "bonusFact": "Over 80% of modern internet traffic consists of API calls exchanging lightweight JSON payloads."
+        "explanation": "An API is a formal contract specifying valid endpoints, the inputs it needs and the format of the reply. Each side only has to follow the contract, so neither needs to see the other's inner workings.",
+        "bonusFact": "Because the contract stays the same while the inside changes, a company can rebuild its systems without breaking the apps that depend on it."
       }
     },
     {
@@ -70,7 +86,8 @@
       "title": "Real-World API In Action",
       "widgetType": "choice",
       "aiTutor": {
-        "explain": "Consider weather or navigation apps. Ride-hailing companies don't launch their own mapping satellites; they use external APIs."
+        "explain": "Consider weather or navigation apps. Ride-hailing companies do not launch their own mapping satellites; they use external APIs to ask for maps. Picking the answer is about who holds the data, and who asks for it.",
+        "watchOut": "Do not pick the answer that says the data is copied into the app. Live information, such as traffic, has to be asked for each time."
       },
       "glossary": [],
       "widgetData": {
@@ -90,9 +107,11 @@
             "text": "Your smartphone hardware renders satellite imagery locally without an internet connection."
           }
         ],
-        "correctOptionIds": ["opt-2"],
-        "explanation": "The ride-hailing app connects to Google's mapping API, requesting live map tiles on the fly.",
-        "bonusFact": "APIs allow lean startups to build complex products quickly by assembling best-in-class third-party services."
+        "correctOptionIds": [
+          "opt-2"
+        ],
+        "explanation": "The ride-hailing app connects to a mapping service's API and requests the map tiles it needs as you move, instead of storing the whole world's imagery.",
+        "bonusFact": "APIs let small teams build products quickly by combining services that others already run, such as maps, payments and messaging."
       }
     },
     {
@@ -100,7 +119,8 @@
       "title": "API Myths vs. Realities",
       "widgetType": "swipeDeck",
       "aiTutor": {
-        "explain": "Evaluate each statement as True or False to test your intuition about how modern APIs behave."
+        "explain": "Decide whether each statement is true or false to test your intuition about how APIs behave. Think about the waiter: a go-between that checks, carries and returns, without giving away the kitchen.",
+        "tryThis": "For each card, picture the restaurant story. Which part of the story does the card describe?"
       },
       "glossary": [],
       "widgetData": {
@@ -110,22 +130,22 @@
             "id": "c1",
             "statement": "An API allows you to access external data without having direct access to the remote database.",
             "isTrue": true,
-            "explanation": "True! The API acts as a secure guardrail, verifying permissions before querying the database.",
-            "bonusFact": "Many apps you use every day, such as weather and payment apps, call APIs behind the scenes."
+            "explanation": "The API acts as a guardrail. It checks your permissions before any query reaches the database, so you only see what you are allowed to see.",
+            "bonusFact": "This is why an app can show your balance without ever having a copy of the bank's database."
           },
           {
             "id": "c2",
             "statement": "All APIs require writing Python or JavaScript code to be useful to an organization.",
             "isTrue": false,
-            "explanation": "False! No-code automation tools (like Zapier, Make, and Airtable) connect APIs visually.",
-            "bonusFact": "Tools like Zapier and Make let you connect two services by choosing options on screen, with no code."
+            "explanation": "No-code automation tools such as Zapier, Make and Airtable connect services through their APIs using visual steps, so many useful connections need no programming.",
+            "bonusFact": "If you can describe a connection as \"when this happens, do that\", a no-code tool can probably build it."
           },
           {
             "id": "c3",
             "statement": "An API response usually returns lightweight structured text (JSON) rather than a heavy full webpage.",
             "isTrue": true,
-            "explanation": "True! JSON is compact, human-readable, and saves massive bandwidth on mobile devices.",
-            "bonusFact": "JSON is plain text, so the same response works on any phone, browser or server."
+            "explanation": "JSON is compact, readable text that carries just the data, not a full web page with pictures and layout. That keeps responses small and quick on a phone.",
+            "bonusFact": "Smaller responses use less mobile data, which matters when data is expensive."
           }
         ]
       }
@@ -135,7 +155,10 @@
       "title": "The Request-Response Lifecycle",
       "widgetType": "diagramExplorer",
       "aiTutor": {
-        "explain": "Tap each of the three steps in the lifecycle below to learn how an API transaction completes."
+        "explain": "Tap each of the three steps in the lifecycle below to learn how an API transaction completes. Request goes out, the server works, and a response comes back. Almost every API call follows this shape.",
+        "example": "You tap \"check balance\". The app sends a request, the bank's server confirms who you are and looks up the amount, and the response carries the balance and a 200 OK status.",
+        "watchOut": "If any step fails, the whole call fails. A request with a missing key is stopped at the server, and a broken server cannot answer at all.",
+        "tryThis": "Next time an app shows an error, ask which of the three steps it probably failed at."
       },
       "glossary": [],
       "widgetData": {
@@ -165,7 +188,7 @@
           }
         ],
         "completionMessage": "You've explored every step of the request-response lifecycle.",
-        "completionBonusFact": "Understanding this three-part cycle makes debugging API errors (like 404 vs 500) much faster."
+        "completionBonusFact": "Understanding this three-part cycle makes sense of errors like 404 and 500 much faster. The code tells you which side to look at first."
       }
     },
     {
@@ -173,12 +196,15 @@
       "title": "HTTP Status Code Matching",
       "widgetType": "matchPairs",
       "aiTutor": {
-        "review": "Almost done! Match each standard HTTP status code with its real-world outcome to complete this tutorial."
+        "review": "Almost done. Match each standard status code with its real-world outcome to complete this tutorial. The first digit is a good clue: 2 means success, 4 means the request had a problem, and 5 means the server had one.",
+        "example": "You open a page that has been removed and see 404. The server worked fine; it simply has nothing at that address.",
+        "watchOut": "401 and 404 can look alike on screen, but they mean different things. 401 means you are not allowed in, 404 means there is nothing there to open."
       },
       "glossary": [
         {
-          "term": "HTTP Status Code",
-          "definition": "A 3-digit standardized number returned by a server indicating the outcome of a request (2xx = success, 4xx = client error, 5xx = server error)."
+          "term": "Status",
+          "definition": "A three-digit number a server sends back with every response to say how the request went.",
+          "example": "200 means all is well. 404 means not found. 500 means the server failed."
         }
       ],
       "widgetData": {
