@@ -55,7 +55,17 @@
         "explain": "Tap each lever and notice how it feels. Real scam messages rarely use only one. A threat with a deadline pulls fear and urgency together, which is why such messages work so well.",
         "example": "\"Your account will be closed today unless you confirm your PIN.\" This one line uses fear (a closed account), urgency (today) and trust (it pretends to be your bank).",
         "watchOut": "A message does not need to look suspicious to be a scam. Good scams are polite, well spelled and look official.",
-        "tryThis": "Take a message you received this week and tick which of the four levers it uses."
+        "tryThis": "Take a message you received this week and tick which of the four levers it uses.",
+        "walkThrough": {
+          "title": "Taking apart one message: \"Your account will be closed today unless you confirm your PIN.\"",
+          "steps": [
+            "Fear: the message threatens a closed account, which makes your heart jump.",
+            "Urgency: the word \"today\" gives you a deadline, so you feel you cannot wait.",
+            "Trust: it sounds like your bank, so your guard goes down.",
+            "Three levers in one line. That is a sign to slow down, not a reason to hurry.",
+            "What to do instead: do not reply or tap anything. Open your bank's own app, or call the number on your card, and ask whether there is a problem."
+          ]
+        }
       },
       "glossary": [],
       "widgetData": {

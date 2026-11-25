@@ -11,6 +11,7 @@ interface AITutorDrawerProps {
     explain?: string;
     review?: string;
     example?: string;
+    walkThrough?: { title: string; steps: string[] };
     watchOut?: string;
     tryThis?: string;
   };
@@ -105,6 +106,24 @@ export function AITutorDrawer({
           <p className="text-xs sm:text-sm text-slate-800 leading-relaxed">{aiTutor.example}</p>
         </section>
       )}
+      {aiTutor?.walkThrough && (
+        <section
+          className="space-y-2 p-4 bg-white rounded-2xl border border-slate-200"
+          aria-labelledby="tutor-walk-through"
+        >
+          <h3 id="tutor-walk-through" className="text-xs font-bold uppercase tracking-wide text-slate-700">
+            Walk through it
+          </h3>
+          <p className="text-xs sm:text-sm font-semibold text-slate-900">{aiTutor.walkThrough.title}</p>
+          <ol className="space-y-2.5 list-decimal pl-5 marker:font-bold marker:text-brand-700">
+            {aiTutor.walkThrough.steps.map((step) => (
+              <li key={step} className="text-xs sm:text-sm text-slate-800 leading-relaxed pl-1">
+                {step}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
       {aiTutor?.watchOut && (
         <section className="space-y-1.5" aria-labelledby="tutor-watch-out">
           <h3 id="tutor-watch-out" className="text-xs font-bold uppercase tracking-wide text-slate-700 flex items-center gap-1.5">
@@ -124,7 +143,7 @@ export function AITutorDrawer({
       )}
 
       {/* General Guidance notes if no specific hint */}
-      {!hasRecap && !hasExplain && !hasReview && !aiTutor?.example && !aiTutor?.watchOut && !aiTutor?.tryThis && (
+      {!hasRecap && !hasExplain && !hasReview && !aiTutor?.example && !aiTutor?.walkThrough && !aiTutor?.watchOut && !aiTutor?.tryThis && (
         <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 leading-relaxed space-y-2">
           <p className="font-semibold text-slate-800">
             You&apos;re doing great!

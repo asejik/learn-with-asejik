@@ -37,6 +37,13 @@ export const AITutorSchema = z.strictObject({
   review: z.string().optional(),
   /** A short worked example that makes the idea concrete */
   example: z.string().optional(),
+  /** A step-by-step case: what happens, what goes wrong, and what to do instead */
+  walkThrough: z
+    .strictObject({
+      title: z.string().min(1),
+      steps: z.array(z.string().min(1)).min(3).max(6),
+    })
+    .optional(),
   /** A common mistake, or something easy to get wrong */
   watchOut: z.string().optional(),
   /** One small thing to try straight away */

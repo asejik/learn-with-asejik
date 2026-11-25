@@ -23,7 +23,17 @@
         "recap": "An AI chatbot writes the most likely next words. It is useful, but it is not a person and not a search of facts. Keep that picture in mind and the rest of the course makes sense.",
         "example": "Ask a chatbot for the capital of a country and it will usually be right, because that fact appears in text everywhere. Ask it for a small town's population last year and it may give a precise number that is simply made up.",
         "watchOut": "Smooth writing feels like intelligence, so it is easy to trust. A chatbot writes a wrong answer in the same polished voice as a right one.",
-        "tryThis": "Next time you use your phone's word suggestions, notice how it guesses the next word. A chatbot does the same, only far better."
+        "tryThis": "Next time you use your phone's word suggestions, notice how it guesses the next word. A chatbot does the same, only far better.",
+        "walkThrough": {
+          "title": "Asking a chatbot for something it cannot know",
+          "steps": [
+            "You ask: \"What is the population of my small town this year?\"",
+            "The chatbot replies with an exact number and a confident sentence.",
+            "It wrote what sounds likely. It did not look anything up, so the number may be made up.",
+            "What you do: treat the number as a guess, and look it up from an official source.",
+            "Lesson: the more exact and local the fact, the more carefully you check it."
+          ]
+        }
       },
       "glossary": [
         {

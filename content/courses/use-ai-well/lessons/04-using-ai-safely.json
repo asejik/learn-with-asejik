@@ -23,7 +23,17 @@
         "recap": "Treat a chatbot like a stranger's notebook: do not write private things in it. How a tool handles what you type depends on the tool and its settings, so the safe rule is to type only what you would share with a stranger.",
         "example": "Before pasting a draft email into a chatbot, you replace your account number and your colleague's name with placeholders. You still get the help, and nothing private leaves your phone.",
         "watchOut": "A friendly, private-feeling chat window makes it easy to over-share. It is still a company's computer on the other end.",
-        "tryThis": "Look at the settings or help page of the chatbot you use most and find what it says about storing your chats."
+        "tryThis": "Look at the settings or help page of the chatbot you use most and find what it says about storing your chats.",
+        "walkThrough": {
+          "title": "Asking for help with an email without sharing private details",
+          "steps": [
+            "You want help replying to your landlord about a broken pipe.",
+            "Before you paste anything, you notice your name, address and tenancy number are in the draft.",
+            "You replace them with placeholders: [Name], [Address], [Number].",
+            "You send the prompt and get a polite, firm reply.",
+            "You copy the reply to your own document and type your real details in there, where nobody else sees them."
+          ]
+        }
       },
       "glossary": [
         {

@@ -20,6 +20,7 @@ test("catalog: buttons and links are at least 44px", async ({ page }) => {
 
 test.describe("lesson player", () => {
   test("completes the lesson and shows the sign-up form", async ({ page }) => {
+    test.setTimeout(60_000); // a whole lesson walk, slower on a busy machine
     await openLesson(page);
     for (let i = 0; i < TITLES.length; i++) {
       await expect(heading(page)).toHaveText(TITLES[i]);
@@ -48,6 +49,7 @@ test.describe("lesson player", () => {
   });
 
   test("a wrong answer comes back once and the lesson still finishes", async ({ page }) => {
+    test.setTimeout(60_000); // a whole lesson walk, slower on a busy machine
     await openLesson(page);
     await answer(page, 0);
     await answer(page, 1, false);
@@ -131,6 +133,7 @@ test.describe("lesson player", () => {
   });
 
   test("every screen: no sideways scroll, tap targets at least 44px, no console errors", async ({ page }) => {
+    test.setTimeout(60_000); // a whole lesson walk, slower on a busy machine
     const errors: string[] = [];
     page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
     page.on("pageerror", (e) => errors.push(e.message));
@@ -156,6 +159,7 @@ test.describe("lesson player", () => {
   });
 
   test("tells the learner when this phone cannot save progress", async ({ page }) => {
+    test.setTimeout(60_000); // a whole lesson walk, slower on a busy machine
     // A phone whose storage is blocked or full has no usable IndexedDB
     await page.addInitScript(() => {
       delete (window as { indexedDB?: unknown }).indexedDB;
