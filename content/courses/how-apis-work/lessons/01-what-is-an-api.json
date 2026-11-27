@@ -47,8 +47,11 @@
       "widgetData": {
         "paragraphs": [
           "Imagine walking into a restaurant. You are the customer sitting at a table, and the kitchen is the system preparing your food. You cannot simply walk into the kitchen and cook the meal yourself—there are safety, security, and privacy boundaries.",
-          "Instead, a waiter comes to your table, takes your order, delivers it accurately to the kitchen, and brings back your freshly prepared meal. In the digital world, an API is that waiter.",
-          "Whenever you check the weather on your phone, send a mobile money transfer, or view a map inside a ride-hailing app, an API takes your request to a remote server and delivers back the exact data you need."
+          "Instead, a waiter comes to your table, takes your order to the kitchen, and brings back your meal. In the digital world, an API is that waiter.",
+          "The waiter works from a menu: it says what you can order and what you will get. An API has the same kind of agreement, called a contract. It is a set of rules for what an app may ask for, what it must send, and what it will get back. Because of the contract, the kitchen stays private, just as a company keeps its database (where it stores its records) private.",
+          "Whenever you check the weather on your phone, send a mobile money transfer, or view a map inside a ride-hailing app, an API takes your app's request to a server (a computer somewhere else) and brings back the data you need.",
+          "The answer often comes back as JSON: short, plain text that holds only the data, such as the temperature, with no pictures or page design. That keeps it small and light on your mobile data.",
+          "You do not always need to write code to use one. No-code tools, such as Zapier and Make, connect apps this way, using simple visual steps."
         ],
         "svgIllustration": "<svg viewBox='0 0 400 120' xmlns='http://www.w3.org/2000/svg' class='w-full max-w-sm mx-auto my-2'><rect x='10' y='30' width='80' height='60' rx='8' fill='#e2e8f0' stroke='#64748b' stroke-width='2'/><text x='50' y='65' font-size='12' text-anchor='middle' fill='#334155' font-weight='bold'>Client</text><path d='M95 60 H 175' stroke='#0284c7' stroke-width='3' stroke-dasharray='4'/><polygon points='175,55 185,60 175,65' fill='#0284c7'/><rect x='190' y='25' width='90' height='70' rx='8' fill='#0284c7' stroke='#0369a1' stroke-width='2'/><text x='235' y='60' font-size='12' text-anchor='middle' fill='#ffffff' font-weight='bold'>API</text><text x='235' y='75' font-size='10' text-anchor='middle' fill='#e0f2fe'>(Waiter)</text><path d='M285 60 H 305' stroke='#0284c7' stroke-width='3' stroke-dasharray='4'/><polygon points='305,55 315,60 305,65' fill='#0284c7'/><rect x='320' y='30' width='70' height='60' rx='8' fill='#e2e8f0' stroke='#64748b' stroke-width='2'/><text x='355' y='65' font-size='12' text-anchor='middle' fill='#334155' font-weight='bold'>Server</text></svg>"
       }
@@ -63,8 +66,8 @@
       },
       "glossary": [],
       "widgetData": {
-        "prompt": "Complete the statement describing the fundamental role of an API:",
-        "template": "An API acts as a standardized {blank} that allows two applications to exchange data without exposing their internal databases.",
+        "prompt": "Complete the sentence about what an API does:",
+        "template": "An API works as an agreed {blank} that lets two apps share data without opening up their databases.",
         "options": [
           "contract",
           "cable",
@@ -72,7 +75,7 @@
           "firewall"
         ],
         "correctAnswer": "contract",
-        "explanation": "An API is a formal contract specifying valid endpoints, the inputs it needs and the format of the reply. Each side only has to follow the contract, so neither needs to see the other's inner workings.",
+        "explanation": "An API is an agreed contract: what you can ask for, what you must send, and what the reply looks like. Each side only has to follow the contract, so neither needs to see how the other works inside.",
         "bonusFact": "Because the contract stays the same while the inside changes, a company can rebuild its systems without breaking the apps that depend on it."
       }
     },
@@ -125,19 +128,19 @@
             "id": "c1",
             "statement": "An API allows you to access external data without having direct access to the remote database.",
             "isTrue": true,
-            "explanation": "The API acts as a guardrail. It checks your permissions before any query reaches the database, so you only see what you are allowed to see.",
+            "explanation": "The API acts as a guard. It checks your permission before any request reaches the database, so you only see what you are allowed to see.",
             "bonusFact": "This is why an app can show your balance without ever having a copy of the bank's database."
           },
           {
             "id": "c2",
-            "statement": "All APIs require writing Python or JavaScript code to be useful to an organization.",
+            "statement": "You must write computer code to get any use out of an API.",
             "isTrue": false,
             "explanation": "No-code automation tools such as Zapier, Make and Airtable connect services through their APIs using visual steps, so many useful connections need no programming.",
             "bonusFact": "If you can describe a connection as \"when this happens, do that\", a no-code tool can probably build it."
           },
           {
             "id": "c3",
-            "statement": "An API response usually returns lightweight structured text (JSON) rather than a heavy full webpage.",
+            "statement": "An API often sends back small, plain text (JSON), not a full web page.",
             "isTrue": true,
             "explanation": "JSON is compact, readable text that carries just the data, not a full web page with pictures and layout. That keeps responses small and quick on a phone.",
             "bonusFact": "Smaller responses use less mobile data, which matters when data is expensive."
@@ -174,21 +177,21 @@
             "id": "node-request",
             "label": "1. Request",
             "title": "HTTP Request",
-            "definition": "The client sends a message containing an endpoint URL, an HTTP method (GET, POST), and optional parameters or security tokens.",
-            "bonusFact": "GET requests retrieve data; POST requests send new data to be saved."
+            "definition": "Your app (the client) sends a message saying what it wants. It includes the service's web address, the kind of action (GET to fetch something, POST to send something new), and often a key (a secret code that identifies the app) or your login.",
+            "bonusFact": "HTTP is the set of rules the web uses to send these messages."
           },
           {
             "id": "node-server",
             "label": "2. Server Processing",
             "title": "Server Logic & Auth",
-            "definition": "The API server authenticates your request, enforces rate limits, queries the internal database, and prepares the result.",
-            "bonusFact": "Rate limiting protects servers from crashing if thousands of requests arrive simultaneously."
+            "definition": "The server checks who is asking, limits how many requests can come in a short time, looks up the data and prepares the answer.",
+            "bonusFact": "Limiting requests protects a server from being overwhelmed when thousands arrive at once."
           },
           {
             "id": "node-response",
             "label": "3. Response",
             "title": "HTTP Response",
-            "definition": "The server transmits back an HTTP status code (like 200 OK) accompanied by the requested JSON data payload.",
+            "definition": "The server sends back a status code, a short number that says what happened, usually with the data. 200 OK: it worked. 401 Unauthorized: the key or login is missing. 404 Not Found: what you asked for does not exist. 500 Server Error: the server itself failed.",
             "bonusFact": "If something went wrong, the response provides an error message explaining why."
           }
         ],

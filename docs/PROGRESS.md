@@ -353,3 +353,15 @@ Last updated: 2026-11-22 | Status: BUILD COMPLETE. LAUNCH GATE (P14, 2026-11-24)
   - `docs/PILOT_INVITE.md`: WhatsApp, email and reminder messages, the 11 feedback form questions with the form's privacy note, step-by-step Google Forms build and what to look for in the answers.
   - PRIVACY FLAG (P03): the feedback form is a new place where answers (and an optional email) are collected, in the owner's own Google Form and sheet, not on the site. Added to `docs/DATA_INVENTORY.md` (new row, Google processor row). The form is anonymous by default and says adults only and no private details. The owner must create the form, keep the response sheet private, and send the invites to adults only. No site code collects anything new.
   - VERIFIED: type check, lint, build, 174 unit tests; the share card and logo files by eye. UNVERIFIED: how the card looks in a real WhatsApp preview (previews are cached by WhatsApp, so test with a fresh link after deploy); browser tests run by CI.
+
+## 2026-11-27: Teach before testing (pilot feedback)
+
+A pilot learner reported that the APIs lesson asked about things it had not taught ("contract", for example). All nine lessons were read against their questions.
+
+- APIs lesson: the first screen now explains contract, database, server, JSON and no-code tools in plain words; the diagram steps explain the app (client), key, HTTP and the codes 200, 401, 404 and 500; harder wording in the blank, two swipe cards and their explanations is simpler.
+- Fake alerts, loan app permissions, and (chatbot lesson) recent facts and levels of checking are now taught before they are asked.
+- Four fill-in-the-blank answers in other lessons now appear on a screen before the question.
+- New test `lib/teachFirstContent.test.ts`: every blank answer must appear earlier in reading, diagram or feedback text. It cannot judge other question types, so those need a human read when lessons are written.
+- No screens added or removed, so saved places are unchanged.
+
+Found, not fixed: `MatchPairsWidget.tsx` shows a hard-coded HTTP status code bonus fact after every matching exercise, including the scam and AI lessons.

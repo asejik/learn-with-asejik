@@ -52,7 +52,8 @@
         "paragraphs": [
           "Made-up story: Emeka's phone rings. \"This is your bank's security team. Someone is trying to take money from your account. We will stop it, but we just sent you a code. Read it to me now.\"",
           "The code is an OTP, a one-time password. Its only job is to prove that you are approving something. When Emeka reads it out, he is approving the thief's transfer himself.",
-          "Remember this rule: an OTP, a PIN or a password is for your eyes only. Nobody who is really helping you needs it, not a bank, not a company, not the police."
+          "Remember this rule: an OTP, a PIN or a password is for your eyes only. Nobody who is really helping you needs it, not a bank, not a company, not the police.",
+          "Scammers also send fake alerts: texts that look like your bank saying money has arrived, when nothing has. Sellers are a common target. Only the balance in your own bank app shows what really arrived."
         ]
       }
     },
