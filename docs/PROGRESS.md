@@ -365,3 +365,9 @@ A pilot learner reported that the APIs lesson asked about things it had not taug
 - No screens added or removed, so saved places are unchanged.
 
 Found, not fixed: `MatchPairsWidget.tsx` shows a hard-coded HTTP status code bonus fact after every matching exercise, including the scam and AI lessons.
+
+## 2026-11-27: APIs lesson first screen split in two
+
+The first screen of the APIs lesson grew long after the teaching fixes, so it is now two reading screens: "The Digital Waiter" (API and contract) and "From Your Phone to the Server" (request, server, JSON, no-code). The glossary words and tutor notes moved with their text. The reading button now says "Continue" instead of "Continue to Checkpoint", because the next screen is not always a check. Browser tests were renumbered for seven screens.
+
+Effect on learners: anyone part-way through this one lesson starts it again from the first screen, because the saved screen order no longer matches. Finished lessons are unaffected.

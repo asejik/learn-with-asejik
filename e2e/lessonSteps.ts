@@ -2,9 +2,10 @@ import { expect, type Page } from "@playwright/test";
 
 export const LESSON_URL = "/courses/how-apis-work/01-what-is-an-api";
 
-// Titles of the six screens in how-apis-work/01-what-is-an-api
+// Titles of the seven screens in how-apis-work/01-what-is-an-api
 export const TITLES = [
   "The Digital Waiter",
+  "From Your Phone to the Server",
   "The Contract Between Systems",
   "Real-World API In Action",
   "API Myths vs. Realities",
@@ -33,17 +34,18 @@ export async function passClosingCards(page: Page) {
 export async function answer(page: Page, index: number, correct = true) {
   switch (index) {
     case 0:
-      await page.getByRole("button", { name: /Continue to Checkpoint/ }).click();
-      return;
     case 1:
+      await page.getByRole("button", { name: "Continue", exact: true }).click();
+      return;
+    case 2:
       await page.getByRole("button", { name: correct ? "contract" : "cable", exact: true }).click();
       await page.getByRole("button", { name: "Check Blank Answer" }).click();
       break;
-    case 2:
+    case 3:
       await page.getByRole("button", { name: correct ? /^The app sends/ : /^Your smartphone/ }).click();
       await page.getByRole("button", { name: "Check Answer" }).click();
       break;
-    case 3:
+    case 4:
       // Each card gets its own feedback; the button moves to the next card
       const deck = [true, false, true];
       for (let i = 0; i < deck.length; i++) {
@@ -54,13 +56,13 @@ export async function answer(page: Page, index: number, correct = true) {
         else await feedback(page).getByRole("button", { name: "See results" }).click();
       }
       break;
-    case 4:
+    case 5:
       for (const label of ["1. Request", "2. Server Processing", "3. Response"]) {
         await page.getByRole("button", { name: label }).click();
       }
       // The last step explored completes the screen by itself
       break;
-    case 5: {
+    case 6: {
       const pairs: Array<[string, string]> = [
         ["200 OK", "Request succeeded and data was returned"],
         ["401 Unauthorized", "API key or user login is missing"],
