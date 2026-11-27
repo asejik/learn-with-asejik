@@ -17,7 +17,7 @@ function shownBy(screen: Lesson["screens"][number]): string[] {
     case "swipeDeck":
       return screen.widgetData.cards.flatMap((c) => [c.explanation, c.bonusFact]);
     case "matchPairs":
-      return [screen.widgetData.explanation];
+      return [screen.widgetData.explanation, screen.widgetData.bonusFact];
   }
 }
 

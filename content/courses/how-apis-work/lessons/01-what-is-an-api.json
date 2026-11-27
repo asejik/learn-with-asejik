@@ -247,7 +247,8 @@
             "right": "The remote server crashed or failed internally"
           }
         ],
-        "explanation": "Standardized status codes let developers immediately recognize whether a request succeeded (200), was blocked (401), missed (404), or broke the server (500)."
+        "explanation": "Standardized status codes let developers immediately recognize whether a request succeeded (200), was blocked (401), missed (404), or broke the server (500).",
+        "bonusFact": "Status codes are an agreed web standard, so apps built by different teams read a 404 the same way."
       }
     }
   ]

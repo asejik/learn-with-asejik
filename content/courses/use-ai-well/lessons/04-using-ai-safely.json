@@ -209,7 +209,8 @@
             "right": "Follow the rules and say so"
           }
         ],
-        "explanation": "Each habit closes one of the main ways AI use can hurt you or other people."
+        "explanation": "Each habit closes one of the main ways AI use can hurt you or other people.",
+        "bonusFact": "Before you press send, reread your message and remove anything that identifies a real person."
       }
     },
     {

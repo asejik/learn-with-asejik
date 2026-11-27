@@ -217,7 +217,8 @@
             "right": "Context: the job and your skills"
           }
         ],
-        "explanation": "Most weak prompts lack context, a goal or a format. Adding the missing part makes the reply far more useful."
+        "explanation": "Most weak prompts lack context, a goal or a format. Adding the missing part makes the reply far more useful.",
+        "bonusFact": "Keep a prompt that worked well. Next time, change only the details."
       }
     },
     {
