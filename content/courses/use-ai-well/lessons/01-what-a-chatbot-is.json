@@ -56,7 +56,9 @@
         "paragraphs": [
           "Think of the way your phone suggests the next word while you type. An AI chatbot does something like that, but on a much larger scale. It looks at your question and writes the words that are most likely to come next.",
           "That makes it very good at drafting, explaining, summarising and brainstorming. It also means it does not \"know\" things the way a person does, and it does not check facts as it writes.",
-          "So it can sound completely sure while being wrong. People call this a hallucination. The skill in this course is to use the tool for what it does well, and to check the rest."
+          "Many chatbots learned from older information, so they can miss recent news or prices unless the tool says it can search. A chatbot also does not know you or your situation unless you tell it.",
+          "So it can sound completely sure while being wrong, even inventing names, numbers or sources. People call this a hallucination. The skill in this course is to use the tool for what it does well, and to check the rest.",
+          "How much you check depends on what a mistake would cost. Shop name ideas need only a light check, because your taste decides. A simple explanation needs a medium check against a trusted source. A date, number or quote needs a strong check. For health, law or money, also ask a qualified person."
         ]
       }
     },
