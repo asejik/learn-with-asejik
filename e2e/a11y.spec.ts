@@ -31,8 +31,8 @@ test("every lesson screen and its feedback panel", async ({ page }) => {
   for (let i = 0; i < TITLES.length; i++) {
     await scan(page, `screen ${i + 1} before answering`);
     await answer(page, i);
-    if (i > 0) await scan(page, `screen ${i + 1} feedback`);
-    if (i > 0) await continueFromFeedback(page);
+    if (i > 1) await scan(page, `screen ${i + 1} feedback`);
+    if (i > 1) await continueFromFeedback(page);
   }
   await expect(page.getByRole("heading", { name: "What you learned" })).toBeVisible();
   await scan(page, "lesson recap card");
@@ -47,6 +47,7 @@ test("every lesson screen and its feedback panel", async ({ page }) => {
 test("the wrong-answer (amber) feedback panel", async ({ page }) => {
   await openLesson(page);
   await answer(page, 0);
-  await answer(page, 1, false);
+  await answer(page, 1);
+  await answer(page, 2, false);
   await scan(page, "amber feedback");
 });

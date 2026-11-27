@@ -40,7 +40,7 @@ test.describe("lesson player", () => {
     for (let i = 0; i < TITLES.length; i++) {
       await expect(heading(page)).toHaveText(TITLES[i]);
       await answer(page, i);
-      if (i > 0) await continueFromFeedback(page);
+      if (i > 1) await continueFromFeedback(page);
     }
     await passClosingCards(page);
     await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
@@ -56,9 +56,10 @@ test.describe("lesson player", () => {
   test("Continue is hidden until the learner answers, and a wrong answer shows amber feedback", async ({ page }) => {
     await openLesson(page);
     await answer(page, 0);
-    await expect(heading(page)).toHaveText(TITLES[1]);
+    await answer(page, 1);
+    await expect(heading(page)).toHaveText(TITLES[2]);
     await expect(page.getByRole("button", { name: /^Continue/ })).toHaveCount(0);
-    await answer(page, 1, false);
+    await answer(page, 2, false);
     await expect(feedback(page).getByRole("heading", { name: "Not quite right" })).toBeVisible();
     await expect(feedback(page)).not.toContainText("Correct");
   });
@@ -67,20 +68,21 @@ test.describe("lesson player", () => {
     test.setTimeout(60_000); // a whole lesson walk, slower on a busy machine
     await openLesson(page);
     await answer(page, 0);
-    await answer(page, 1, false);
+    await answer(page, 1);
+    await answer(page, 2, false);
     await continueFromFeedback(page);
-    for (let i = 2; i <= 4; i++) {
+    for (let i = 3; i <= 5; i++) {
       await expect(heading(page)).toHaveText(TITLES[i]);
       await answer(page, i);
       await continueFromFeedback(page);
     }
     // Three screens later the same question returns as a retry
-    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(heading(page)).toHaveText(TITLES[2]);
     await expect(page.getByText("Active Recall Retry")).toBeVisible();
-    await answer(page, 1);
+    await answer(page, 2);
     await continueFromFeedback(page);
-    await expect(heading(page)).toHaveText(TITLES[5]);
-    await answer(page, 5);
+    await expect(heading(page)).toHaveText(TITLES[6]);
+    await answer(page, 6);
     await continueFromFeedback(page);
     await passClosingCards(page);
     await expect(page.getByRole("heading", { name: /Join the pilot/ })).toBeVisible();
@@ -150,27 +152,30 @@ test.describe("lesson player", () => {
     await openLesson(page);
     await answer(page, 0);
     await answer(page, 1);
+    await answer(page, 2);
     await continueFromFeedback(page);
-    await expect(heading(page)).toHaveText(TITLES[2]);
+    await expect(heading(page)).toHaveText(TITLES[3]);
     await page.reload();
-    await expect(heading(page)).toHaveText(TITLES[2]);
+    await expect(heading(page)).toHaveText(TITLES[3]);
   });
 
   test("Back looks at an earlier screen without scoring it, and returns to the same place", async ({ page }) => {
     await openLesson(page);
     await answer(page, 0);
     await answer(page, 1);
+    await answer(page, 2);
     await continueFromFeedback(page);
-    await expect(heading(page)).toHaveText(TITLES[2]);
+    await expect(heading(page)).toHaveText(TITLES[3]);
     await page.getByRole("button", { name: "Go back to the previous screen" }).click();
-    await expect(heading(page)).toHaveText(TITLES[1]);
+    await expect(heading(page)).toHaveText(TITLES[2]);
     await expect(page.getByText(/Looking back/)).toBeVisible();
     // A wrong answer while looking back is practice: nothing is queued for retry
-    await answer(page, 1, false);
+    await answer(page, 2, false);
     await page.getByRole("button", { name: "Back to where you were" }).click();
-    await expect(heading(page)).toHaveText(TITLES[2]);
+    await expect(heading(page)).toHaveText(TITLES[3]);
     await expect(page.getByText(/Looking back/)).toHaveCount(0);
     // The first screen has no Back button
+    await page.getByRole("button", { name: "Go back to the previous screen" }).click();
     await page.getByRole("button", { name: "Go back to the previous screen" }).click();
     await page.getByRole("button", { name: "Go back to the previous screen" }).click();
     await expect(heading(page)).toHaveText(TITLES[0]);
@@ -181,6 +186,7 @@ test.describe("lesson player", () => {
     await openLesson(page);
     await answer(page, 0);
     await answer(page, 1);
+    await answer(page, 2);
     const box = (await feedback(page).boundingBox())!;
     if (viewport!.width >= 1024) {
       expect(box.x + box.width).toBeCloseTo(viewport!.width, 0);
@@ -212,7 +218,7 @@ test.describe("lesson player", () => {
       );
       expect(small, `small tap targets on screen ${i + 1}`).toEqual([]);
       await answer(page, i);
-      if (i > 0) await continueFromFeedback(page);
+      if (i > 1) await continueFromFeedback(page);
     }
     expect(errors).toEqual([]);
   });
@@ -228,7 +234,8 @@ test.describe("lesson player", () => {
     await answer(page, 0);
     await expect(heading(page)).toHaveText(TITLES[1]);
     await expect(warning).toBeVisible(); // shown while learning, as soon as a save fails
-    for (let i = 1; i < TITLES.length; i++) {
+    await answer(page, 1);
+    for (let i = 2; i < TITLES.length; i++) {
       await answer(page, i);
       await continueFromFeedback(page);
     }
