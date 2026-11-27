@@ -375,3 +375,10 @@ Effect on learners: anyone part-way through this one lesson starts it again from
 ## 2026-11-27: Matching exercises show their own bonus tip
 
 `MatchPairsWidget` had one HTTP status code sentence written into the code, shown after every matching exercise, including the scam and AI lessons. The tip now comes from each lesson file: `bonusFact` is required on matching screens, all nine have their own, and a schema test covers a missing one.
+
+## 2026-11-27: Matching screen headings and full text
+
+Matching screens in every course were headed "Status Code / Concept" and "Outcome / Meaning". The headings are now "Items" and "Matches". Left-column items wrap onto a second line instead of being cut off at desktop width.
+
+- VERIFIED: type check, lint, build, 184 unit tests, 32 browser tests; a scam matching screen viewed at 1280px and 375px (no sideways scroll, no clipped text). The already-parked "error occurred when fetching the script" console message appeared.
+- UNVERIFIED: CI and the live site at the time of writing. Offline check not repeated (no caching or progress code changed).

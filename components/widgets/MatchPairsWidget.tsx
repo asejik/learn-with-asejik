@@ -119,7 +119,7 @@ export default function MatchPairsWidget({
         {/* Left Column */}
         <div className="space-y-2">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 block px-1">
-            Status Code / Concept:
+            Items:
           </span>
           <div className="space-y-2">
             {data.pairs.map((pair) => {
@@ -142,7 +142,7 @@ export default function MatchPairsWidget({
                       : "bg-white text-slate-800 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
                   }`}
                 >
-                  <span className="truncate">{pair.left}</span>
+                  <span className="leading-snug flex-1">{pair.left}</span>
                   {isMatched && (
                     <Check className="w-4 h-4 text-emerald-700 stroke-[3] shrink-0" />
                   )}
@@ -155,7 +155,7 @@ export default function MatchPairsWidget({
         {/* Right Column */}
         <div className="space-y-2">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 block px-1">
-            Outcome / Meaning:
+            Matches:
           </span>
           <div className="space-y-2">
             {shuffledRightItems.map((pair) => {
