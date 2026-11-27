@@ -63,8 +63,7 @@ export default function MatchPairsWidget({
         onSubmitAnswer({
           isCorrect: true,
           explanation: data.explanation,
-          bonusFact:
-            "HTTP response codes are globally standardized by the IETF, ensuring every browser and smartphone in the world interprets server responses identically.",
+          bonusFact: data.bonusFact,
         });
       }
     } else {

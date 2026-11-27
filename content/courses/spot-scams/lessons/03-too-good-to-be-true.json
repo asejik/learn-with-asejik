@@ -207,7 +207,8 @@
             "right": "You won a draw you never entered"
           }
         ],
-        "explanation": "Each one gives you something good in words and asks for money or details before you receive anything."
+        "explanation": "Each one gives you something good in words and asks for money or details before you receive anything.",
+        "bonusFact": "One question covers all of these: am I being asked to pay before I receive anything? If so, stop and check."
       }
     },
     {

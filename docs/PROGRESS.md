@@ -371,3 +371,7 @@ Found, not fixed: `MatchPairsWidget.tsx` shows a hard-coded HTTP status code bon
 The first screen of the APIs lesson grew long after the teaching fixes, so it is now two reading screens: "The Digital Waiter" (API and contract) and "From Your Phone to the Server" (request, server, JSON, no-code). The glossary words and tutor notes moved with their text. The reading button now says "Continue" instead of "Continue to Checkpoint", because the next screen is not always a check. Browser tests were renumbered for seven screens.
 
 Effect on learners: anyone part-way through this one lesson starts it again from the first screen, because the saved screen order no longer matches. Finished lessons are unaffected.
+
+## 2026-11-27: Matching exercises show their own bonus tip
+
+`MatchPairsWidget` had one HTTP status code sentence written into the code, shown after every matching exercise, including the scam and AI lessons. The tip now comes from each lesson file: `bonusFact` is required on matching screens, all nine have their own, and a schema test covers a missing one.

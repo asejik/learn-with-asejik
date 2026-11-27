@@ -172,7 +172,8 @@
             "right": "Ask a qualified person too"
           }
         ],
-        "explanation": "The more a wrong answer could cost you, the more you should check it somewhere else."
+        "explanation": "The more a wrong answer could cost you, the more you should check it somewhere else.",
+        "bonusFact": "Before you use an answer, ask yourself what happens if it is wrong. That tells you how hard to check it."
       }
     },
     {

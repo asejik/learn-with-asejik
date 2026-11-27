@@ -213,7 +213,8 @@
             "right": "Ask a pharmacist or a doctor"
           }
         ],
-        "explanation": "Each check uses a separate, reliable source rather than the chatbot itself."
+        "explanation": "Each check uses a separate, reliable source rather than the chatbot itself.",
+        "bonusFact": "Check a claim at its original source where you can, not on a page that only repeats it."
       }
     },
     {

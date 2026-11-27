@@ -215,6 +215,8 @@ export const MatchPairsWidgetDataSchema = z.strictObject({
   instruction: z.string().min(1),
   pairs: z.array(MatchPairSchema).min(2),
   explanation: AnswerExplanationSchema,
+  // Shown once every pair is matched
+  bonusFact: z.string().min(1),
 }).superRefine((d, ctx) => {
   noDuplicates(d.pairs.map((p) => p.id), "pair id", ctx, ["pairs"]);
   // A repeated side makes the match ambiguous

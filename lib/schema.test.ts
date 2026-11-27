@@ -156,6 +156,7 @@ describe("strict content rules", () => {
       set(s, "widgetData.correctOptionIds", [get(s, "widgetData.options.0.id"), get(s, "widgetData.options.1.id")]), "exactly one correct"],
     ["a repeated card id", "swipeDeck", (s) => set(s, "widgetData.cards.1.id", get(s, "widgetData.cards.0.id")), "Duplicate card id"],
     ["a repeated node id", "diagramExplorer", (s) => set(s, "widgetData.nodes.1.id", get(s, "widgetData.nodes.0.id")), "Duplicate node id"],
+    ["a matching screen without a bonus fact", "matchPairs", (s) => set(s, "widgetData.bonusFact", undefined), "expected string"],
     ["a repeated left item", "matchPairs", (s) => set(s, "widgetData.pairs.1.left", get(s, "widgetData.pairs.0.left")), "Duplicate left item"],
     ["a repeated right item", "matchPairs", (s) => set(s, "widgetData.pairs.1.right", get(s, "widgetData.pairs.0.right")), "Duplicate right item"],
     ["a repeated glossary term", "reading", (s) =>
